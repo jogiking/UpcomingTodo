@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cKH-CY-gTR">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="6Uy-rW-kLI">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
@@ -49,20 +49,32 @@
                                             </constraints>
                                         </imageView>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="nQ7-JO-tje">
-                                            <rect key="frame" x="70" y="20" width="324" height="40"/>
+                                            <rect key="frame" x="70" y="20" width="274" height="40"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <color key="textColor" systemColor="labelColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="19c-Mk-UQh">
+                                            <rect key="frame" x="354" y="20" width="40" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="RPF-Mt-BXr"/>
+                                                <constraint firstAttribute="width" constant="40" id="Y49-EF-UgS"/>
+                                            </constraints>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
                                         <constraint firstItem="VyG-4f-GVv" firstAttribute="leading" secondItem="61D-fa-aKV" secondAttribute="leading" constant="20" id="4Qq-he-bEt"/>
+                                        <constraint firstAttribute="bottom" secondItem="19c-Mk-UQh" secondAttribute="bottom" constant="20" id="AS9-wc-cME"/>
                                         <constraint firstItem="nQ7-JO-tje" firstAttribute="leading" secondItem="VyG-4f-GVv" secondAttribute="trailing" constant="10" id="Nyh-Bo-wYU"/>
+                                        <constraint firstAttribute="trailing" secondItem="19c-Mk-UQh" secondAttribute="trailing" constant="20" id="PKq-0w-lrt"/>
+                                        <constraint firstItem="19c-Mk-UQh" firstAttribute="leading" secondItem="nQ7-JO-tje" secondAttribute="trailing" constant="10" id="Pf8-gJ-IlS"/>
                                         <constraint firstItem="VyG-4f-GVv" firstAttribute="top" secondItem="61D-fa-aKV" secondAttribute="top" constant="20" id="Pvk-7C-Boy"/>
                                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="VyG-4f-GVv" secondAttribute="bottom" constant="20" id="bkr-xR-NuT"/>
-                                        <constraint firstAttribute="trailing" secondItem="nQ7-JO-tje" secondAttribute="trailing" constant="20" id="e0y-hF-Qb1"/>
+                                        <constraint firstItem="19c-Mk-UQh" firstAttribute="top" secondItem="61D-fa-aKV" secondAttribute="top" constant="20" id="emT-2P-S0i"/>
+                                        <constraint firstItem="19c-Mk-UQh" firstAttribute="centerY" secondItem="VyG-4f-GVv" secondAttribute="centerY" id="m33-B7-LXy"/>
+                                        <constraint firstItem="nQ7-JO-tje" firstAttribute="centerY" secondItem="VyG-4f-GVv" secondAttribute="centerY" id="nh6-Kr-fel"/>
                                         <constraint firstAttribute="bottom" secondItem="nQ7-JO-tje" secondAttribute="bottom" constant="20" id="wk9-w3-ecN"/>
                                         <constraint firstItem="nQ7-JO-tje" firstAttribute="top" secondItem="61D-fa-aKV" secondAttribute="top" constant="20" id="yYf-rl-iIQ"/>
                                     </constraints>
@@ -84,7 +96,7 @@
                         <constraints>
                             <constraint firstItem="cKH-CY-gTR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Kea-t6-fAH"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="cKH-CY-gTR" secondAttribute="trailing" id="iys-yf-aSd"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="cKH-CY-gTR" secondAttribute="bottom" id="kU6-q9-Lci"/>
+                            <constraint firstAttribute="bottom" secondItem="cKH-CY-gTR" secondAttribute="bottom" id="kU6-q9-Lci"/>
                             <constraint firstItem="cKH-CY-gTR" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="m0h-AK-fiK"/>
                         </constraints>
                     </view>

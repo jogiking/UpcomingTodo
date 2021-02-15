@@ -22,7 +22,9 @@ class ViewController: UIViewController {
             var j = 1
             while j < i {
                 let dt = Todo()
-                //                ifdt.memo = ""
+                if j % 2 == 0 {
+                    dt.memo = nil
+                }
                 data.subTodoList.append(dt)
                 j += 1
             }
@@ -181,7 +183,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource,
             cell.selectImg.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedSelectImage(_:))))
             
             cell.title.text = todoList[indexPath.section].title
-            cell.memo.text = todoList[indexPath.section].memo
+            if let memoText = todoList[indexPath.section].memo {
+                cell.memo.text = memoText
+                cell.titleBottomPriorityConstraint.priority = .defaultLow
+            } else {
+                cell.titleBottomPriorityConstraint.priority = .defaultHigh
+            }
+            
+            
             cell.selectImgLeadingConstraint.constant = 20
             
             if todoList[indexPath.section].numberOfSubTodo > 0 { // sub Todo가 있을 때
@@ -216,7 +225,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource,
             cell.selectImg.isUserInteractionEnabled = true
             cell.selectImg.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedSelectImage(_:))))
             cell.title.text = subs.title
-            cell.memo.text = subs.memo
+            
+            if let memoText = subs.memo {
+                cell.memo.text = memoText
+                cell.titleBottomPriorityConstraint.priority = .defaultLow
+            } else {
+                cell.titleBottomPriorityConstraint.priority = .defaultHigh
+            }
+            
             cell.childNumber.text = ""
             cell.btnWidthConstraint.constant = 0
         }
