@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 class TodoData: Todo {
     
@@ -37,6 +38,7 @@ class Todo {
     var title: String?
     var memo: String?
     var isFinish: Bool?
+    var objectID: NSManagedObjectID?
     
     init() {
         self.title = "initial-title"

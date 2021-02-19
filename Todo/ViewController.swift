@@ -164,10 +164,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource,
         return 1
     }
     
-    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        print("accessory was tapped!")
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cellId = "normal_cell"
@@ -205,8 +201,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource,
                     
                 } else {
                     cell.childNumber.text = String(todoList[indexPath.section].numberOfSubTodo)
-                    cell.childNumber.sizeToFit()    // 제대로 되는지?? 제대로 안되면 31정도 값을 넣어줘야함.......
-                    
                     cell.btn.image = UIImage(named: "disclosure_close")
                 }
             } else { // sub Todo가 없을 때
