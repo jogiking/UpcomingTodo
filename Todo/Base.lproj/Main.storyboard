@@ -107,7 +107,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1755.072463768116" y="115.84821428571428"/>
+            <point key="canvasLocation" x="1441" y="115"/>
         </scene>
         <!--Main Page View Controller-->
         <scene sceneID="5q0-55-do8">
@@ -117,24 +117,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6MX-Gv-yQU">
+                                <rect key="frame" x="0.0" y="813" width="414" height="49"/>
+                                <items>
+                                    <barButtonItem title="새로운 할일 추가" id="OMz-09-rFR"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="fbO-yg-cyT"/>
+                                    <barButtonItem title="목록 추가" id="5gQ-K2-Yhs"/>
+                                </items>
+                            </toolbar>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zJ3-qG-MSO">
-                                <rect key="frame" x="0.0" y="88" width="414" height="744"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wvu-Vl-z61">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="314"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="313.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="M8w-hY-wEI">
-                                                <rect key="frame" x="18" y="0.0" width="378" height="314"/>
+                                                <rect key="frame" x="18" y="0.0" width="378" height="313.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="g9N-Is-1xS">
-                                                        <rect key="frame" x="0.0" y="0.0" width="378" height="97"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="378" height="96.5"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xPW-li-eA7" customClass="CardBoardView" customModule="Todo" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="184" height="97"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="184" height="96.5"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="daR-oR-5en" customClass="CardBoardView" customModule="Todo" customModuleProvider="target">
-                                                                <rect key="frame" x="194" y="0.0" width="184" height="97"/>
+                                                                <rect key="frame" x="194" y="0.0" width="184" height="96.5"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             </view>
                                                         </subviews>
@@ -143,7 +151,7 @@
                                                         </constraints>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="H4C-8x-KcQ">
-                                                        <rect key="frame" x="0.0" y="107" width="378" height="97"/>
+                                                        <rect key="frame" x="0.0" y="106.5" width="378" height="97"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ry0-cK-4bR" customClass="CardBoardView" customModule="Todo" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="184" height="97"/>
@@ -159,18 +167,25 @@
                                                         </constraints>
                                                     </stackView>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pQS-vI-G64">
-                                                        <rect key="frame" x="0.0" y="214" width="378" height="100"/>
+                                                        <rect key="frame" x="0.0" y="213.5" width="378" height="100"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <prototypes>
-                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="myCell" textLabel="f0Q-yK-GHh" style="IBUITableViewCellStyleDefault" id="Sn2-Gt-cK5">
+                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="myCell" textLabel="f0Q-yK-GHh" detailTextLabel="WCc-Z0-5m9" style="IBUITableViewCellStyleValue1" id="Sn2-Gt-cK5">
                                                                 <rect key="frame" x="0.0" y="28" width="378" height="43.5"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Sn2-Gt-cK5" id="vbG-y6-dcC">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="378" height="43.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="347" height="43.5"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
                                                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="f0Q-yK-GHh">
-                                                                            <rect key="frame" x="20" y="0.0" width="338" height="43.5"/>
+                                                                            <rect key="frame" x="20" y="12" width="33" height="20.5"/>
+                                                                            <autoresizingMask key="autoresizingMask"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                            <nil key="textColor"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WCc-Z0-5m9">
+                                                                            <rect key="frame" x="295" y="12" width="44" height="20.5"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                             <nil key="textColor"/>
@@ -207,20 +222,17 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="HvX-LI-Z5z"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="6S0-sr-ge7"/>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="skz-sy-Pdh">
-                                <rect key="frame" x="348" y="832" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="NWi-yM-Qm7"/>
                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <constraints>
-                            <constraint firstItem="NWi-yM-Qm7" firstAttribute="trailing" secondItem="skz-sy-Pdh" secondAttribute="trailing" constant="20" id="7ue-P1-EHL"/>
+                            <constraint firstItem="6MX-Gv-yQU" firstAttribute="leading" secondItem="NWi-yM-Qm7" secondAttribute="leading" id="0E4-BO-XOq"/>
                             <constraint firstItem="zJ3-qG-MSO" firstAttribute="leading" secondItem="NWi-yM-Qm7" secondAttribute="leading" id="L5Y-cG-NVF"/>
+                            <constraint firstItem="6MX-Gv-yQU" firstAttribute="trailing" secondItem="NWi-yM-Qm7" secondAttribute="trailing" id="MuO-tk-bO8"/>
                             <constraint firstItem="zJ3-qG-MSO" firstAttribute="trailing" secondItem="NWi-yM-Qm7" secondAttribute="trailing" id="WRO-IW-5RB"/>
-                            <constraint firstItem="skz-sy-Pdh" firstAttribute="top" secondItem="zJ3-qG-MSO" secondAttribute="bottom" id="ZOF-ms-vAZ"/>
-                            <constraint firstItem="NWi-yM-Qm7" firstAttribute="bottom" secondItem="skz-sy-Pdh" secondAttribute="bottom" id="ei5-3f-Hyq"/>
+                            <constraint firstItem="6MX-Gv-yQU" firstAttribute="top" secondItem="zJ3-qG-MSO" secondAttribute="bottom" id="atI-s5-TLe"/>
                             <constraint firstItem="zJ3-qG-MSO" firstAttribute="top" secondItem="NWi-yM-Qm7" secondAttribute="top" id="p0F-px-2UX"/>
+                            <constraint firstItem="NWi-yM-Qm7" firstAttribute="bottom" secondItem="6MX-Gv-yQU" secondAttribute="bottom" id="whg-SN-1kM"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="JOU-qG-9sX">
@@ -229,33 +241,14 @@
                     <connections>
                         <outlet property="navItem" destination="JOU-qG-9sX" id="vgu-95-C3i"/>
                         <outlet property="tableView" destination="pQS-vI-G64" id="bWe-lB-gLg"/>
+                        <outlet property="todayCardView" destination="xPW-li-eA7" id="nth-pf-mPp"/>
+                        <outlet property="totalCardView" destination="Ry0-cK-4bR" id="IYk-Py-Vy4"/>
+                        <outlet property="upcomingCardView" destination="daR-oR-5en" id="Gf4-6A-1B5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qRc-vs-FPX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="886.95652173913049" y="115.84821428571428"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="XyA-6r-2h3">
-            <objects>
-                <viewController id="AS1-SM-HMB" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Mki-bk-POy">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0JO-zn-LA8" customClass="CardBoardView" customModule="Todo" customModuleProvider="target">
-                                <rect key="frame" x="20" y="124" width="228" height="116"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="a5e-b0-nFh"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kcb-Gg-Jgu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="627.536231884058" y="860.49107142857144"/>
+            <point key="canvasLocation" x="722" y="116"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xxM-T0-F39">

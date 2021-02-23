@@ -12,6 +12,7 @@
 		DF54651025E3D87A00B6E2F4 /* CardBoardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF54650F25E3D87A00B6E2F4 /* CardBoardView.xib */; };
 		DF54651325E3DA0300B6E2F4 /* CardBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF54651225E3DA0300B6E2F4 /* CardBoardView.swift */; };
 		DF7807AF25DFEE16008EAE7F /* MainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7807AE25DFEE16008EAE7F /* MainPageViewController.swift */; };
+		DF8A2CF125E51082009417C6 /* TodoDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8A2CF025E51082009417C6 /* TodoDAO.swift */; };
 		DF8E09D225DA7ADD005B5755 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8E09D125DA7ADD005B5755 /* AppDelegate.swift */; };
 		DF8E09D425DA7ADD005B5755 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8E09D325DA7ADD005B5755 /* SceneDelegate.swift */; };
 		DF8E09D625DA7ADD005B5755 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8E09D525DA7ADD005B5755 /* ViewController.swift */; };
@@ -25,7 +26,6 @@
 		DF8E09FF25DA922E005B5755 /* unclick.png in Resources */ = {isa = PBXBuildFile; fileRef = DF8E09FA25DA922E005B5755 /* unclick.png */; };
 		DF8E0A0025DA922E005B5755 /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = DF8E09FB25DA922E005B5755 /* add.png */; };
 		DF8E0A0125DA922E005B5755 /* click.png in Resources */ = {isa = PBXBuildFile; fileRef = DF8E09FC25DA922E005B5755 /* click.png */; };
-		DFDBE41E25E3B9B700D8335D /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDBE41D25E3B9B700D8335D /* TestViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +34,7 @@
 		DF54650F25E3D87A00B6E2F4 /* CardBoardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardBoardView.xib; sourceTree = "<group>"; };
 		DF54651225E3DA0300B6E2F4 /* CardBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBoardView.swift; sourceTree = "<group>"; };
 		DF7807AE25DFEE16008EAE7F /* MainPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageViewController.swift; sourceTree = "<group>"; };
+		DF8A2CF025E51082009417C6 /* TodoDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDAO.swift; sourceTree = "<group>"; };
 		DF8E09CE25DA7ADD005B5755 /* Todo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Todo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF8E09D125DA7ADD005B5755 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF8E09D325DA7ADD005B5755 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,7 +50,6 @@
 		DF8E09FA25DA922E005B5755 /* unclick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unclick.png; sourceTree = "<group>"; };
 		DF8E09FB25DA922E005B5755 /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add.png; sourceTree = "<group>"; };
 		DF8E09FC25DA922E005B5755 /* click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = click.png; sourceTree = "<group>"; };
-		DFDBE41D25E3B9B700D8335D /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +63,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DF631B3425E50E9B00DAD0F1 /* CardBoardView */ = {
+			isa = PBXGroup;
+			children = (
+				DF54650F25E3D87A00B6E2F4 /* CardBoardView.xib */,
+				DF54651225E3DA0300B6E2F4 /* CardBoardView.swift */,
+			);
+			path = CardBoardView;
+			sourceTree = "<group>";
+		};
 		DF8E09C525DA7ADD005B5755 = {
 			isa = PBXGroup;
 			children = (
@@ -83,15 +92,14 @@
 		DF8E09D025DA7ADD005B5755 /* Todo */ = {
 			isa = PBXGroup;
 			children = (
+				DF631B3425E50E9B00DAD0F1 /* CardBoardView */,
 				DF8E09D125DA7ADD005B5755 /* AppDelegate.swift */,
 				DF7807AE25DFEE16008EAE7F /* MainPageViewController.swift */,
 				DF8E09D325DA7ADD005B5755 /* SceneDelegate.swift */,
 				DF8E09D525DA7ADD005B5755 /* ViewController.swift */,
-				DFDBE41D25E3B9B700D8335D /* TestViewController.swift */,
 				DF8E09EC25DA7B7C005B5755 /* TodoData.swift */,
+				DF8A2CF025E51082009417C6 /* TodoDAO.swift */,
 				DF8E09D725DA7ADD005B5755 /* Main.storyboard */,
-				DF54650F25E3D87A00B6E2F4 /* CardBoardView.xib */,
-				DF54651225E3DA0300B6E2F4 /* CardBoardView.swift */,
 				DF19E6B225DA9DA2002544FB /* NormalCell.swift */,
 				DF19E6B325DA9DA2002544FB /* NormalCell.xib */,
 				DF8E09DD25DA7ADE005B5755 /* Assets.xcassets */,
@@ -191,6 +199,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF8A2CF125E51082009417C6 /* TodoDAO.swift in Sources */,
 				DF19E6B425DA9DA2002544FB /* NormalCell.swift in Sources */,
 				DF7807AF25DFEE16008EAE7F /* MainPageViewController.swift in Sources */,
 				DF8E09D625DA7ADD005B5755 /* ViewController.swift in Sources */,
@@ -198,7 +207,6 @@
 				DF54651325E3DA0300B6E2F4 /* CardBoardView.swift in Sources */,
 				DF8E09D425DA7ADD005B5755 /* SceneDelegate.swift in Sources */,
 				DF8E09DC25DA7ADD005B5755 /* Todo.xcdatamodeld in Sources */,
-				DFDBE41E25E3B9B700D8335D /* TestViewController.swift in Sources */,
 				DF8E09ED25DA7B7C005B5755 /* TodoData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
