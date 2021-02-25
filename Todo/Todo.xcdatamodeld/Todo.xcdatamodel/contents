@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="19H524" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Index" representedClassName="IndexMO" syncable="YES" codeGenerationType="class">
+    <entity name="Catalog" representedClassName="CatalogMO" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="regdate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="todos" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Todo" inverseName="indexList" inverseEntity="Todo"/>
+        <relationship name="todos" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Todo" inverseName="catalogList" inverseEntity="Todo"/>
     </entity>
     <entity name="SubTodo" representedClassName="SubTodoMO" syncable="YES" codeGenerationType="class">
         <attribute name="isfinish" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -17,11 +17,11 @@
         <attribute name="memo" optional="YES" attributeType="String"/>
         <attribute name="regdate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" optional="YES" attributeType="String"/>
-        <relationship name="indexList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Index" inverseName="todos" inverseEntity="Index"/>
+        <relationship name="catalogList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Catalog" inverseName="todos" inverseEntity="Catalog"/>
         <relationship name="subTodos" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="SubTodo" inverseName="todo" inverseEntity="SubTodo"/>
     </entity>
     <elements>
-        <element name="Index" positionX="163.5703125" positionY="-40.34375" width="128" height="88"/>
+        <element name="Catalog" positionX="163.5703125" positionY="-40.34375" width="128" height="88"/>
         <element name="SubTodo" positionX="-239.82421875" positionY="89.0859375" width="128" height="118"/>
         <element name="Todo" positionX="-63" positionY="-18" width="128" height="133"/>
     </elements>

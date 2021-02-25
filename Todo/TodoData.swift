@@ -38,6 +38,7 @@ class Todo {
     var title: String?
     var memo: String?
     var isFinish: Bool?
+    var regDate: Date?
     var objectID: NSManagedObjectID?
     
     init() {
@@ -45,4 +46,11 @@ class Todo {
         self.memo = "initial-memo"
         self.isFinish = false
     }
+}
+
+class CatalogData {
+    var name: String?
+    var regDate: Date?
+    var objectID: NSManagedObjectID?
+    var todoList: [TodoData] = []
 }

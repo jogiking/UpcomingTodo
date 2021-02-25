@@ -26,6 +26,7 @@
 		DF8E09FF25DA922E005B5755 /* unclick.png in Resources */ = {isa = PBXBuildFile; fileRef = DF8E09FA25DA922E005B5755 /* unclick.png */; };
 		DF8E0A0025DA922E005B5755 /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = DF8E09FB25DA922E005B5755 /* add.png */; };
 		DF8E0A0125DA922E005B5755 /* click.png in Resources */ = {isa = PBXBuildFile; fileRef = DF8E09FC25DA922E005B5755 /* click.png */; };
+		DFB4079725E677F500BF79BA /* AddCatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB4079625E677F500BF79BA /* AddCatalogViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		DF8E09FA25DA922E005B5755 /* unclick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unclick.png; sourceTree = "<group>"; };
 		DF8E09FB25DA922E005B5755 /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add.png; sourceTree = "<group>"; };
 		DF8E09FC25DA922E005B5755 /* click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = click.png; sourceTree = "<group>"; };
+		DFB4079625E677F500BF79BA /* AddCatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCatalogViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 		DF8E09D025DA7ADD005B5755 /* Todo */ = {
 			isa = PBXGroup;
 			children = (
+				DFB4079625E677F500BF79BA /* AddCatalogViewController.swift */,
 				DF631B3425E50E9B00DAD0F1 /* CardBoardView */,
 				DF8E09D125DA7ADD005B5755 /* AppDelegate.swift */,
 				DF7807AE25DFEE16008EAE7F /* MainPageViewController.swift */,
@@ -203,6 +206,7 @@
 				DF19E6B425DA9DA2002544FB /* NormalCell.swift in Sources */,
 				DF7807AF25DFEE16008EAE7F /* MainPageViewController.swift in Sources */,
 				DF8E09D625DA7ADD005B5755 /* ViewController.swift in Sources */,
+				DFB4079725E677F500BF79BA /* AddCatalogViewController.swift in Sources */,
 				DF8E09D225DA7ADD005B5755 /* AppDelegate.swift in Sources */,
 				DF54651325E3DA0300B6E2F4 /* CardBoardView.swift in Sources */,
 				DF8E09D425DA7ADD005B5755 /* SceneDelegate.swift in Sources */,
