@@ -13,25 +13,21 @@ class TodoListViewController: UIViewController {
     @IBOutlet weak var mainTitle: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var completeButton: UIBarButtonItem!
-    @IBOutlet weak var stackView: UIStackView!
-        
-    @IBOutlet weak var tableviewHeightConstraint: NSLayoutConstraint!
     
     var dao = TodoDAO()
+    //    var addTodoFooterView: UIView!
     
-    var addTodoFooterView: UIView!
-    
+    var editingMode = false
     var todoList: [TodoData] = []
     var mainTitleText = ""
     var catalogObjectID: NSManagedObjectID?
     
     var beforeTouch: IndexPath?
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         mainTitle.text = mainTitleText
-        
         setupTableViewAndDataList()
         
         //        addTextView.delegate = self
@@ -39,35 +35,53 @@ class TodoListViewController: UIViewController {
         
         completeButton.image = UIImage(systemName: "ellipsis.circle")
         completeButton.title = "완료"
-//        self.tableView.invalidateIntrinsicContentSize()
-//        tableView.reloadData()
         
-        //        createData(size: 5) // MUST OVER 1
     }
     
     @IBAction func completionClick(_ sender: Any) {
-        if addTodoFooterView != nil {
-            if let fv = addTodoFooterView as? TodoListTableFooterView {
-                if fv.inputTextView.text.isEmpty == false {
-                    // 저장 작업을 시작
-                    let todo = TodoData()
-                    todo.title = fv.inputTextView.text
-                    todo.isOpen = false
-                    todo.isFinish = false
-                    todo.regDate = Date()
-                    
-                    self.todoList.append(todo)
-                    self.dao.insert(todo, catalogObjectID: self.catalogObjectID!)
-                    
-                    stackView.removeArrangedSubview(addTodoFooterView)
-                    addTodoFooterView.removeFromSuperview()
-                    
-                    self.tableView.invalidateIntrinsicContentSize()
-                    self.tableView.reloadData()
-                }
+       
+        if editingMode == true {
+            guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: todoList.count - 1)) as? NormalCell, let tv = cell.title else { return }
+            
+            editingMode = false
+            tv.resignFirstResponder()
+            completeButton.image = UIImage(systemName: "ellipsis.circle")
+            
+            guard tv.text.isEmpty == false else {
+                
+                todoList.removeLast()
+                tableView.deleteSections(IndexSet(integer: todoList.count), with: .fade)
+                return
             }
             
+            let lastTodo = todoList.last!
+            lastTodo.title = tv.text
+            lastTodo.regDate = Date()
+            self.dao.insert(lastTodo, catalogObjectID: self.catalogObjectID!)
+            
         }
+        //        if addTodoFooterView != nil {
+        //            if let fv = addTodoFooterView as? TodoListTableFooterView {
+        //                if fv.inputTextView.text.isEmpty == false {
+        //                    // 저장 작업을 시작
+        //                    let todo = TodoData()
+        //                    todo.title = fv.inputTextView.text
+        //                    todo.isOpen = false
+        //                    todo.isFinish = false
+        //                    todo.regDate = Date()
+        //
+        //                    self.todoList.append(todo)
+        //                    self.dao.insert(todo, catalogObjectID: self.catalogObjectID!)
+        //
+        //                    stackView.removeArrangedSubview(addTodoFooterView)
+        //                    addTodoFooterView.removeFromSuperview()
+        //
+        //                    self.tableView.invalidateIntrinsicContentSize()
+        //                    self.tableView.reloadData()
+        //                }
+        //            }
+        //
+        //        }
         
     }
     
@@ -76,17 +90,17 @@ class TodoListViewController: UIViewController {
         self.tableView.reloadData()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        tableView.invalidateIntrinsicContentSize()
-        tableView.reloadData()
-    }
+    //    override func viewWillAppear(_ animated: Bool) {
+    //        tableView.invalidateIntrinsicContentSize()
+    //        tableView.reloadData()
+    //    }
     
     func setupTableViewAndDataList() {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none // 데이터가 없는 곳에도 줄 간격이 생기는 것을 방지
-        tableView.estimatedRowHeight = 80//tableView.contentSize.height
-//        tableView.rowHeight = UITableView.automaticDimension
+        //        tableView.estimatedRowHeight = 80//tableView.contentSize.height
+        //        tableView.rowHeight = UITableView.automaticDimension
         
         let nibName = UINib(nibName: "NormalCell", bundle: nil)
         tableView.register(nibName, forCellReuseIdentifier: "normal_cell")
@@ -98,17 +112,34 @@ class TodoListViewController: UIViewController {
     }
     
     @IBAction func addTodo(_ sender: Any) {
+        // 새로운 셀을 테이블에 추가만 한다.
+        // 그리고 save누르면 그 셀이 저장이 되게
         
-        addTodoFooterView = TodoListTableFooterView(frame: CGRect.zero)
-        if let footerView = addTodoFooterView as? TodoListTableFooterView {
-            footerView.inputTextView.delegate = self
-            footerView.inputTextView.text = ""
-            footerView.selectImg.image = UIImage(named: "unclick")
-            footerView.inputTextView.becomeFirstResponder()
-        }
-        stackView.addArrangedSubview(addTodoFooterView)
+        self.todoList.append(TodoData())
+        tableView.insertSections(IndexSet(integer: todoList.count - 1), with: .bottom)
         completeButton.image = nil
+        editingMode = true
         
+        if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: todoList.count - 1)) as? NormalCell {
+            guard let tv = cell.title else { return }
+            
+            tv.becomeFirstResponder()
+        }
+        //        tableView.beginUpdates()
+        //        tableView.insertSections(IndexSet(1...1), with: .bottom)
+        //        tableView.insertRows(at: [indexPath], with: .bottom)
+        //        tableView.endUpdates()
+        //
+        //        addTodoFooterView = TodoListTableFooterView(frame: CGRect.zero)
+        //        if let footerView = addTodoFooterView as? TodoListTableFooterView {
+        //            footerView.inputTextView.delegate = self
+        //            footerView.inputTextView.text = ""
+        //            footerView.selectImg.image = UIImage(named: "unclick")
+        //            footerView.inputTextView.becomeFirstResponder()
+        //        }
+        //        stackView.addArrangedSubview(addTodoFooterView)
+        //        completeButton.image = nil
+        //
     }
     
 }
@@ -180,9 +211,6 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource,
         return UITableView.automaticDimension
     }
     
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return UITableView.automaticDimension
-//    }
     
     func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
         //print("target:sec:\(sourceIndexPath.section),row:\(sourceIndexPath.row)\\des:sec:\(proposedDestinationIndexPath.section),row:\(proposedDestinationIndexPath.row)")
@@ -229,6 +257,7 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource,
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        print("cellForRowAt] section = \(indexPath.section), row = \(indexPath.row)")
         let cellId = "normal_cell"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? NormalCell ?? NormalCell()
         
