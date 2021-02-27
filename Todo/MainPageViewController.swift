@@ -32,13 +32,13 @@ class MainPageViewController: UIViewController {
         tableView.estimatedRowHeight = 44
         tableView.layer.cornerRadius = 20
         tableView.layer.masksToBounds = true
-        tableView.estimatedRowHeight = 100
+//        tableView.estimatedRowHeight = 100
         
     }
     
     @IBAction func update(_ sender: Any) {
         updateMainPage()
-//        print("myData.count: \(self.appDelegate.myData.count)")
+        //        print("myData.count: \(self.appDelegate.myData.count)")
         tableView.reloadData()
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -50,19 +50,9 @@ class MainPageViewController: UIViewController {
         print("updateMainPage. contentSizeHeight = \(tableView.contentSize.height)")
         appDelegate.myData = self.dao.fetch()
         setupCardViews()
-    
+        
         tableView.invalidateIntrinsicContentSize()
         self.tableView.reloadData()
-    }
-    
-    func printAllData() {
-        for (i, catalog) in appDelegate.myData.enumerated() {
-            print("\(i): catalog name = \(catalog.name)")
-            for (j, todo) in catalog.todoList.enumerated() {
-                print("\(j): todo name = \(todo.title)")
-            }
-            print("--------------------------")
-        }
     }
     
     func setupCardViews() {
@@ -99,11 +89,24 @@ extension MainPageViewController: UITableViewDelegate {
 }
 
 extension MainPageViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let todoListVC = self.storyboard?.instantiateViewController(identifier: "todoListVC") as? TodoListViewController else {
+            return
+        }
+        
+        let row = indexPath.row
+        todoListVC.mainTitleText = self.appDelegate.myData[row].name!
+        todoListVC.todoList = self.appDelegate.myData[row].todoList
+        todoListVC.catalogObjectID = self.appDelegate.myData[row].objectID
+        
+        self.navigationController?.pushViewController(todoListVC, animated: true)
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print("cellForRowAt. name = \(appDelegate.myData[indexPath.row].name)")
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "catalogCell",for: indexPath)
-
+        
         cell.textLabel?.text = appDelegate.myData[indexPath.row].name
         cell.accessoryType = .disclosureIndicator
         let detailNumber = "\(appDelegate.myData[indexPath.row].todoList.count)"
@@ -127,4 +130,16 @@ extension UITableView {
     open override var intrinsicContentSize: CGSize {
         return contentSize
     }
+    
+//    open override var contentSize: CGSize {
+//            didSet {
+//                invalidateIntrinsicContentSize()
+//            }
+//        }
+//
+//    open override var intrinsicContentSize: CGSize {
+//            layoutIfNeeded()
+//            return CGSize(width: UIView.noIntrinsicMetric, height: contentSize.height)
+//        }
+
 }

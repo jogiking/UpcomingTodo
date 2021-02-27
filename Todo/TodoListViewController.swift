@@ -1,66 +1,119 @@
 //
-//  ViewController.swift
+//  TodoListViewController.swift
 //  Todo
 //
-//  Created by turu on 2021/02/15.
+//  Created by turu on 2021/02/25.
 //
-import UIKit
 
-class ViewController: UIViewController {
+import UIKit
+import CoreData
+
+class TodoListViewController: UIViewController {
     
+    @IBOutlet weak var mainTitle: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var addTextView: UITextView!
+    @IBOutlet weak var completeButton: UIBarButtonItem!
+    @IBOutlet weak var stackView: UIStackView!
+        
+    @IBOutlet weak var tableviewHeightConstraint: NSLayoutConstraint!
+    
+    var dao = TodoDAO()
+    
+    var addTodoFooterView: UIView!
     
     var todoList: [TodoData] = []
+    var mainTitleText = ""
+    var catalogObjectID: NSManagedObjectID?
     
     var beforeTouch: IndexPath?
-    
-    func createData(size: Int) {
-        for i in 1...size {
-            let data =  TodoData.init(index: i)
-            
-            var j = 1
-            while j < i {
-                let dt = Todo()
-                if j % 2 == 0 {
-                    dt.memo = nil
-                }
-                data.subTodoList.append(dt)
-                j += 1
-            }
-            if i % 2 == 1 {
-                data.isOpen = true
-            }
-            todoList.append(data)
-        }
-    }
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        mainTitle.text = mainTitleText
+        
+        setupTableViewAndDataList()
+        
+        //        addTextView.delegate = self
+        //        addTextView.text = ""
+        
+        completeButton.image = UIImage(systemName: "ellipsis.circle")
+        completeButton.title = "완료"
+//        self.tableView.invalidateIntrinsicContentSize()
+//        tableView.reloadData()
+        
+        //        createData(size: 5) // MUST OVER 1
+    }
+    
+    @IBAction func completionClick(_ sender: Any) {
+        if addTodoFooterView != nil {
+            if let fv = addTodoFooterView as? TodoListTableFooterView {
+                if fv.inputTextView.text.isEmpty == false {
+                    // 저장 작업을 시작
+                    let todo = TodoData()
+                    todo.title = fv.inputTextView.text
+                    todo.isOpen = false
+                    todo.isFinish = false
+                    todo.regDate = Date()
+                    
+                    self.todoList.append(todo)
+                    self.dao.insert(todo, catalogObjectID: self.catalogObjectID!)
+                    
+                    stackView.removeArrangedSubview(addTodoFooterView)
+                    addTodoFooterView.removeFromSuperview()
+                    
+                    self.tableView.invalidateIntrinsicContentSize()
+                    self.tableView.reloadData()
+                }
+            }
+            
+        }
+        
+    }
+    
+    @IBAction func updateView(_ sender: Any) {
+        self.tableView.invalidateIntrinsicContentSize()
+        self.tableView.reloadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.invalidateIntrinsicContentSize()
+        tableView.reloadData()
+    }
+    
+    func setupTableViewAndDataList() {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none // 데이터가 없는 곳에도 줄 간격이 생기는 것을 방지
-        //        tableView.estimatedRowHeight = 60
-        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 80//tableView.contentSize.height
+//        tableView.rowHeight = UITableView.automaticDimension
         
         let nibName = UINib(nibName: "NormalCell", bundle: nil)
         tableView.register(nibName, forCellReuseIdentifier: "normal_cell")
-        
         tableView.dragInteractionEnabled = true
         tableView.dragDelegate = self
         tableView.dropDelegate = self
         
+        print("[TodoView]tableView.contentSize.height : \(tableView.contentSize.height)")
+    }
+    
+    @IBAction func addTodo(_ sender: Any) {
         
-        addTextView.delegate = self
-        addTextView.text = ""
+        addTodoFooterView = TodoListTableFooterView(frame: CGRect.zero)
+        if let footerView = addTodoFooterView as? TodoListTableFooterView {
+            footerView.inputTextView.delegate = self
+            footerView.inputTextView.text = ""
+            footerView.selectImg.image = UIImage(named: "unclick")
+            footerView.inputTextView.becomeFirstResponder()
+        }
+        stackView.addArrangedSubview(addTodoFooterView)
+        completeButton.image = nil
         
-        createData(size: 5) // MUST OVER 1
     }
     
 }
 
-extension ViewController: UITextViewDelegate {
+extension TodoListViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if (text == "\n") {
             textView.resignFirstResponder()
@@ -106,8 +159,8 @@ extension ViewController: UITextViewDelegate {
     }
 }
 
-extension ViewController: UITableViewDelegate, UITableViewDataSource,
-                          UITableViewDragDelegate, UITableViewDropDelegate {
+extension TodoListViewController: UITableViewDelegate, UITableViewDataSource,
+                                  UITableViewDragDelegate, UITableViewDropDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         
         return [UIDragItem(itemProvider: NSItemProvider())]
@@ -120,7 +173,16 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource,
         return UITableViewDropProposal(operation: .cancel, intent: .unspecified)
     }
     
-    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) { }
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return UITableView.automaticDimension
+//    }
     
     func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
         //print("target:sec:\(sourceIndexPath.section),row:\(sourceIndexPath.row)\\des:sec:\(proposedDestinationIndexPath.section),row:\(proposedDestinationIndexPath.row)")
@@ -147,6 +209,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource,
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var numberOfCell = 1
+        
         let todo = todoList[section]
         
         if todo.isOpen == true {
@@ -161,7 +224,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource,
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        //        print("heightForFooterInSection:section:\(section)//")
         return 1
     }
     
@@ -177,9 +239,12 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource,
         if indexPath.row == 0 { // main Todo 일 때
             cell.selectImg.isUserInteractionEnabled = true
             cell.selectImg.image = todoList[indexPath.section].isFinish == false ? UIImage(named: "unclick") : UIImage(named: "click")
+            
+            
             cell.selectImg.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedSelectImage(_:))))
             
             cell.title.text = todoList[indexPath.section].title
+            
             if let memoText = todoList[indexPath.section].memo {
                 cell.memo.text = memoText
                 cell.titleBottomPriorityConstraint.priority = .defaultLow
@@ -187,12 +252,11 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource,
                 cell.titleBottomPriorityConstraint.priority = .defaultHigh
             }
             
-            
             cell.selectImgLeadingConstraint.constant = 20
             
             if todoList[indexPath.section].numberOfSubTodo > 0 { // sub Todo가 있을 때
                 cell.btn.isUserInteractionEnabled = true
-                cell.btn.tag = indexPath.section
+                cell.btn.tag = 1000 * tableView.tag + indexPath.section
                 cell.btn.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedOpenImage(_:))))
                 cell.btnWidthConstraint.constant = 40
                 if todoList[indexPath.section].isOpen == true {
@@ -235,20 +299,20 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource,
         return cell
     }
     
-
-
-@objc func tappedSelectImage(_ sender: Any) {
-    print("tapped SelectImage")
-}
-
-@objc func tappedOpenImage(_ sender: Any) {
-    print("tapped OpenImage")
-    if let tgr = sender as? UITapGestureRecognizer {
-        let section = (tgr.view?.tag)!
-        
-        todoList[section].isOpen = !(todoList[section].isOpen!)
-        tableView.reloadSections(IndexSet(section...section), with: .none)
+    
+    
+    @objc func tappedSelectImage(_ sender: Any) {
+        print("tapped SelectImage")
     }
-}
-
+    
+    @objc func tappedOpenImage(_ sender: Any) {
+        print("tapped OpenImage")
+        if let tgr = sender as? UITapGestureRecognizer {
+            let section = (tgr.view?.tag)!
+            
+            todoList[section].isOpen = !(todoList[section].isOpen!)
+            tableView.reloadSections(IndexSet(section...section), with: .none)
+        }
+    }
+    
 }
