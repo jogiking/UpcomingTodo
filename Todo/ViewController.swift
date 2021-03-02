@@ -41,7 +41,7 @@ class ViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none // 데이터가 없는 곳에도 줄 간격이 생기는 것을 방지
-        //        tableView.estimatedRowHeight = 60
+        tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableView.automaticDimension
         
         let nibName = UINib(nibName: "NormalCell", bundle: nil)

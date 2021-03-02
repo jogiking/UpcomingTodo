@@ -21,15 +21,15 @@ class TodoData: Todo {
     override init() {
         super.init()
         self.isOpen = false
-        self.title = "todo-title"
-        self.memo = "todo-memo"
+//        self.title = "todo-title"
+//        self.memo = "todo-memo"
     }
     
     init(index: Int) {
         super.init()
         self.isOpen = false
-        self.title = "\(index): todo-title"
-        self.memo = "\(index): todo-memo"
+//        self.title = "\(index): todo-title"
+//        self.memo = "\(index): todo-memo"
     }
 }
 
@@ -42,8 +42,8 @@ class Todo {
     var objectID: NSManagedObjectID?
     
     init() {
-        self.title = "initial-title"
-        self.memo = "initial-memo"
+//        self.title = "initial-title"
+//        self.memo = "initial-memo"
         self.isFinish = false
     }
 }

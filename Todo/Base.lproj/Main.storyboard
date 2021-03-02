@@ -8,6 +8,36 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--New Cell Test View Controller-->
+        <scene sceneID="5r2-Jp-NcX">
+            <objects>
+                <viewController id="MJ7-Pv-GPR" customClass="NewCellTestViewController" customModule="Todo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hYC-lH-KRB">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0Rf-ya-XeG">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" red="1" green="0.99747635150000002" blue="0.84691985940000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="gem-FD-WWY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="0Rf-ya-XeG" firstAttribute="leading" secondItem="gem-FD-WWY" secondAttribute="leading" id="4lM-dI-TJk"/>
+                            <constraint firstItem="gem-FD-WWY" firstAttribute="bottom" secondItem="0Rf-ya-XeG" secondAttribute="bottom" id="bXs-11-Ct2"/>
+                            <constraint firstItem="gem-FD-WWY" firstAttribute="trailing" secondItem="0Rf-ya-XeG" secondAttribute="trailing" id="rGr-dQ-a3c"/>
+                            <constraint firstItem="0Rf-ya-XeG" firstAttribute="top" secondItem="gem-FD-WWY" secondAttribute="top" id="xfh-Ue-yUK"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableview" destination="0Rf-ya-XeG" id="UGb-Qq-4rI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jjw-Iz-mZy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="246" y="-620"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>

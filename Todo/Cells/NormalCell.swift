@@ -19,6 +19,7 @@ class NormalCell: UITableViewCell {
     @IBOutlet weak var selectImgLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var childNumberWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var btnWidthConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var titleBottomPriorityConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
