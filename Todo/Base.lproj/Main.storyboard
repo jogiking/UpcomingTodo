@@ -359,6 +359,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addTodoButton" destination="wko-ce-wmV" id="TgI-S9-jal"/>
                         <outlet property="completeButton" destination="pGw-dr-wqi" id="G1Z-TH-fRO"/>
                         <outlet property="mainTitle" destination="ODK-tL-Ksg" id="jCP-Fb-rRO"/>
                         <outlet property="tableView" destination="66O-JP-acl" id="0I1-CO-0I7"/>

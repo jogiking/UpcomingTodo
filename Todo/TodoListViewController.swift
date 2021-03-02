@@ -13,6 +13,7 @@ class TodoListViewController: UIViewController {
     @IBOutlet weak var mainTitle: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var completeButton: UIBarButtonItem!
+    @IBOutlet weak var addTodoButton: UIBarButtonItem!
     
     var dao = TodoDAO()
         
@@ -31,8 +32,8 @@ class TodoListViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.dragInteractionEnabled = true
-//        tableView.dragDelegate = self
-//        tableView.dropDelegate = self
+        tableView.dragDelegate = self
+        tableView.dropDelegate = self
         
         tableView.estimatedRowHeight = 50
         tableView.rowHeight = UITableView.automaticDimension
@@ -133,30 +134,6 @@ class TodoListViewController: UIViewController {
         editingMode = true
         
         scrollToBottom()
-//        if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: todoList.count)) as? BasicCell {
-//            guard let tv = cell.title else {
-//                print("왜안나오지")
-//                return
-//
-//            }
-//            print("무조건 나와야함")
-//            tv.becomeFirstResponder()
-//        }
-        //        tableView.beginUpdates()
-        //        tableView.insertSections(IndexSet(1...1), with: .bottom)
-        //        tableView.insertRows(at: [indexPath], with: .bottom)
-        //        tableView.endUpdates()
-        //
-        //        addTodoFooterView = TodoListTableFooterView(frame: CGRect.zero)
-        //        if let footerView = addTodoFooterView as? TodoListTableFooterView {
-        //            footerView.inputTextView.delegate = self
-        //            footerView.inputTextView.text = ""
-        //            footerView.selectImg.image = UIImage(named: "unclick")
-        //            footerView.inputTextView.becomeFirstResponder()
-        //        }
-        //        stackView.addArrangedSubview(addTodoFooterView)
-        //        completeButton.image = nil
-        //
     }
     
 }
@@ -321,50 +298,96 @@ extension TodoListViewController: UITableViewDelegate,
         } else {
             cell = setupBasicCell(indexPath: indexPath)
         }
-        
-       
+//
+//        let dragInteraction = UIDragInteraction (delegate : self)
+//        dragInteraction.isEnabled = true
+//        cell.addInteraction(dragInteraction)
+//
         
         return cell
     }
 }
-//extension TodoListViewController: UITableViewDragDelegate,
-//                                     UITableViewDropDelegate {
-//    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+
+extension TodoListViewController: UIDragInteractionDelegate {
+    func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
+        return [UIDragItem(itemProvider: NSItemProvider())]
+    }
+    
+    func dragInteraction(_ interaction: UIDragInteraction, sessionDidMove session: UIDragSession) {
+        let pos = session.location(in: tableView)
+        print("pos] \(pos)")
+    }
+}
+
+extension TodoListViewController: UITableViewDragDelegate {
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        return [UIDragItem(itemProvider: NSItemProvider())]
+    }
+    
+    func tableView(_ tableView: UITableView, dragSessionWillBegin session: UIDragSession) {
+        self.completeButton.isEnabled = false
+        self.addTodoButton.isEnabled = false
+    }
+    
+    func tableView(_ tableView: UITableView, dragSessionDidEnd session: UIDragSession) {
+        self.completeButton.isEnabled = true
+        self.addTodoButton.isEnabled = true
+    }
+    
+    
+    
+//    func tableView(_ tableView: UITableView, dragPreviewParametersForRowAt indexPath: IndexPath) -> UIDragPreviewParameters? {
 //
-//        return [UIDragItem(itemProvider: NSItemProvider())]
+//        print("dragging] section =\(indexPath.section), row = \(indexPath.row)")
+//
+//        let previewParameters = UIDragPreviewParameters()
+//        previewParameters.visiblePath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: 50, height: 50), cornerRadius: 5)
+//        return previewParameters
 //    }
-//
-//    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
-//
-//    }
-//    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
-//        if session.localDragSession != nil {
-//            return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
-//        }
-//        return UITableViewDropProposal(operation: .cancel, intent: .unspecified)
-//    }
-//
-//    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
-//        //print("target:sec:\(sourceIndexPath.section),row:\(sourceIndexPath.row)\\des:sec:\(proposedDestinationIndexPath.section),row:\(proposedDestinationIndexPath.row)")
-//
-//        if let cell = tableView.cellForRow(at: proposedDestinationIndexPath) {
-//            //            print("from sec:\(sourceIndexPath.section),row:\(sourceIndexPath.row)||to sec: \(proposedDestinationIndexPath.section),row:\(proposedDestinationIndexPath.row)||before sec:\(beforeTouch?.section),row:\(beforeTouch?.row)")
-//            if (self.beforeTouch != sourceIndexPath) && (sourceIndexPath != proposedDestinationIndexPath) {
-//                if self.beforeTouch == nil {
-//                    //                    print("before is nil")
-//                    cell.setSelected(true, animated: false)
-//                } else {
-//                    //                    print("was not nil")
-//                    cell.setSelected(true, animated: false)
-//                    tableView.cellForRow(at: beforeTouch!)?.setSelected(false, animated: false)
-//                }
-//
-//            }
-//            // cell.setSelected(true, animated: false)
-//            self.beforeTouch = proposedDestinationIndexPath
-//        }
-//
-//        return proposedDestinationIndexPath
-//    }
-//
-//}
+}
+
+extension TodoListViewController: UITableViewDropDelegate {
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+
+    }
+    
+    func tableView(_ tableView: UITableView, dropPreviewParametersForRowAt indexPath: IndexPath) -> UIDragPreviewParameters? {
+
+        let previewParameters = UIDragPreviewParameters()
+//        previewParameters.visiblePath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: 50, height: 50), cornerRadius: 5)
+        previewParameters.backgroundColor = .purple
+        return previewParameters
+    }
+    
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        if session.localDragSession != nil {
+            return UITableViewDropProposal(operation: .move, intent: .insertIntoDestinationIndexPath)
+//            return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath) // 원본
+        }
+        return UITableViewDropProposal(operation: .cancel, intent: .unspecified)
+    }
+    
+//    // ?? 이거 쓰는게 아닌것 같아
+    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+        print("target:sec:\(sourceIndexPath.section),row:\(sourceIndexPath.row)\\des:sec:\(proposedDestinationIndexPath.section),row:\(proposedDestinationIndexPath.row)")
+
+        if let cell = tableView.cellForRow(at: proposedDestinationIndexPath) {
+            //            print("from sec:\(sourceIndexPath.section),row:\(sourceIndexPath.row)||to sec: \(proposedDestinationIndexPath.section),row:\(proposedDestinationIndexPath.row)||before sec:\(beforeTouch?.section),row:\(beforeTouch?.row)")
+            if (self.beforeTouch != sourceIndexPath) && (sourceIndexPath != proposedDestinationIndexPath) {
+                if self.beforeTouch == nil {
+                    //                    print("before is nil")
+                    cell.setSelected(true, animated: false)
+                } else {
+                    //                    print("was not nil")
+                    cell.setSelected(true, animated: false)
+                    tableView.cellForRow(at: beforeTouch!)?.setSelected(false, animated: false)
+                }
+
+            }
+            // cell.setSelected(true, animated: false)
+            self.beforeTouch = proposedDestinationIndexPath
+        }
+
+        return proposedDestinationIndexPath
+    }
+}
