@@ -353,6 +353,7 @@ extension TodoListViewController: UITableViewDropDelegate {
     
     func tableView(_ tableView: UITableView, dropPreviewParametersForRowAt indexPath: IndexPath) -> UIDragPreviewParameters? {
 
+        print("dropPreview] \(indexPath)")
         let previewParameters = UIDragPreviewParameters()
 //        previewParameters.visiblePath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: 50, height: 50), cornerRadius: 5)
         previewParameters.backgroundColor = .purple
@@ -360,6 +361,7 @@ extension TodoListViewController: UITableViewDropDelegate {
     }
     
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        print("dropSessionDidUpdate] \(destinationIndexPath)")
         if session.localDragSession != nil {
             return UITableViewDropProposal(operation: .move, intent: .insertIntoDestinationIndexPath)
 //            return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath) // 원본
@@ -368,26 +370,26 @@ extension TodoListViewController: UITableViewDropDelegate {
     }
     
 //    // ?? 이거 쓰는게 아닌것 같아
-    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
-        print("target:sec:\(sourceIndexPath.section),row:\(sourceIndexPath.row)\\des:sec:\(proposedDestinationIndexPath.section),row:\(proposedDestinationIndexPath.row)")
-
-        if let cell = tableView.cellForRow(at: proposedDestinationIndexPath) {
-            //            print("from sec:\(sourceIndexPath.section),row:\(sourceIndexPath.row)||to sec: \(proposedDestinationIndexPath.section),row:\(proposedDestinationIndexPath.row)||before sec:\(beforeTouch?.section),row:\(beforeTouch?.row)")
-            if (self.beforeTouch != sourceIndexPath) && (sourceIndexPath != proposedDestinationIndexPath) {
-                if self.beforeTouch == nil {
-                    //                    print("before is nil")
-                    cell.setSelected(true, animated: false)
-                } else {
-                    //                    print("was not nil")
-                    cell.setSelected(true, animated: false)
-                    tableView.cellForRow(at: beforeTouch!)?.setSelected(false, animated: false)
-                }
-
-            }
-            // cell.setSelected(true, animated: false)
-            self.beforeTouch = proposedDestinationIndexPath
-        }
-
-        return proposedDestinationIndexPath
-    }
+//    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+//        print("target:sec:\(sourceIndexPath.section),row:\(sourceIndexPath.row)\\des:sec:\(proposedDestinationIndexPath.section),row:\(proposedDestinationIndexPath.row)")
+//
+//        if let cell = tableView.cellForRow(at: proposedDestinationIndexPath) {
+//            //            print("from sec:\(sourceIndexPath.section),row:\(sourceIndexPath.row)||to sec: \(proposedDestinationIndexPath.section),row:\(proposedDestinationIndexPath.row)||before sec:\(beforeTouch?.section),row:\(beforeTouch?.row)")
+//            if (self.beforeTouch != sourceIndexPath) && (sourceIndexPath != proposedDestinationIndexPath) {
+//                if self.beforeTouch == nil {
+//                    //                    print("before is nil")
+//                    cell.setSelected(true, animated: false)
+//                } else {
+//                    //                    print("was not nil")
+//                    cell.setSelected(true, animated: false)
+//                    tableView.cellForRow(at: beforeTouch!)?.setSelected(false, animated: false)
+//                }
+//
+//            }
+//            // cell.setSelected(true, animated: false)
+//            self.beforeTouch = proposedDestinationIndexPath
+//        }
+//
+//        return proposedDestinationIndexPath
+//    }
 }

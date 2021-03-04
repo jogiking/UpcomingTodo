@@ -14,22 +14,25 @@ class ViewController: UIViewController {
     var todoList: [TodoData] = []
     
     var beforeTouch: IndexPath?
+    var startIndexPath: IndexPath?
     
     func createData(size: Int) {
         for i in 1...size {
             let data =  TodoData.init(index: i)
-            
+            data.title = "\(i)번째 todo"
             var j = 1
             while j < i {
                 let dt = Todo()
+                dt.title = "\(i)번째 todo의 \(j)번째 subs"
                 if j % 2 == 0 {
                     dt.memo = nil
                 }
                 data.subTodoList.append(dt)
                 j += 1
-            }
-            if i % 2 == 1 {
-                data.isOpen = true
+                
+                if i % 2 == 1 {
+                    data.isOpen = true
+                }
             }
             todoList.append(data)
         }
@@ -109,50 +112,187 @@ extension ViewController: UITextViewDelegate {
 extension ViewController: UITableViewDelegate, UITableViewDataSource,
                           UITableViewDragDelegate, UITableViewDropDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        print("itemsForBeginning] \(indexPath)")
+        self.startIndexPath = indexPath
+        
+        let section = indexPath.section
+        if (indexPath.row == 0) && todoList[section].isOpen! {
+            todoList[section].isOpen = false
+            tableView.reloadSections(IndexSet(section...section), with: .none)
+        }
         
         return [UIDragItem(itemProvider: NSItemProvider())]
     }
     
-    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
-        if session.localDragSession != nil {
-            return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
-        }
-        return UITableViewDropProposal(operation: .cancel, intent: .unspecified)
-    }
     
-    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) { }
+//    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+//        print("targetIndexPathForMoveFromRowAt] source=\(sourceIndexPath), proposed=\(proposedDestinationIndexPath)")
+//
+////        if
+//        // 만약 섹션간 전환이 필요한 경우라면 셀이 직접 이동하는걸 막고, = proposedIndexPath를 소스와 동일하게?
+//        // 데이터 소스를 변경만, moveSection메서드를 이용해보기
+//
+//
+//        return proposedDestinationIndexPath
+//    }
+//    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+// 여기에 들어오는 source와 destination의 indexPath에 맞춰서 데이터 소스만 변경해줘야함
+//        // 내가 여기서 데이터 소스를 변경하는게 그대로 반영되는것이 아니고
+//        // 이 메서드를 호출한 시점에 이미 어떻게 변경되어야하는게 정해진듯?
+//        // 그렇다면 이 메서드의 마지막에 moveSection을 두면 어떻게 되는걸까? 아까 비슷하게 했는데 안되었음
+//        // 아마도 source랑 destination이랑 안맞아서 그런건가
+//        print("moveRowAt")
+//        if sourceIndexPath.row == 0 {
+//            let data = todoList[sourceIndexPath.section]
+//            var row = todoList[destinationIndexPath.section].isOpen! ? todoList[destinationIndexPath.section].numberOfSubTodo : 0
+//            row += 1
+//
+//            todoList.remove(at: sourceIndexPath.section)
+//
+//
+//            if destinationIndexPath.row == row {
+//                todoList.insert(data, at: destinationIndexPath.section)
+//                tableView.beginUpdates()
+//                tableView.moveRow(at: IndexPath(row: 0, section: 1), to: IndexPath(row: 0, section: 0))
+//                tableView.endUpdates()
+//            } else {
+//                todoList[destinationIndexPath.section].subTodoList.insert(data, at: destinationIndexPath.row - 1)
+//            }
+//
+//        } else {
+//            let data = todoList[sourceIndexPath.section].subTodoList[sourceIndexPath.row - 1]
+//            var row = todoList[destinationIndexPath.section].isOpen! ? todoList[destinationIndexPath.section].numberOfSubTodo : 0
+//            row += 1
+//            todoList[sourceIndexPath.section].subTodoList.remove(at: sourceIndexPath.row - 1)
+//
+//            if destinationIndexPath.row == row {
+//                let todoData = TodoData()
+//                todoData.title = data.title
+//                todoData.memo = data.memo
+//                todoData.regDate = data.regDate
+//                todoData.isFinish = data.isFinish
+//                todoData.objectID = data.objectID
+//
+//                todoList.insert(todoData, at: destinationIndexPath.section)
+//            } else {
+//                todoList[destinationIndexPath.section].subTodoList.insert(data, at: destinationIndexPath.row - 1)
+//            }
+//        }
+////        self.tableView.moveRow(at: sourceIndexPath, to: destinationIndexPath)
+//    }
     
-    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
-        //print("target:sec:\(sourceIndexPath.section),row:\(sourceIndexPath.row)\\des:sec:\(proposedDestinationIndexPath.section),row:\(proposedDestinationIndexPath.row)")
-        
-        if let cell = tableView.cellForRow(at: proposedDestinationIndexPath) {
-            //            print("from sec:\(sourceIndexPath.section),row:\(sourceIndexPath.row)||to sec: \(proposedDestinationIndexPath.section),row:\(proposedDestinationIndexPath.row)||before sec:\(beforeTouch?.section),row:\(beforeTouch?.row)")
-            if (self.beforeTouch != sourceIndexPath) && (sourceIndexPath != proposedDestinationIndexPath) {
-                if self.beforeTouch == nil {
-                    //                    print("before is nil")
-                    cell.setSelected(true, animated: false)
-                } else {
-                    //                    print("was not nil")
-                    cell.setSelected(true, animated: false)
-                    tableView.cellForRow(at: beforeTouch!)?.setSelected(false, animated: false)
-                }
-                
+    func updateDatasource(destinationIndexPath: IndexPath) {
+        let sourceIndexPath = self.startIndexPath!
+        if sourceIndexPath.row == 0 {
+            let data = todoList[sourceIndexPath.section]
+            var row = todoList[destinationIndexPath.section].isOpen! ? todoList[destinationIndexPath.section].numberOfSubTodo : 0
+            row += 1
+            
+            todoList.remove(at: sourceIndexPath.section)
+            
+            if destinationIndexPath.row == row {
+                todoList.insert(data, at: destinationIndexPath.section)
+            } else {
+                todoList[destinationIndexPath.section].subTodoList.insert(data, at: destinationIndexPath.row - 1)
             }
-            // cell.setSelected(true, animated: false)
-            self.beforeTouch = proposedDestinationIndexPath
+            
+        } else {
+            let data = todoList[sourceIndexPath.section].subTodoList[sourceIndexPath.row - 1]
+            var row = todoList[destinationIndexPath.section].isOpen! ? todoList[destinationIndexPath.section].numberOfSubTodo : 0
+            row += 1
+            todoList[sourceIndexPath.section].subTodoList.remove(at: sourceIndexPath.row - 1)
+            
+            if destinationIndexPath.row == row {
+                let todoData = TodoData()
+                todoData.title = data.title
+                todoData.memo = data.memo
+                todoData.regDate = data.regDate
+                todoData.isFinish = data.isFinish
+                todoData.objectID = data.objectID
+                
+                todoList.insert(todoData, at: destinationIndexPath.section)
+            } else {
+                todoList[destinationIndexPath.section].subTodoList.insert(data, at: destinationIndexPath.row - 1)
+            }
         }
-        
-        return proposedDestinationIndexPath
     }
+    
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        print("dropSession] section=\(destinationIndexPath?.section), row=\(destinationIndexPath?.row)")
+
+        var dropProposal = UITableViewDropProposal(operation: .cancel)
+        
+        // Accept only one drag item.
+        guard session.items.count == 1 else { return dropProposal }
+        
+        // The .move drag operation is available only for dragging within this app and while in edit mode.
+        if session.localDragSession != nil {
+            if (destinationIndexPath?.row == 0) &&
+                (todoList[startIndexPath!.section].numberOfSubTodo == 0 ||
+                    startIndexPath!.row > 0 ) &&
+                (startIndexPath?.section != destinationIndexPath?.section) { // 여기서 row
+                dropProposal = UITableViewDropProposal(operation: .move, intent: .insertIntoDestinationIndexPath)
+            } else {
+                dropProposal = UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+            }
+        } else {
+            // Drag is coming from outside the app.
+            dropProposal = UITableViewDropProposal(operation: .cancel)
+        }
+
+        return dropProposal
+    }
+    
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+        // 순서변경시에는 호출이 안되고, 삽입시에는 호출이 됨. destinationIndexPath도 알 수 있음
+        print("performDropWith] \(coordinator.proposal.intent.rawValue), dest=\(coordinator.destinationIndexPath)")
+        
+        // 1이 아마 move고 2가 insert 일듯
+        switch coordinator.proposal.intent {
+        case .insertAtDestinationIndexPath:
+            // 여기서 구분하고 movesection 같은거 할지.....]
+            updateDatasource(destinationIndexPath: coordinator.destinationIndexPath!)
+            tableView.reloadData()
+        ()
+        case .insertIntoDestinationIndexPath:
+            ()
+        default:
+            ()
+        }
+    }
+    
+//    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+//        //print("target:sec:\(sourceIndexPath.section),row:\(sourceIndexPath.row)\\des:sec:\(proposedDestinationIndexPath.section),row:\(proposedDestinationIndexPath.row)")
+//        
+//        if let cell = tableView.cellForRow(at: proposedDestinationIndexPath) {
+//            //            print("from sec:\(sourceIndexPath.section),row:\(sourceIndexPath.row)||to sec: \(proposedDestinationIndexPath.section),row:\(proposedDestinationIndexPath.row)||before sec:\(beforeTouch?.section),row:\(beforeTouch?.row)")
+//            if (self.beforeTouch != sourceIndexPath) && (sourceIndexPath != proposedDestinationIndexPath) {
+//                if self.beforeTouch == nil {
+//                    //                    print("before is nil")
+//                    cell.setSelected(true, animated: false)
+//                } else {
+//                    //                    print("was not nil")
+//                    cell.setSelected(true, animated: false)
+//                    tableView.cellForRow(at: beforeTouch!)?.setSelected(false, animated: false)
+//                }
+//                
+//            }
+//            // cell.setSelected(true, animated: false)
+//            self.beforeTouch = proposedDestinationIndexPath
+//        }
+//        
+//        return proposedDestinationIndexPath
+//    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         var numberOfCell = 1
         let todo = todoList[section]
         
         if todo.isOpen == true {
             numberOfCell += todo.subTodoList.count
         }
-        
+//        print("numberOfRowsInSection] section=\(section), rows=\(numberOfCell), title=\(todoList[section].title)")
         return numberOfCell
     }
     
@@ -166,7 +306,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource,
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+//        print("cellForRowAt] section=\(indexPath.section), row=\(indexPath.row)")
         let cellId = "normal_cell"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? NormalCell ?? NormalCell()
         
@@ -231,7 +371,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource,
             cell.childNumber.text = ""
             cell.btnWidthConstraint.constant = 0
         }
-        
+
         return cell
     }
     
