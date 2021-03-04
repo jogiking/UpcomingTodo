@@ -221,7 +221,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource,
         return false
     }
     
-    func updateDatasource2(destinationIndexPath: IndexPath) {
+    func updateInsertAtDatasource(destinationIndexPath: IndexPath) {
         let sourceIndexPath = self.startIndexPath!
         
         if !isC(sourceIndexPath: sourceIndexPath) { // P, Pc
@@ -302,47 +302,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource,
         }
     }
     
-    func updateDatasource(destinationIndexPath: IndexPath) {
-        let sourceIndexPath = self.startIndexPath!
-        if sourceIndexPath.row == 0 { // 출발지는 parent 타입의 셀. p0 pc
-            let data = todoList[sourceIndexPath.section]
-//            var row = todoList[destinationIndexPath.section].isOpen! ? todoList[destinationIndexPath.section].numberOfSubTodo : 0
-//            row += 1
-            
-            // pc ->
-            // 도착지의 셀타입을 판별한다
-            // dest가 child일 경우 들어가야하는 위치 todoList[x].subTodoList[y - 1]
-            // dest가 p일 경우에는 todoList[x] 근데 이때 필요조건은 y = 0이다.
-            
-            var row = todoList[destinationIndexPath.section].numberOfSubTodo
-            
-            todoList.remove(at: sourceIndexPath.section)
-            
-            if destinationIndexPath.row == row {
-                todoList.insert(data, at: destinationIndexPath.section)
-            } else {
-                todoList[destinationIndexPath.section].subTodoList.insert(data, at: destinationIndexPath.row - 1)
-            }
-            
-        } else { // 출발지는 child 타입의 셀
-            let data = todoList[sourceIndexPath.section].subTodoList[sourceIndexPath.row - 1]
-            var row = todoList[destinationIndexPath.section].isOpen! ? todoList[destinationIndexPath.section].numberOfSubTodo : 0
-            row += 1
-            todoList[sourceIndexPath.section].subTodoList.remove(at: sourceIndexPath.row - 1)
-            
-            if destinationIndexPath.row == row {
-                let todoData = TodoData()
-                todoData.title = data.title
-                todoData.memo = data.memo
-                todoData.regDate = data.regDate
-                todoData.isFinish = data.isFinish
-                todoData.objectID = data.objectID
-                
-                todoList.insert(todoData, at: destinationIndexPath.section)
-            } else {
-                todoList[destinationIndexPath.section].subTodoList.insert(data, at: destinationIndexPath.row - 1)
-            }
-        }
+    func updateInsertIntoDatasource(destinationIndexPath: IndexPath) {
+        
     }
     
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
@@ -365,7 +326,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource,
             return dropProposal
         }
         
-        if  isPc(sourceIndexPath: source) && isC(sourceIndexPath: destination) {
+        if isPc(sourceIndexPath: source) && isC(sourceIndexPath: destination) {
             dropProposal = UITableViewDropProposal(operation: .forbidden)
         } else {
             dropProposal = UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
@@ -375,21 +336,17 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource,
     }
     
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
-        // 순서변경시에는 호출이 안되고, 삽입시에는 호출이 됨. destinationIndexPath도 알 수 있음
-        print("performDropWith] \(coordinator.proposal.intent.rawValue), dest=\(coordinator.destinationIndexPath)")
+//        print("performDropWith] \(coordinator.proposal.intent.rawValue), dest=\(coordinator.destinationIndexPath)")
         
-        // 1이 아마 move고 2가 insert 일듯
         switch coordinator.proposal.intent {
         case .insertAtDestinationIndexPath:
-            // 여기서 구분하고 movesection 같은거 할지.....]
-            
             if coordinator.proposal.operation == .move {
-                updateDatasource2(destinationIndexPath: coordinator.destinationIndexPath!)
+                updateInsertAtDatasource(destinationIndexPath: coordinator.destinationIndexPath!)
                 tableView.reloadData()
             }
-    
         case .insertIntoDestinationIndexPath:
-            print("Into")
+            updateInsertIntoDatasource(destinationIndexPath: coordinator.destinationIndexPath!)
+            tableView.reloadData()
             
         default:
             ()
