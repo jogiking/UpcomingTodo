@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     var startIndexPath: IndexPath?
     
     func createData(size: Int) {
-        for i in 1...size {
+        for i in 1...size{
             let data =  TodoData.init(index: i)
             data.title = "\(i)번째 todo"
             var j = 1
@@ -29,13 +29,21 @@ class ViewController: UIViewController {
                 }
                 data.subTodoList.append(dt)
                 j += 1
-                
+
                 if i % 2 == 1 {
                     data.isOpen = true
                 }
             }
             todoList.append(data)
         }
+            
+        let data = TodoData.init(index: 10)
+        data.title = "시험용 todo"
+        let dt = Todo()
+        dt.title = "시험용 todo의 1번째 subs"
+        data.subTodoList.append(dt)
+        todoList.insert(data, at: 0)
+    
     }
     
     override func viewDidLoad() {
@@ -181,12 +189,132 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource,
 ////        self.tableView.moveRow(at: sourceIndexPath, to: destinationIndexPath)
 //    }
     
+    func isP(sourceIndexPath: IndexPath) -> Bool {
+        guard sourceIndexPath.row == 0 else { return false }
+        if todoList[sourceIndexPath.section].numberOfSubTodo == 0 {
+            return true
+        }
+        return false
+    }
+    
+    func isPc(sourceIndexPath: IndexPath) -> Bool {
+        guard sourceIndexPath.row == 0 else { return false }
+        if todoList[sourceIndexPath.section].numberOfSubTodo == 0 {
+            return false
+        }
+        return false
+    }
+    
+    func isC(sourceIndexPath: IndexPath) -> Bool {
+        return sourceIndexPath.row != 0 ? true : false
+    }
+    
+    func isLastDestination(destinationPath: IndexPath) -> Bool {
+        if (destinationPath.section == todoList.count - 1) {
+            var lastRow = todoList.last!.isOpen == true ? todoList.last!.numberOfSubTodo : 0
+            lastRow += 1
+            
+            if (destinationPath.row == lastRow) {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func updateDatasource2(destinationIndexPath: IndexPath) {
+        let sourceIndexPath = self.startIndexPath!
+        
+        if !isC(sourceIndexPath: sourceIndexPath) { // P, Pc
+//            let data = todoList.remove(at: sourceIndexPath.section)
+            
+            guard !isLastDestination(destinationPath: destinationIndexPath) else { // 마지막 셀이 아닐 때
+                let data = todoList.remove(at: sourceIndexPath.section) // 마지막 셀일 때
+                
+                todoList.append(data)
+                return
+            }
+            
+            if isP(sourceIndexPath: sourceIndexPath) && (destinationIndexPath.row != 0) { // x섹션의 y위치로 삽입
+                guard isC(sourceIndexPath: destinationIndexPath) && todoList[destinationIndexPath.section].isOpen! else {
+//                guard isPc(sourceIndexPath: destinationIndexPath) && todoList[destinationIndexPath.section].isOpen! else {
+                    let data = todoList.remove(at: sourceIndexPath.section) // x섹션 그 자리에 삽입
+                    var toSection = destinationIndexPath.section
+                    if sourceIndexPath.section > destinationIndexPath.section { toSection += 1 }
+                    todoList.insert(data, at: toSection)
+                    return
+                }
+//                let data = todoList.remove(at: sourceIndexPath.section)
+                // x섹션의 y 위치로 삽입
+                let data = todoList[sourceIndexPath.section]
+                todoList[destinationIndexPath.section].subTodoList.insert(data, at: destinationIndexPath.row - 1)
+                todoList.remove(at: sourceIndexPath.section)
+            } else { // x섹션 그자리에 삽입
+                let data = todoList.remove(at: sourceIndexPath.section)
+                var toSection = destinationIndexPath.section
+                if (sourceIndexPath.section < destinationIndexPath.section) && (destinationIndexPath.row == 0) { // ㄱ
+                    toSection -= 1
+                }
+                if (sourceIndexPath.section > destinationIndexPath.section) && (destinationIndexPath.row != 0) { // ㄴ
+                    toSection += 1
+                }
+                todoList.insert(data, at: toSection)
+            }
+            
+        } else { // C(child)
+//            let data = todoList[sourceIndexPath.section].subTodoList.remove(at: sourceIndexPath.row - 1)
+            
+            guard !isLastDestination(destinationPath: destinationIndexPath) else {
+                let data = todoList[sourceIndexPath.section].subTodoList.remove(at: sourceIndexPath.row - 1)
+                let tododata = TodoData()
+                tododata.title = data.title
+                tododata.memo = data.memo
+                tododata.isFinish = data.isFinish
+                tododata.objectID = data.objectID
+                tododata.regDate = data.regDate
+                todoList.append(tododata)
+                return
+            }
+            
+            if destinationIndexPath.row != 0 { // A. x섹션의 y위치로 삽입 (subs)
+                guard isC(sourceIndexPath: destinationIndexPath) && todoList[destinationIndexPath.section].isOpen! else {
+                    let data = todoList[sourceIndexPath.section].subTodoList.remove(at: sourceIndexPath.row - 1)
+                    let tododata = TodoData()
+                    tododata.title = data.title
+                    tododata.memo = data.memo
+                    tododata.isFinish = data.isFinish
+                    tododata.objectID = data.objectID
+                    tododata.regDate = data.regDate
+                    todoList.insert(tododata, at: destinationIndexPath.section)
+                    return
+                }
+                let data = todoList[sourceIndexPath.section].subTodoList.remove(at: sourceIndexPath.row - 1)
+                todoList[destinationIndexPath.section].subTodoList.insert(data, at: destinationIndexPath.row - 1)
+            } else { // B. x섹션의 p로 삽입(타입 변환)
+                let data = todoList[sourceIndexPath.section].subTodoList.remove(at: sourceIndexPath.row - 1)
+                let tododata = TodoData()
+                tododata.title = data.title
+                tododata.memo = data.memo
+                tododata.isFinish = data.isFinish
+                tododata.objectID = data.objectID
+                tododata.regDate = data.regDate
+                todoList.insert(tododata, at: destinationIndexPath.section)
+            }
+        }
+    }
+    
     func updateDatasource(destinationIndexPath: IndexPath) {
         let sourceIndexPath = self.startIndexPath!
-        if sourceIndexPath.row == 0 {
+        if sourceIndexPath.row == 0 { // 출발지는 parent 타입의 셀. p0 pc
             let data = todoList[sourceIndexPath.section]
-            var row = todoList[destinationIndexPath.section].isOpen! ? todoList[destinationIndexPath.section].numberOfSubTodo : 0
-            row += 1
+//            var row = todoList[destinationIndexPath.section].isOpen! ? todoList[destinationIndexPath.section].numberOfSubTodo : 0
+//            row += 1
+            
+            // pc ->
+            // 도착지의 셀타입을 판별한다
+            // dest가 child일 경우 들어가야하는 위치 todoList[x].subTodoList[y - 1]
+            // dest가 p일 경우에는 todoList[x] 근데 이때 필요조건은 y = 0이다.
+            
+            var row = todoList[destinationIndexPath.section].numberOfSubTodo
             
             todoList.remove(at: sourceIndexPath.section)
             
@@ -196,7 +324,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource,
                 todoList[destinationIndexPath.section].subTodoList.insert(data, at: destinationIndexPath.row - 1)
             }
             
-        } else {
+        } else { // 출발지는 child 타입의 셀
             let data = todoList[sourceIndexPath.section].subTodoList[sourceIndexPath.row - 1]
             var row = todoList[destinationIndexPath.section].isOpen! ? todoList[destinationIndexPath.section].numberOfSubTodo : 0
             row += 1
@@ -227,14 +355,15 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource,
         
         // The .move drag operation is available only for dragging within this app and while in edit mode.
         if session.localDragSession != nil {
-            if (destinationIndexPath?.row == 0) &&
-                (todoList[startIndexPath!.section].numberOfSubTodo == 0 ||
-                    startIndexPath!.row > 0 ) &&
-                (startIndexPath?.section != destinationIndexPath?.section) { // 여기서 row
-                dropProposal = UITableViewDropProposal(operation: .move, intent: .insertIntoDestinationIndexPath)
-            } else {
-                dropProposal = UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
-            }
+            dropProposal = UITableViewDropProposal(operation: .move, intent: .automatic)
+//            if (destinationIndexPath?.row == 0) && // 도착지점이 P, Pc일 때
+//                (todoList[startIndexPath!.section].numberOfSubTodo == 0 || // 시작지점에 P이거나
+//                    startIndexPath!.row > 0 ) && // C일 때
+//                (startIndexPath?.section != destinationIndexPath?.section) { // 그리고 자기 자신 섹션은 아닌 경우
+//                dropProposal = UITableViewDropProposal(operation: .move, intent: .insertIntoDestinationIndexPath)
+//            } else {
+//                dropProposal = UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+//            }
         } else {
             // Drag is coming from outside the app.
             dropProposal = UITableViewDropProposal(operation: .cancel)
@@ -251,7 +380,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource,
         switch coordinator.proposal.intent {
         case .insertAtDestinationIndexPath:
             // 여기서 구분하고 movesection 같은거 할지.....]
-            updateDatasource(destinationIndexPath: coordinator.destinationIndexPath!)
+            updateDatasource2(destinationIndexPath: coordinator.destinationIndexPath!)
             tableView.reloadData()
         ()
         case .insertIntoDestinationIndexPath:
