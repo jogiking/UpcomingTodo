@@ -202,7 +202,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource,
         if todoList[sourceIndexPath.section].numberOfSubTodo == 0 {
             return false
         }
-        return false
+        return true
     }
     
     func isC(sourceIndexPath: IndexPath) -> Bool {
@@ -346,29 +346,31 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource,
     }
     
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
-        print("dropSession] section=\(destinationIndexPath?.section), row=\(destinationIndexPath?.row)")
-
+        //        print("dropSession] section=\(destinationIndexPath?.section), row=\(destinationIndexPath?.row)")
+        
         var dropProposal = UITableViewDropProposal(operation: .cancel)
         
         // Accept only one drag item.
         guard session.items.count == 1 else { return dropProposal }
         
-        // The .move drag operation is available only for dragging within this app and while in edit mode.
-        if session.localDragSession != nil {
-            dropProposal = UITableViewDropProposal(operation: .move, intent: .automatic)
-//            if (destinationIndexPath?.row == 0) && // 도착지점이 P, Pc일 때
-//                (todoList[startIndexPath!.section].numberOfSubTodo == 0 || // 시작지점에 P이거나
-//                    startIndexPath!.row > 0 ) && // C일 때
-//                (startIndexPath?.section != destinationIndexPath?.section) { // 그리고 자기 자신 섹션은 아닌 경우
-//                dropProposal = UITableViewDropProposal(operation: .move, intent: .insertIntoDestinationIndexPath)
-//            } else {
-//                dropProposal = UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
-//            }
-        } else {
-            // Drag is coming from outside the app.
-            dropProposal = UITableViewDropProposal(operation: .cancel)
+        guard session.localDragSession != nil else {
+            return dropProposal
         }
-
+        guard let source = startIndexPath, let destination = destinationIndexPath else {
+            return dropProposal
+        }
+        
+        guard isPc(sourceIndexPath: source) || isC(sourceIndexPath: destination) else {
+            dropProposal = UITableViewDropProposal(operation: .move, intent: .automatic)
+            return dropProposal
+        }
+        
+        if  isPc(sourceIndexPath: source) && isC(sourceIndexPath: destination) {
+            dropProposal = UITableViewDropProposal(operation: .forbidden)
+        } else {
+            dropProposal = UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+        }
+        
         return dropProposal
     }
     
@@ -380,11 +382,15 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource,
         switch coordinator.proposal.intent {
         case .insertAtDestinationIndexPath:
             // 여기서 구분하고 movesection 같은거 할지.....]
-            updateDatasource2(destinationIndexPath: coordinator.destinationIndexPath!)
-            tableView.reloadData()
-        ()
+            
+            if coordinator.proposal.operation == .move {
+                updateDatasource2(destinationIndexPath: coordinator.destinationIndexPath!)
+                tableView.reloadData()
+            }
+    
         case .insertIntoDestinationIndexPath:
-            ()
+            print("Into")
+            
         default:
             ()
         }
