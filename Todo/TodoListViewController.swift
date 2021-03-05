@@ -208,6 +208,18 @@ extension TodoListViewController: UITableViewDelegate,
         }
     }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell: UITableViewCell!
+        
+        if hasMemo(indexPath: indexPath) {
+            cell = setupMemoCell(indexPath: indexPath)
+        } else {
+            cell = setupBasicCell(indexPath: indexPath)
+        }
+        
+        return cell
+    }
+    
     func setupMemoCell(indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "memoCell", for: indexPath) as! MemoCell
            
@@ -287,38 +299,7 @@ extension TodoListViewController: UITableViewDelegate,
         
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell: UITableViewCell!
-        
-        if hasMemo(indexPath: indexPath) {
-            cell = setupMemoCell(indexPath: indexPath)
-        } else {
-            cell = setupBasicCell(indexPath: indexPath)
-        }
-//
-//        let dragInteraction = UIDragInteraction (delegate : self)
-//        dragInteraction.isEnabled = true
-//        cell.addInteraction(dragInteraction)
-
-        
-//         cell.selectionStyle = indexPath.row != 0 ? .gray : .none
-        
-        
-        return cell
-    }
 }
-
-//extension TodoListViewController: UIDragInteractionDelegate {
-//    func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
-//        return [UIDragItem(itemProvider: NSItemProvider())]
-//    }
-//
-//    func dragInteraction(_ interaction: UIDragInteraction, sessionDidMove session: UIDragSession) {
-//        let pos = session.location(in: tableView)
-//        print("pos] \(pos)")
-//    }
-//}
 
 extension TodoListViewController: UITableViewDragDelegate {
     
@@ -345,19 +326,10 @@ extension TodoListViewController: UITableViewDragDelegate {
         self.addTodoButton.isEnabled = true
     }
     
-    
-    
-//    func tableView(_ tableView: UITableView, dragPreviewParametersForRowAt indexPath: IndexPath) -> UIDragPreviewParameters? {
-//
-//        print("dragging] section =\(indexPath.section), row = \(indexPath.row)")
-//
-//        let previewParameters = UIDragPreviewParameters()
-//        previewParameters.visiblePath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: 50, height: 50), cornerRadius: 5)
-//        return previewParameters
-//    }
 }
 
 extension TodoListViewController: UITableViewDropDelegate {
+    
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
 
         switch coordinator.proposal.intent {
@@ -373,15 +345,6 @@ extension TodoListViewController: UITableViewDropDelegate {
         default:
             ()
         }
-    }
-    
-    func tableView(_ tableView: UITableView, dropPreviewParametersForRowAt indexPath: IndexPath) -> UIDragPreviewParameters? {
-
-        print("dropPreview] \(indexPath)")
-        let previewParameters = UIDragPreviewParameters()
-//        previewParameters.visiblePath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: 50, height: 50), cornerRadius: 5)
-        previewParameters.backgroundColor = .purple
-        return previewParameters
     }
     
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
