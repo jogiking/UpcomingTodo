@@ -420,12 +420,15 @@ extension TodoListViewController: UITableViewDropDelegate {
         let sourceIndexPath = self.startIndexPath!
         
         if !isC(sourceIndexPath: sourceIndexPath) { // P, Pc
-//            let data = todoList.remove(at: sourceIndexPath.section)
-            
             guard !isLastDestination(destinationPath: destinationIndexPath) else { // 마지막 셀이 아닐 때
                 let data = todoList.remove(at: sourceIndexPath.section) // 마지막 셀일 때
-                
+                // dao.delete 호출
+                // dao context안정화... dao.delete->나머지데이터들의 displayorder가 다 틀리게 되므로,
+                // 
+                // appdelegate에 있는 todoList와
                 todoList.append(data)
+                // dao.insert 호출
+                // dao context안정화
                 return
             }
             
@@ -438,7 +441,6 @@ extension TodoListViewController: UITableViewDropDelegate {
                     todoList.insert(data, at: toSection)
                     return
                 }
-//                let data = todoList.remove(at: sourceIndexPath.section)
                 // x섹션의 y 위치로 삽입
                 let data = todoList[sourceIndexPath.section]
                 todoList[destinationIndexPath.section].subTodoList.insert(data, at: destinationIndexPath.row - 1)
@@ -454,10 +456,7 @@ extension TodoListViewController: UITableViewDropDelegate {
                 }
                 todoList.insert(data, at: toSection)
             }
-            
         } else { // C(child)
-//            let data = todoList[sourceIndexPath.section].subTodoList.remove(at: sourceIndexPath.row - 1)
-            
             guard !isLastDestination(destinationPath: destinationIndexPath) else {
                 let data = todoList[sourceIndexPath.section].subTodoList.remove(at: sourceIndexPath.row - 1)
                 let tododata = TodoData()
@@ -469,7 +468,6 @@ extension TodoListViewController: UITableViewDropDelegate {
                 todoList.append(tododata)
                 return
             }
-            
             if destinationIndexPath.row != 0 { // A. x섹션의 y위치로 삽입 (subs)
                 guard isC(sourceIndexPath: destinationIndexPath) && todoList[destinationIndexPath.section].isOpen! else {
                     let data = todoList[sourceIndexPath.section].subTodoList.remove(at: sourceIndexPath.row - 1)

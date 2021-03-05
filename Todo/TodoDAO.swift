@@ -30,6 +30,7 @@ class TodoDAO {
                 catalogData.regDate = catalog.regdate
                 catalogData.name = catalog.name
                 catalogData.objectID = catalog.objectID
+                catalogData.displayOrder = Int(catalog.displayorder)
                 
                 let todos = catalog.todos?.array as! [TodoMO]
                 for todo in todos {
@@ -39,6 +40,7 @@ class TodoDAO {
                     todoData.title = todo.title
                     todoData.memo = todo.memo
                     todoData.objectID = todo.objectID
+                    todoData.displayOrder = Int(todo.displayorder)
                     
                     let subTodos = todo.subTodos?.array as! [SubTodoMO]
                     for subTodo in subTodos {
@@ -48,6 +50,7 @@ class TodoDAO {
                         subTodoData.objectID = subTodo.objectID
                         subTodoData.regDate = subTodo.regdate
                         subTodoData.isFinish = subTodo.isfinish
+                        subTodoData.displayOrder = Int(subTodo.displayorder)
                         
                         todoData.subTodoList.append(subTodoData)
                     }
@@ -68,6 +71,7 @@ class TodoDAO {
 
         object.name = data.name
         object.regdate = data.regDate
+        object.displayorder = Int16(data.displayOrder!)
         
         do {
             try self.context.save()
@@ -82,6 +86,7 @@ class TodoDAO {
         object.memo = data.memo
         object.isfinish = data.isFinish!
         object.regdate = data.regDate
+        object.displayorder = Int16(data.displayOrder!)
         
         let catalogObject = context.object(with: catalogObjectID) as! CatalogMO
         object.catalogList = catalogObject
@@ -99,6 +104,7 @@ class TodoDAO {
         object.memo = data.memo
         object.isfinish = data.isFinish!
         object.regdate = data.regDate
+        object.displayorder = Int16(data.displayOrder!)
         
         let todoObject = context.object(with: subTodoObjectID) as! TodoMO
         object.todo = todoObject
@@ -120,6 +126,55 @@ class TodoDAO {
         } catch let e as NSError {
             NSLog("An error has occurred : %s", e.localizedDescription)
             return false
+        }
+    }
+    
+    func edit(_ objectID: NSManagedObjectID, item: Todo) -> Bool {
+        
+        let object = context.object(with: objectID)
+        
+        object.setValue(item.title, forKey: "title")
+        object.setValue(item.memo, forKey: "memo")
+        object.setValue(item.regDate, forKey: "regdate")
+        object.setValue(item.isFinish, forKey: "isfinish")
+        object.setValue(item.displayOrder, forKey: "displayorder")
+        
+        do {
+            try context.save()
+            return true
+        } catch {
+            context.rollback()
+            return false
+        }
+    }
+    
+    func updateDisplayOrder(todoList: [TodoData], insertIndex at: Int) {
+        guard at < todoList.count - 1 else { return }
+        
+        for index in at + 1...todoList.count - 1 {
+            let objID = todoList[index].objectID
+            let object = context.object(with: objID!)
+            object.setValue(index, forKey: "displayorder")
+        }
+        do {
+            try context.save()
+        } catch {
+            context.rollback()
+        }
+    }
+    
+    func updateDisplayOrder(todoList: [TodoData], removeIndex at: Int) {
+        guard at < todoList.count - 1 else { return }
+        
+        for index in at...todoList.count - 1 {
+            let objID = todoList[index].objectID
+            let object = context.object(with: objID!)
+            object.setValue(index, forKey: "displayorder")
+        }
+        do {
+            try context.save()
+        } catch {
+            context.rollback()
         }
     }
 }
