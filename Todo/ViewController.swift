@@ -303,7 +303,32 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource,
     }
     
     func updateInsertIntoDatasource(destinationIndexPath: IndexPath) {
-        
+        let sourceIndexPath = self.startIndexPath!
+        if isP(sourceIndexPath: sourceIndexPath) {
+            let todo = todoList[sourceIndexPath.section]
+            let subs = Todo()
+            subs.title = todo.title
+            subs.memo = todo.memo
+            subs.isFinish = todo.isFinish
+            subs.regDate = todo.regDate
+            // objID처리는.... 나중에 DAO연결할 때 처리함
+            todoList[destinationIndexPath.section].subTodoList.append(subs)
+            todoList[destinationIndexPath.section].isOpen = true
+            todoList.remove(at: sourceIndexPath.section)
+            
+        } else { // isC
+            guard sourceIndexPath.section != destinationIndexPath.section else { return }
+            let subs = todoList[sourceIndexPath.section].subTodoList[sourceIndexPath.row - 1]
+            let newSubs = Todo()
+            newSubs.title = subs.title
+            newSubs.memo = subs.memo
+            newSubs.isFinish = subs.isFinish
+            newSubs.regDate = subs.regDate
+            // objID는 나중에 DAO할 때 처리하기로
+            todoList[destinationIndexPath.section].subTodoList.append(newSubs)
+            todoList[destinationIndexPath.section].isOpen = true
+            todoList[sourceIndexPath.section].subTodoList.remove(at: sourceIndexPath.row - 1)
+        }
     }
     
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
