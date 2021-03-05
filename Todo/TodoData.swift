@@ -8,6 +8,10 @@
 import Foundation
 import CoreData
 
+protocol DisplayOrder {
+    var displayOrder: Int? { get set }
+}
+
 class TodoData: Todo {
     
     var subTodoList: [Todo] = []
@@ -33,7 +37,8 @@ class TodoData: Todo {
     }
 }
 
-class Todo {
+class Todo: DisplayOrder {
+    var displayOrder: Int?
     
     var title: String?
     var memo: String?
@@ -48,7 +53,9 @@ class Todo {
     }
 }
 
-class CatalogData {
+class CatalogData: DisplayOrder {
+    var displayOrder: Int?
+    
     var name: String?
     var regDate: Date?
     var objectID: NSManagedObjectID?

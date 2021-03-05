@@ -15,19 +15,22 @@ class TodoListViewController: UIViewController {
     @IBOutlet weak var completeButton: UIBarButtonItem!
     @IBOutlet weak var addTodoButton: UIBarButtonItem!
     
-    var dao = TodoDAO()
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    lazy var dao = TodoDAO()
         
     var editingMode = false
     var todoList: [TodoData] = []
-    var mainTitleText = ""
-    var catalogObjectID: NSManagedObjectID?
+//    var mainTitleText = ""
+//    var catalogObjectID: NSManagedObjectID?
+    var currentCatalogData: CatalogData?
 
     var startIndexPath: IndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mainTitle.text = mainTitleText
+        mainTitle.text = currentCatalogData?.name
+        todoList = currentCatalogData!.todoList
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -66,7 +69,7 @@ class TodoListViewController: UIViewController {
             let lastTodo = todoList.last!
             lastTodo.title = tv.text
             lastTodo.regDate = Date()
-            self.dao.insert(lastTodo, catalogObjectID: self.catalogObjectID!)
+            self.dao.insert(lastTodo, catalogObjectID: (self.currentCatalogData?.objectID)!)
             
         }
     }
@@ -166,7 +169,7 @@ extension TodoListViewController: UITextViewDelegate {
 }
 
 extension TodoListViewController: UITableViewDelegate,
-                                     UITableViewDataSource {
+                                  UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var numberOfCell = 1
@@ -195,16 +198,21 @@ extension TodoListViewController: UITableViewDelegate,
         print("delete?? section: \(indexPath.section), row : \(indexPath.row)")
         if editingStyle == .delete {
             if indexPath.row == 0 {
-                todoList.remove(at: indexPath.section)
-                tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
-                tableView.reloadData()
+                let data = todoList[indexPath.section]
+                if dao.delete(data.objectID!) {
+                    todoList.remove(at: indexPath.section)
+                    tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
+                    tableView.reloadData()
+                }
                 
             } else {
-                todoList[indexPath.section].subTodoList.remove(at: indexPath.row - 1)
-                tableView.deleteRows(at: [indexPath], with: .fade)
-                tableView.reloadSections(IndexSet(indexPath.section...indexPath.section), with: .fade)
+                let data = todoList[indexPath.section].subTodoList[indexPath.row - 1]
+                if dao.delete(data.objectID!) {
+                    todoList[indexPath.section].subTodoList.remove(at: indexPath.row - 1)
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                    tableView.reloadSections(IndexSet(indexPath.section...indexPath.section), with: .fade)
+                }
             }
-        
         }
     }
     

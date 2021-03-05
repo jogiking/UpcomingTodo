@@ -93,7 +93,7 @@ class TodoDAO {
         }
     }
     
-    func insert(_ data: TodoData, subTodoObjectID: NSManagedObjectID) {
+    func insert(_ data: Todo, subTodoObjectID: NSManagedObjectID) {
         let object = NSEntityDescription.insertNewObject(forEntityName: "SubTodo", into: self.context) as! SubTodoMO
         object.title = data.title
         object.memo = data.memo

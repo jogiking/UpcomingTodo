@@ -95,9 +95,10 @@ extension MainPageViewController: UITableViewDataSource {
         }
         
         let row = indexPath.row
-        todoListVC.mainTitleText = self.appDelegate.myData[row].name!
-        todoListVC.todoList = self.appDelegate.myData[row].todoList
-        todoListVC.catalogObjectID = self.appDelegate.myData[row].objectID
+//        todoListVC.mainTitleText = self.appDelegate.myData[row].name!
+//        todoListVC.todoList = self.appDelegate.myData[row].todoList
+//        todoListVC.catalogObjectID = self.appDelegate.myData[row].objectID
+        todoListVC.currentCatalogData = self.appDelegate.myData[row]
         
         self.navigationController?.pushViewController(todoListVC, animated: true)
     }
