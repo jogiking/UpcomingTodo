@@ -21,8 +21,8 @@ class TodoListViewController: UIViewController {
     var todoList: [TodoData] = []
     var mainTitleText = ""
     var catalogObjectID: NSManagedObjectID?
-    
-    var beforeTouch: IndexPath?
+
+    var startIndexPath: IndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -210,8 +210,7 @@ extension TodoListViewController: UITableViewDelegate,
     
     func setupMemoCell(indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "memoCell", for: indexPath) as! MemoCell
-        cell.selectionStyle = indexPath.row != 0 ? .gray : .none
-        
+           
         if indexPath.row == 0 { // main cell
             let mainTodo = todoList[indexPath.section]
             cell.selectImg.image = mainTodo.isFinish! ? UIImage(named: "click") : UIImage(named: "unclick")
@@ -254,7 +253,6 @@ extension TodoListViewController: UITableViewDelegate,
     
     func setupBasicCell(indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath) as! BasicCell
-        cell.selectionStyle = indexPath.row != 0 ? .gray : .none
         
         if indexPath.row == 0 { // main cell
             let mainTodo = todoList[indexPath.section]
@@ -302,25 +300,38 @@ extension TodoListViewController: UITableViewDelegate,
 //        let dragInteraction = UIDragInteraction (delegate : self)
 //        dragInteraction.isEnabled = true
 //        cell.addInteraction(dragInteraction)
-//
+
+        
+//         cell.selectionStyle = indexPath.row != 0 ? .gray : .none
+        
         
         return cell
     }
 }
 
-extension TodoListViewController: UIDragInteractionDelegate {
-    func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
-        return [UIDragItem(itemProvider: NSItemProvider())]
-    }
-    
-    func dragInteraction(_ interaction: UIDragInteraction, sessionDidMove session: UIDragSession) {
-        let pos = session.location(in: tableView)
-        print("pos] \(pos)")
-    }
-}
+//extension TodoListViewController: UIDragInteractionDelegate {
+//    func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
+//        return [UIDragItem(itemProvider: NSItemProvider())]
+//    }
+//
+//    func dragInteraction(_ interaction: UIDragInteraction, sessionDidMove session: UIDragSession) {
+//        let pos = session.location(in: tableView)
+//        print("pos] \(pos)")
+//    }
+//}
 
 extension TodoListViewController: UITableViewDragDelegate {
+    
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        print("itemsForBeginning] \(indexPath)")
+        self.startIndexPath = indexPath
+        
+        let section = indexPath.section
+        if (indexPath.row == 0) && todoList[section].isOpen! {
+            todoList[section].isOpen = false
+            tableView.reloadSections(IndexSet(section...section), with: .none)
+        }
+        
         return [UIDragItem(itemProvider: NSItemProvider())]
     }
     
@@ -349,6 +360,19 @@ extension TodoListViewController: UITableViewDragDelegate {
 extension TodoListViewController: UITableViewDropDelegate {
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
 
+        switch coordinator.proposal.intent {
+        case .insertAtDestinationIndexPath:
+            if coordinator.proposal.operation == .move {
+                updateInsertAtDatasource(destinationIndexPath: coordinator.destinationIndexPath!)
+                tableView.reloadData()
+            }
+        case .insertIntoDestinationIndexPath:
+            updateInsertIntoDatasource(destinationIndexPath: coordinator.destinationIndexPath!)
+            tableView.reloadData()
+            
+        default:
+            ()
+        }
     }
     
     func tableView(_ tableView: UITableView, dropPreviewParametersForRowAt indexPath: IndexPath) -> UIDragPreviewParameters? {
@@ -361,35 +385,173 @@ extension TodoListViewController: UITableViewDropDelegate {
     }
     
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
-        print("dropSessionDidUpdate] \(destinationIndexPath)")
-        if session.localDragSession != nil {
-            return UITableViewDropProposal(operation: .move, intent: .insertIntoDestinationIndexPath)
-//            return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath) // 원본
+        //        print("dropSession] section=\(destinationIndexPath?.section), row=\(destinationIndexPath?.row)")
+        
+        var dropProposal = UITableViewDropProposal(operation: .cancel)
+        
+        // Accept only one drag item.
+        guard session.items.count == 1 else { return dropProposal }
+        
+        guard session.localDragSession != nil else {
+            return dropProposal
         }
-        return UITableViewDropProposal(operation: .cancel, intent: .unspecified)
+        guard let source = startIndexPath, let destination = destinationIndexPath else {
+            return dropProposal
+        }
+        
+        guard isPc(sourceIndexPath: source) || isC(sourceIndexPath: destination) else {
+            dropProposal = UITableViewDropProposal(operation: .move, intent: .automatic)
+            return dropProposal
+        }
+        
+        if isPc(sourceIndexPath: source) && isC(sourceIndexPath: destination) {
+            dropProposal = UITableViewDropProposal(operation: .forbidden)
+        } else {
+            dropProposal = UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+        }
+        
+        return dropProposal
     }
     
-//    // ?? 이거 쓰는게 아닌것 같아
-//    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
-//        print("target:sec:\(sourceIndexPath.section),row:\(sourceIndexPath.row)\\des:sec:\(proposedDestinationIndexPath.section),row:\(proposedDestinationIndexPath.row)")
-//
-//        if let cell = tableView.cellForRow(at: proposedDestinationIndexPath) {
-//            //            print("from sec:\(sourceIndexPath.section),row:\(sourceIndexPath.row)||to sec: \(proposedDestinationIndexPath.section),row:\(proposedDestinationIndexPath.row)||before sec:\(beforeTouch?.section),row:\(beforeTouch?.row)")
-//            if (self.beforeTouch != sourceIndexPath) && (sourceIndexPath != proposedDestinationIndexPath) {
-//                if self.beforeTouch == nil {
-//                    //                    print("before is nil")
-//                    cell.setSelected(true, animated: false)
-//                } else {
-//                    //                    print("was not nil")
-//                    cell.setSelected(true, animated: false)
-//                    tableView.cellForRow(at: beforeTouch!)?.setSelected(false, animated: false)
-//                }
-//
-//            }
-//            // cell.setSelected(true, animated: false)
-//            self.beforeTouch = proposedDestinationIndexPath
-//        }
-//
-//        return proposedDestinationIndexPath
-//    }
+    func isP(sourceIndexPath: IndexPath) -> Bool {
+        guard sourceIndexPath.row == 0 else { return false }
+        if todoList[sourceIndexPath.section].numberOfSubTodo == 0 {
+            return true
+        }
+        return false
+    }
+    
+    func isPc(sourceIndexPath: IndexPath) -> Bool {
+        guard sourceIndexPath.row == 0 else { return false }
+        if todoList[sourceIndexPath.section].numberOfSubTodo == 0 {
+            return false
+        }
+        return true
+    }
+    
+    func isC(sourceIndexPath: IndexPath) -> Bool {
+        return sourceIndexPath.row != 0 ? true : false
+    }
+    
+    func isLastDestination(destinationPath: IndexPath) -> Bool {
+        if (destinationPath.section == todoList.count - 1) {
+            var lastRow = todoList.last!.isOpen == true ? todoList.last!.numberOfSubTodo : 0
+            lastRow += 1
+            
+            if (destinationPath.row == lastRow) {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func updateInsertAtDatasource(destinationIndexPath: IndexPath) {
+        let sourceIndexPath = self.startIndexPath!
+        
+        if !isC(sourceIndexPath: sourceIndexPath) { // P, Pc
+//            let data = todoList.remove(at: sourceIndexPath.section)
+            
+            guard !isLastDestination(destinationPath: destinationIndexPath) else { // 마지막 셀이 아닐 때
+                let data = todoList.remove(at: sourceIndexPath.section) // 마지막 셀일 때
+                
+                todoList.append(data)
+                return
+            }
+            
+            if isP(sourceIndexPath: sourceIndexPath) && (destinationIndexPath.row != 0) { // x섹션의 y위치로 삽입
+                guard isC(sourceIndexPath: destinationIndexPath) && todoList[destinationIndexPath.section].isOpen! else {
+//                guard isPc(sourceIndexPath: destinationIndexPath) && todoList[destinationIndexPath.section].isOpen! else {
+                    let data = todoList.remove(at: sourceIndexPath.section) // x섹션 그 자리에 삽입
+                    var toSection = destinationIndexPath.section
+                    if sourceIndexPath.section > destinationIndexPath.section { toSection += 1 }
+                    todoList.insert(data, at: toSection)
+                    return
+                }
+//                let data = todoList.remove(at: sourceIndexPath.section)
+                // x섹션의 y 위치로 삽입
+                let data = todoList[sourceIndexPath.section]
+                todoList[destinationIndexPath.section].subTodoList.insert(data, at: destinationIndexPath.row - 1)
+                todoList.remove(at: sourceIndexPath.section)
+            } else { // x섹션 그자리에 삽입
+                let data = todoList.remove(at: sourceIndexPath.section)
+                var toSection = destinationIndexPath.section
+                if (sourceIndexPath.section < destinationIndexPath.section) && (destinationIndexPath.row == 0) { // ㄱ
+                    toSection -= 1
+                }
+                if (sourceIndexPath.section > destinationIndexPath.section) && (destinationIndexPath.row != 0) { // ㄴ
+                    toSection += 1
+                }
+                todoList.insert(data, at: toSection)
+            }
+            
+        } else { // C(child)
+//            let data = todoList[sourceIndexPath.section].subTodoList.remove(at: sourceIndexPath.row - 1)
+            
+            guard !isLastDestination(destinationPath: destinationIndexPath) else {
+                let data = todoList[sourceIndexPath.section].subTodoList.remove(at: sourceIndexPath.row - 1)
+                let tododata = TodoData()
+                tododata.title = data.title
+                tododata.memo = data.memo
+                tododata.isFinish = data.isFinish
+                tododata.objectID = data.objectID
+                tododata.regDate = data.regDate
+                todoList.append(tododata)
+                return
+            }
+            
+            if destinationIndexPath.row != 0 { // A. x섹션의 y위치로 삽입 (subs)
+                guard isC(sourceIndexPath: destinationIndexPath) && todoList[destinationIndexPath.section].isOpen! else {
+                    let data = todoList[sourceIndexPath.section].subTodoList.remove(at: sourceIndexPath.row - 1)
+                    let tododata = TodoData()
+                    tododata.title = data.title
+                    tododata.memo = data.memo
+                    tododata.isFinish = data.isFinish
+                    tododata.objectID = data.objectID
+                    tododata.regDate = data.regDate
+                    todoList.insert(tododata, at: destinationIndexPath.section)
+                    return
+                }
+                let data = todoList[sourceIndexPath.section].subTodoList.remove(at: sourceIndexPath.row - 1)
+                todoList[destinationIndexPath.section].subTodoList.insert(data, at: destinationIndexPath.row - 1)
+            } else { // B. x섹션의 p로 삽입(타입 변환)
+                let data = todoList[sourceIndexPath.section].subTodoList.remove(at: sourceIndexPath.row - 1)
+                let tododata = TodoData()
+                tododata.title = data.title
+                tododata.memo = data.memo
+                tododata.isFinish = data.isFinish
+                tododata.objectID = data.objectID
+                tododata.regDate = data.regDate
+                todoList.insert(tododata, at: destinationIndexPath.section)
+            }
+        }
+    }
+    
+    func updateInsertIntoDatasource(destinationIndexPath: IndexPath) {
+        let sourceIndexPath = self.startIndexPath!
+        if isP(sourceIndexPath: sourceIndexPath) {
+            let todo = todoList[sourceIndexPath.section]
+            let subs = Todo()
+            subs.title = todo.title
+            subs.memo = todo.memo
+            subs.isFinish = todo.isFinish
+            subs.regDate = todo.regDate
+            // objID처리는.... 나중에 DAO연결할 때 처리함
+            todoList[destinationIndexPath.section].subTodoList.append(subs)
+            todoList[destinationIndexPath.section].isOpen = true
+            todoList.remove(at: sourceIndexPath.section)
+            
+        } else { // isC
+            guard sourceIndexPath.section != destinationIndexPath.section else { return }
+            let subs = todoList[sourceIndexPath.section].subTodoList[sourceIndexPath.row - 1]
+            let newSubs = Todo()
+            newSubs.title = subs.title
+            newSubs.memo = subs.memo
+            newSubs.isFinish = subs.isFinish
+            newSubs.regDate = subs.regDate
+            // objID는 나중에 DAO할 때 처리하기로
+            todoList[destinationIndexPath.section].subTodoList.append(newSubs)
+            todoList[destinationIndexPath.section].isOpen = true
+            todoList[sourceIndexPath.section].subTodoList.remove(at: sourceIndexPath.row - 1)
+        }
+    }
 }
