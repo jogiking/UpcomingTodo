@@ -15,6 +15,7 @@
     </entity>
     <entity name="Todo" representedClassName="TodoMO" syncable="YES" codeGenerationType="class">
         <attribute name="isfinish" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isopen" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="memo" optional="YES" attributeType="String"/>
         <attribute name="regdate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" optional="YES" attributeType="String"/>
@@ -24,6 +25,6 @@
     <elements>
         <element name="Catalog" positionX="163.5703125" positionY="-40.34375" width="128" height="103"/>
         <element name="SubTodo" positionX="-239.82421875" positionY="89.0859375" width="128" height="118"/>
-        <element name="Todo" positionX="-63" positionY="-18" width="128" height="133"/>
+        <element name="Todo" positionX="-63" positionY="-18" width="128" height="148"/>
     </elements>
 </model>

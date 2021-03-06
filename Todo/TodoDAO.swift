@@ -41,6 +41,7 @@ class TodoDAO {
                     todoData.isFinish = todo.isfinish
                     todoData.title = todo.title
                     todoData.memo = todo.memo
+                    todoData.isOpen = todo.isopen
                     todoData.objectID = todo.objectID
                     
                     let subTodos = todo.subTodos?.array as! [SubTodoMO]
@@ -87,6 +88,7 @@ class TodoDAO {
         object.memo = data.memo
         object.isfinish = data.isFinish!
         object.regdate = data.regDate
+        object.isopen = data.isOpen!
         
         let catalogObject = context.object(with: catalogObjectID) as! CatalogMO
         object.catalogList = catalogObject
