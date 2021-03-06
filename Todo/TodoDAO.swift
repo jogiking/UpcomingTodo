@@ -22,6 +22,8 @@ class TodoDAO {
         var data = [CatalogData]()
         
         let fetchRequestOfCatalogMO: NSFetchRequest<CatalogMO> = CatalogMO.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "displayorder", ascending: true)
+        fetchRequestOfCatalogMO.sortDescriptors = [sortDescriptor]
 
         do {
             let catalogResutSet = try self.context.fetch(fetchRequestOfCatalogMO)
@@ -40,7 +42,6 @@ class TodoDAO {
                     todoData.title = todo.title
                     todoData.memo = todo.memo
                     todoData.objectID = todo.objectID
-                    todoData.displayOrder = Int(todo.displayorder)
                     
                     let subTodos = todo.subTodos?.array as! [SubTodoMO]
                     for subTodo in subTodos {
@@ -50,7 +51,6 @@ class TodoDAO {
                         subTodoData.objectID = subTodo.objectID
                         subTodoData.regDate = subTodo.regdate
                         subTodoData.isFinish = subTodo.isfinish
-                        subTodoData.displayOrder = Int(subTodo.displayorder)
                         
                         todoData.subTodoList.append(subTodoData)
                     }
@@ -66,7 +66,7 @@ class TodoDAO {
         return data
     }
     
-    func insert(_ data: CatalogData) {
+    func insert(_ data: CatalogData) -> CatalogMO {
         let object = NSEntityDescription.insertNewObject(forEntityName: "Catalog", into: self.context) as! CatalogMO
 
         object.name = data.name
@@ -78,15 +78,15 @@ class TodoDAO {
         } catch let e as NSError {
             NSLog("An error has occurred : %s", e.localizedDescription)
         }
+        return object
     }
     
-    func insert(_ data: TodoData, catalogObjectID: NSManagedObjectID) {
+    func insert(_ data: TodoData, catalogObjectID: NSManagedObjectID) -> TodoMO {
         let object = NSEntityDescription.insertNewObject(forEntityName: "Todo", into: self.context) as! TodoMO
         object.title = data.title
         object.memo = data.memo
         object.isfinish = data.isFinish!
         object.regdate = data.regDate
-        object.displayorder = Int16(data.displayOrder!)
         
         let catalogObject = context.object(with: catalogObjectID) as! CatalogMO
         object.catalogList = catalogObject
@@ -96,24 +96,25 @@ class TodoDAO {
         } catch let e as NSError {
             NSLog("An error has occurred : %s", e.localizedDescription)
         }
+        return object
     }
     
-    func insert(_ data: Todo, subTodoObjectID: NSManagedObjectID) {
+    func insert(_ data: Todo, todoDataObjectID: NSManagedObjectID) -> SubTodoMO {
         let object = NSEntityDescription.insertNewObject(forEntityName: "SubTodo", into: self.context) as! SubTodoMO
         object.title = data.title
         object.memo = data.memo
         object.isfinish = data.isFinish!
         object.regdate = data.regDate
-        object.displayorder = Int16(data.displayOrder!)
         
-        let todoObject = context.object(with: subTodoObjectID) as! TodoMO
-        object.todo = todoObject
+        let todoDataObject = context.object(with: todoDataObjectID) as! TodoMO
+        object.todo = todoDataObject
         
         do {
             try self.context.save()
         } catch let e as NSError {
             NSLog("An error has occurred : %s", e.localizedDescription)
         }
+        return object
     }
     
     func delete(_ objectID: NSManagedObjectID) -> Bool {
@@ -137,7 +138,6 @@ class TodoDAO {
         object.setValue(item.memo, forKey: "memo")
         object.setValue(item.regDate, forKey: "regdate")
         object.setValue(item.isFinish, forKey: "isfinish")
-        object.setValue(item.displayOrder, forKey: "displayorder")
         
         do {
             try context.save()
@@ -148,7 +148,7 @@ class TodoDAO {
         }
     }
     
-    func updateDisplayOrder(todoList: [TodoData], insertIndex at: Int) {
+    func updateDisplayOrder(todoList: [Todo], insertIndex at: Int) {
         guard at < todoList.count - 1 else { return }
         
         for index in at + 1...todoList.count - 1 {
@@ -163,7 +163,7 @@ class TodoDAO {
         }
     }
     
-    func updateDisplayOrder(todoList: [TodoData], removeIndex at: Int) {
+    func updateDisplayOrder(todoList: [Todo], removeIndex at: Int) {
         guard at < todoList.count - 1 else { return }
         
         for index in at...todoList.count - 1 {
@@ -175,6 +175,57 @@ class TodoDAO {
             try context.save()
         } catch {
             context.rollback()
+        }
+    }
+    
+//    func updateDisplayOrder(todoList: [Todo], removeIndex at: Int) {
+//        guard at < todoList.count - 1 else { return }
+//        
+//        for index in at...todoList.count - 1 {
+//            let objID = todoList[index].objectID
+//            let object = context.object(with: objID!)
+//            object.setValue(index, forKey: "displayorder")
+//        }
+//        do {
+//            try context.save()
+//        } catch {
+//            context.rollback()
+//        }
+//    }
+    
+    func updateDisplayOrder(removeCatalogIndex at: Int) {
+        let indexOfLast = appDelegate.myData.count - 1
+        guard at < indexOfLast else { return }
+        
+        for index in at...indexOfLast {
+            let objID = appDelegate.myData[index].objectID
+            let object = context.object(with: objID!)
+            object.setValue(index, forKey: "displayorder")
+        }
+        do {
+            try context.save()
+        } catch {
+            context.rollback()
+        }
+    }
+    
+
+    func saveCatalogContext(_ discardingCatalog: CatalogData, discardingCatalogObjectID: NSManagedObjectID) {
+        
+        if delete(discardingCatalogObjectID) {
+            let catalogMO = insert(discardingCatalog)
+            for todoData in discardingCatalog.todoList {
+                let todoMO = insert(todoData, catalogObjectID: catalogMO.objectID)
+                for subTodo in todoData.subTodoList {
+                    _ = insert(subTodo, todoDataObjectID: todoMO.objectID)
+                }
+            }
+            
+            do {
+                try context.save()
+            } catch {
+                context.rollback()
+            }
         }
     }
 }

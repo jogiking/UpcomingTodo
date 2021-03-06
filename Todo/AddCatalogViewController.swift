@@ -40,6 +40,9 @@ class AddCatalogViewController: UIViewController {
         let data = CatalogData()
         data.name = inputTextField.text
         data.regDate = Date()
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        data.displayOrder = appDelegate.myData.count
         self.dao.insert(data)
     
         guard let pvc = self.presentingViewController as? UINavigationController else { return }

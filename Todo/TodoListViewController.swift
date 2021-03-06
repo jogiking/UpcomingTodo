@@ -4,7 +4,6 @@
 //
 //  Created by turu on 2021/02/25.
 //
-
 import UIKit
 import CoreData
 
@@ -26,8 +25,17 @@ class TodoListViewController: UIViewController {
 
     var startIndexPath: IndexPath?
     
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        super.viewWillDisappear(animated)
+        print("🍎viewWillDisappear")
+        currentCatalogData?.todoList = todoList
+        dao.saveCatalogContext(currentCatalogData!, discardingCatalogObjectID: (currentCatalogData?.objectID)!)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("🍎viewDidLoad")
         
         mainTitle.text = currentCatalogData?.name
         todoList = currentCatalogData!.todoList
@@ -424,7 +432,7 @@ extension TodoListViewController: UITableViewDropDelegate {
                 let data = todoList.remove(at: sourceIndexPath.section) // 마지막 셀일 때
                 // dao.delete 호출
                 // dao context안정화... dao.delete->나머지데이터들의 displayorder가 다 틀리게 되므로,
-                // 
+                //
                 // appdelegate에 있는 todoList와
                 todoList.append(data)
                 // dao.insert 호출
@@ -504,7 +512,7 @@ extension TodoListViewController: UITableViewDropDelegate {
             subs.memo = todo.memo
             subs.isFinish = todo.isFinish
             subs.regDate = todo.regDate
-            // objID처리는.... 나중에 DAO연결할 때 처리함
+
             todoList[destinationIndexPath.section].subTodoList.append(subs)
             todoList[destinationIndexPath.section].isOpen = true
             todoList.remove(at: sourceIndexPath.section)
@@ -517,7 +525,7 @@ extension TodoListViewController: UITableViewDropDelegate {
             newSubs.memo = subs.memo
             newSubs.isFinish = subs.isFinish
             newSubs.regDate = subs.regDate
-            // objID는 나중에 DAO할 때 처리하기로
+
             todoList[destinationIndexPath.section].subTodoList.append(newSubs)
             todoList[destinationIndexPath.section].isOpen = true
             todoList[sourceIndexPath.section].subTodoList.remove(at: sourceIndexPath.row - 1)

@@ -47,7 +47,7 @@ class MainPageViewController: UIViewController {
     }
     
     func updateMainPage() {
-        print("updateMainPage. contentSizeHeight = \(tableView.contentSize.height)")
+//        print("updateMainPage. contentSizeHeight = \(tableView.contentSize.height)")
         appDelegate.myData = self.dao.fetch()
         setupCardViews()
         
@@ -79,6 +79,7 @@ class MainPageViewController: UIViewController {
         guard let addCatalogVC = storyboard?.instantiateViewController(identifier: "addCatalogVC") else {
             return
         }
+        
         addCatalogVC.modalPresentationStyle = .pageSheet
         present(addCatalogVC, animated: true)
     }
@@ -89,6 +90,23 @@ extension MainPageViewController: UITableViewDelegate {
 }
 
 extension MainPageViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let catalog = appDelegate.myData[indexPath.row]
+            if dao.delete(catalog.objectID!) {
+                appDelegate.myData.remove(at: indexPath.row)
+                dao.updateDisplayOrder(removeCatalogIndex: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                
+                updateMainPage()
+            }
+        }
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let todoListVC = self.storyboard?.instantiateViewController(identifier: "todoListVC") as? TodoListViewController else {
             return
@@ -104,7 +122,7 @@ extension MainPageViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("cellForRowAt. name = \(appDelegate.myData[indexPath.row].name)")
+//        print("cellForRowAt. name = \(appDelegate.myData[indexPath.row].name)")
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "catalogCell",for: indexPath)
         
@@ -118,7 +136,7 @@ extension MainPageViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("numberOfRowInSection : \(appDelegate.myData.count)")
+//        print("numberOfRowInSection : \(appDelegate.myData.count)")
         return appDelegate.myData.count
     }
     
