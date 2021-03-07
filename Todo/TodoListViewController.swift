@@ -74,7 +74,7 @@ class TodoListViewController: UIViewController {
         }
     }
     
-    func afterOp(indexPath: IndexPath) {
+    func afterOp(indexPath: IndexPath) { // 해당 indexPath의 셀의 constraint들을 재조정해주는 메서드
         if let cell = tableView.cellForRow(at: indexPath) as? DynamicCellProtocol {
             guard !isPc(sourceIndexPath: indexPath) else {
                 let isOpen = todoList[indexPath.section].isOpen!
@@ -104,7 +104,7 @@ class TodoListViewController: UIViewController {
             if isC(sourceIndexPath: indexPath) {
                 todoList[indexPath.section].subTodoList.remove(at: indexPath.row - 1)
                 tableView.deleteRows(at: [indexPath], with: .fade)
-                tableView.reloadSections(IndexSet(indexPath.section...indexPath.section), with: .fade)
+//                tableView.reloadSections(IndexSet(indexPath.section...indexPath.section), with: .fade)
             } else {
                 todoList.remove(at: indexPath.section)
                 tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
@@ -113,7 +113,7 @@ class TodoListViewController: UIViewController {
             
             editingStatus.textView!.resignFirstResponder()
             editingStatus.isEditingMode = false
-            afterOp(indexPath: indexPath)
+            //afterOp(indexPath: indexPath) // 여기서는 필요없지않나...
             return
         }
         
@@ -134,8 +134,10 @@ class TodoListViewController: UIViewController {
     }
     
     @IBAction func completionClick(_ sender: Any) {
-        textEditingFinish()
-    
+//        textEditingFinish()
+        if editingStatus.isEditingMode {
+            editingStatus.textView?.resignFirstResponder()
+        }
     }
     
     @IBAction func updateView(_ sender: Any) {
@@ -283,11 +285,12 @@ extension TodoListViewController: UITableViewDelegate,
             if indexPath.row == 0 {
                 todoList.remove(at: indexPath.section)
                 tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
-                tableView.reloadData()
+//                tableView.reloadData()
             } else {
                 todoList[indexPath.section].subTodoList.remove(at: indexPath.row - 1)
                 tableView.deleteRows(at: [indexPath], with: .fade)
-                tableView.reloadSections(IndexSet(indexPath.section...indexPath.section), with: .fade)
+//                tableView.reloadSections(IndexSet(indexPath.section...indexPath.section), with: .fade)
+
             }
         }
     }
