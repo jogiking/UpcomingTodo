@@ -17,7 +17,7 @@ class TodoListViewController: UIViewController {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     lazy var dao = TodoDAO()
         
-    var editingStatus: (isEditingMode: Bool, indexPath: IndexPath?, textView: UITextView?) = (false, nil, nil) {
+    var editingStatus: (isEditingMode: Bool, cell: UITableViewCell?, textView: UITextView?) = (false, nil, nil) {
         didSet(oldValue) {
             if oldValue.isEditingMode != editingStatus.isEditingMode {
                 chageCompletionBtnImage()
@@ -88,9 +88,16 @@ class TodoListViewController: UIViewController {
     
     func textEditingFinish() {
         guard editingStatus.isEditingMode else { return }
-        guard let indexPath = editingStatus.indexPath else {  // 이 경우는 존재하는가?
+//        guard let indexPath = editingStatus.indexPath else {  // 이 경우는 존재하는가?
+//            return
+//        }
+        
+        guard let cell = editingStatus.cell else {
+            print("textEditingFinish] cell was nil")
             return
         }
+        
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
         
         //  guard let cell = tableView.cellForRow(at: indexPath) as? BasicCell, let tv = cell.title else { return }
         guard editingStatus.textView?.text.isEmpty == false else {
@@ -208,8 +215,8 @@ extension TodoListViewController: UITextViewDelegate {
             // 여기서 completion 버튼 이미지 변경도 해줘야함.
             //editingMode = true
             
-            let indexPath = tableView.indexPath(for: cell as! UITableViewCell)
-            editingStatus = (true, indexPath, textView)
+//            let indexPath = tableView.indexPath(for: cell as! UITableViewCell)
+            editingStatus = (true, cell as! UITableViewCell, textView)
         }
     }
 
