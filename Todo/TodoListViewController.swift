@@ -17,11 +17,6 @@ class TodoListViewController: UIViewController {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     lazy var dao = TodoDAO()
         
-//    var editingMode: Bool = false {
-//        didSet {
-//            chageCompletionBtnImage()
-//        }
-//    }
     var editingStatus: (isEditingMode: Bool, indexPath: IndexPath?, textView: UITextView?) = (false, nil, nil) {
         didSet(oldValue) {
             if oldValue.isEditingMode != editingStatus.isEditingMode {
@@ -68,9 +63,7 @@ class TodoListViewController: UIViewController {
         
     }
     
-    func afterOp() {
-        let indexPath = editingStatus.indexPath!
-        
+    func afterOp(indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? DynamicCellProtocol {
             guard !isPc(sourceIndexPath: indexPath) else {
                 let isOpen = todoList[indexPath.section].isOpen!
@@ -82,65 +75,50 @@ class TodoListViewController: UIViewController {
         }
     }
     
-    @IBAction func completionClick(_ sender: Any) {
-
-        if editingStatus.isEditingMode {
-            
-            guard let indexPath = editingStatus.indexPath else {  // 이 경우는 존재하는가?
-                return
-            }
-            
-            // guard let cell = tableView.cellForRow(at: indexPath) as? BasicCell, let tv = cell.title else { return }
-            
-            guard editingStatus.textView?.text.isEmpty == false else {
-//                todoList.removeLast()
-//                tableView.deleteSections(IndexSet(integer: todoList.count), with: .fade)
-                if isC(sourceIndexPath: indexPath) {
-                    todoList[indexPath.section].subTodoList.remove(at: indexPath.row - 1)
-                    tableView.deleteRows(at: [indexPath], with: .fade)
-                } else {
-                    todoList.remove(at: indexPath.section)
-                    tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
-                }
-                
-                editingStatus.textView!.resignFirstResponder()
-                editingStatus.isEditingMode = false
-                afterOp()
-                return
-            }
-            
+    func textEditingFinish() {
+        guard editingStatus.isEditingMode else { return }
+        guard let indexPath = editingStatus.indexPath else {  // 이 경우는 존재하는가?
+            return
+        }
+        
+        //  guard let cell = tableView.cellForRow(at: indexPath) as? BasicCell, let tv = cell.title else { return }
+        guard editingStatus.textView?.text.isEmpty == false else {
             if isC(sourceIndexPath: indexPath) {
-                let editTodo = todoList[indexPath.section].subTodoList[indexPath.row - 1]
-                editTodo.title = editingStatus.textView!.text
-                editTodo.regDate = Date()
+                todoList[indexPath.section].subTodoList.remove(at: indexPath.row - 1)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                tableView.reloadSections(IndexSet(indexPath.section...indexPath.section), with: .fade)
             } else {
-                let editTodo = todoList[indexPath.section]
-                editTodo.title = editingStatus.textView!.text
-                editTodo.regDate = Date()
+                todoList.remove(at: indexPath.section)
+                tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
             }
+            
+//            tableView.reloadSections(IndexSet(indexPath.section...indexPath.section), with: .fade)
             
             editingStatus.textView!.resignFirstResponder()
             editingStatus.isEditingMode = false
-            afterOp()
+            afterOp(indexPath: indexPath)
+            return
         }
         
-//        guard let cell = tableView.cellForRow(at: IndexPath(row: 0, section: todoList.count - 1)) as? BasicCell,
-//              let tv = cell.title else { return }
-//
-//        tv.resignFirstResponder()
-//        editingMode = false
-//
-//        guard tv.text.isEmpty == false else {
-//            todoList.removeLast()
-//            tableView.deleteSections(IndexSet(integer: todoList.count), with: .fade)
-//            return
-//        }
-//
-//        let lastTodo = todoList.last!
-//        lastTodo.title = tv.text
-//        lastTodo.regDate = Date()
-//
-//    }
+        if isC(sourceIndexPath: indexPath) {
+            let editTodo = todoList[indexPath.section].subTodoList[indexPath.row - 1]
+            editTodo.title = editingStatus.textView!.text
+            editTodo.regDate = Date()
+        } else {
+            let editTodo = todoList[indexPath.section]
+            editTodo.title = editingStatus.textView!.text
+            editTodo.regDate = Date()
+        }
+        
+        editingStatus.textView!.resignFirstResponder()
+        editingStatus.isEditingMode = false
+        afterOp(indexPath: indexPath)
+        
+    }
+    
+    @IBAction func completionClick(_ sender: Any) {
+        textEditingFinish()
+    
     }
     
     @IBAction func updateView(_ sender: Any) {
@@ -203,14 +181,10 @@ class TodoListViewController: UIViewController {
     }
 
     @IBAction func addTodo(_ sender: Any) {
-        // 새로운 셀을 테이블에 추가만 한다.
-        // 그리고 save누르면 그 셀이 저장이 되게
-        
         self.todoList.append(TodoData())
         tableView.insertSections(IndexSet(integer: todoList.count - 1), with: .bottom)
-//        completeButton.image = nil
-        
-//        editingMode = false
+//        completeButton.image = nil // 직접 이미지를 수정하는게 아니고 editIngMode didSet 옵저버에서 일괄적으로 처리해준다.
+//        editingMode = false // 여기서 editingMode를 수정하지 말고 실제 셀의 textView delegate 메서드에서 수정해준다.
         scrollToBottom()
     }
 }
@@ -219,7 +193,7 @@ extension TodoListViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         // 해당하는 셀의 btn 이미지를 바꿔야한다(생기는거로)
         print("textViewDidBeginEditing")
-
+        
         if let cell = textView.superview?.superview as? DynamicCellProtocol {
             cell.shrinkAccessory(false)
             cell.changeBtnStatusImage(statusType: .InfoCircle)
@@ -234,21 +208,14 @@ extension TodoListViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if (text == "\n") {
             textView.resignFirstResponder()
-            
-            if let cell = textView.superview?.superview as? DynamicCellProtocol {
-                if let indexPath = tableView.indexPath(for: cell as! UITableViewCell) {
-                    guard !isPc(sourceIndexPath: indexPath) else {
-                        let isOpen = todoList[indexPath.section].isOpen!
-                        let statusType: TableViewCellRightButtonStatus = isOpen ? .DisclosureOpen : .DisclosureClose
-                        cell.changeBtnStatusImage(statusType: statusType)
-                        return true
-                    }
-                    cell.shrinkAccessory(true) // p, c
-                }
-            }
         }
         
         return true
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        print("textViewDidEndEtiting] \(textView.text)")
+        textEditingFinish()
     }
     
     func textViewDidChange(_ textView: UITextView) {
