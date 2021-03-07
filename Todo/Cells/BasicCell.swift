@@ -7,7 +7,19 @@
 
 import UIKit
 
-class BasicCell: UITableViewCell {
+enum TableViewCellRightButtonStatus: String {
+    case DisclosureOpen =  "disclosure_open"
+    case DisclosureClose = "disclosure_close"
+    case InfoCircle = "info.circle"
+}
+
+protocol DynamicCellProtocol {
+    func shrinkAccessory(_: Bool)
+    func indentLeading(_: Bool)
+    func changeBtnStatusImage(statusType: TableViewCellRightButtonStatus)
+}
+
+class BasicCell: UITableViewCell, DynamicCellProtocol {
 
     @IBOutlet weak var selectImg: UIImageView!
     @IBOutlet weak var title: UITextView!
@@ -41,6 +53,7 @@ class BasicCell: UITableViewCell {
         } else {
             btnWidthConstraint.constant = constantOfBtnWidth
             childNumberWidthConstraint.constant = constantOfChildNumberWidth
+            
         }
     }
     
@@ -50,5 +63,18 @@ class BasicCell: UITableViewCell {
         } else {
             selectImgLeadingConstraint.constant = constantOfSelectImgLeading
         }
+    }
+    
+    func changeBtnStatusImage(statusType: TableViewCellRightButtonStatus) {
+        switch statusType {
+        case .InfoCircle :
+            btn.image = UIImage(systemName: statusType.rawValue)
+            childNumberWidthConstraint.constant = 0
+            
+        case .DisclosureClose, .DisclosureOpen :
+            btn.image = UIImage(named: statusType.rawValue)
+            shrinkAccessory(false)
+        }
+        
     }
 }

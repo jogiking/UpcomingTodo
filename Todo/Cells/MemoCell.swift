@@ -7,8 +7,7 @@
 
 import UIKit
 
-class MemoCell: UITableViewCell {
-
+class MemoCell: UITableViewCell, DynamicCellProtocol {
     
     @IBOutlet weak var selectImg: UIImageView!
     @IBOutlet weak var title: UITextView!
@@ -43,14 +42,20 @@ class MemoCell: UITableViewCell {
         } else {
             btnWidthConstraint.constant = constantOfBtnWidth
             childNumberWidthConstraint.constant = constantOfChildNumberWidth
+        
         }
     }
-    
+
     func indentLeading(_ flag: Bool) {
         if flag {
             selectImgLeadingConstraint.constant = constantOfIndent
         } else {
             selectImgLeadingConstraint.constant = constantOfSelectImgLeading
         }
+    }
+    
+    func changeBtnStatusImage(statusType: TableViewCellRightButtonStatus) {
+        print("rawValue=\(statusType.rawValue)")
+        btn.image = UIImage(systemName: statusType.rawValue)
     }
 }
