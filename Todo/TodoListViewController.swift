@@ -57,10 +57,21 @@ class TodoListViewController: UIViewController {
         
         tableView.register(UINib(nibName: "BasicCell", bundle: nil), forCellReuseIdentifier: "basicCell")
         tableView.register(UINib(nibName: "MemoCell", bundle: nil), forCellReuseIdentifier: "memoCell")
-
+        tableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tableViewTouch(_:))))
+        
         completeButton.image = UIImage(systemName: "ellipsis.circle")
         completeButton.title = "완료"
         
+        
+    }
+    
+    @objc func tableViewTouch(_ sender: Any) {
+        switch editingStatus.isEditingMode {
+        case true:
+            editingStatus.textView?.resignFirstResponder()
+        case false:
+            addTodo(sender)
+        }
     }
     
     func afterOp(indexPath: IndexPath) {
@@ -91,7 +102,6 @@ class TodoListViewController: UIViewController {
                 todoList.remove(at: indexPath.section)
                 tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
             }
-            
 //            tableView.reloadSections(IndexSet(indexPath.section...indexPath.section), with: .fade)
             
             editingStatus.textView!.resignFirstResponder()
@@ -183,8 +193,6 @@ class TodoListViewController: UIViewController {
     @IBAction func addTodo(_ sender: Any) {
         self.todoList.append(TodoData())
         tableView.insertSections(IndexSet(integer: todoList.count - 1), with: .bottom)
-//        completeButton.image = nil // 직접 이미지를 수정하는게 아니고 editIngMode didSet 옵저버에서 일괄적으로 처리해준다.
-//        editingMode = false // 여기서 editingMode를 수정하지 말고 실제 셀의 textView delegate 메서드에서 수정해준다.
         scrollToBottom()
     }
 }
@@ -266,20 +274,13 @@ extension TodoListViewController: UITableViewDelegate,
         print("delete?? section: \(indexPath.section), row : \(indexPath.row)")
         if editingStyle == .delete {
             if indexPath.row == 0 {
-//                let data = todoList[indexPath.section]
-//                if dao.delete(data.objectID!) {
-                    todoList.remove(at: indexPath.section)
-                    tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
-                    tableView.reloadData()
-//                }
-                
+                todoList.remove(at: indexPath.section)
+                tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
+                tableView.reloadData()
             } else {
-//                let data = todoList[indexPath.section].subTodoList[indexPath.row - 1]
-//                if dao.delete(data.objectID!) {
-                    todoList[indexPath.section].subTodoList.remove(at: indexPath.row - 1)
-                    tableView.deleteRows(at: [indexPath], with: .fade)
-                    tableView.reloadSections(IndexSet(indexPath.section...indexPath.section), with: .fade)
-//                }
+                todoList[indexPath.section].subTodoList.remove(at: indexPath.row - 1)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                tableView.reloadSections(IndexSet(indexPath.section...indexPath.section), with: .fade)
             }
         }
     }
