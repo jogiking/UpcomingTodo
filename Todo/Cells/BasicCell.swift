@@ -17,9 +17,11 @@ protocol DynamicCellProtocol {
     func shrinkAccessory(_: Bool)
     func indentLeading(_: Bool)
     func changeBtnStatusImage(statusType: TableViewCellRightButtonStatus)
+    var rightBtnUITapGestureRecognizerDelegate: UITapGestureRecognizer? { get set }
 }
 
 class BasicCell: UITableViewCell, DynamicCellProtocol {
+    var rightBtnUITapGestureRecognizerDelegate: UITapGestureRecognizer?    
 
     @IBOutlet weak var selectImg: UIImageView!
     @IBOutlet weak var title: UITextView!

@@ -8,6 +8,7 @@
 import UIKit
 
 class MemoCell: UITableViewCell, DynamicCellProtocol {
+    var rightBtnUITapGestureRecognizerDelegate: UITapGestureRecognizer?
     
     @IBOutlet weak var selectImg: UIImageView!
     @IBOutlet weak var title: UITextView!

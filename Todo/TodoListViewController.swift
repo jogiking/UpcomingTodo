@@ -57,7 +57,10 @@ class TodoListViewController: UIViewController {
         
         tableView.register(UINib(nibName: "BasicCell", bundle: nil), forCellReuseIdentifier: "basicCell")
         tableView.register(UINib(nibName: "MemoCell", bundle: nil), forCellReuseIdentifier: "memoCell")
-        tableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tableViewTouch(_:))))
+        
+        let tableViewGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tableViewTouch(_:)))
+//        tableViewGestureRecognizer.cancelsTouchesInView = false
+        tableView.addGestureRecognizer(tableViewGestureRecognizer)
         
         completeButton.image = UIImage(systemName: "ellipsis.circle")
         completeButton.title = "완료"
@@ -103,16 +106,17 @@ class TodoListViewController: UIViewController {
         guard editingStatus.textView?.text.isEmpty == false else {
             if isC(sourceIndexPath: indexPath) {
                 todoList[indexPath.section].subTodoList.remove(at: indexPath.row - 1)
-                tableView.deleteRows(at: [indexPath], with: .fade)
-//                tableView.reloadSections(IndexSet(indexPath.section...indexPath.section), with: .fade)
+//                tableView.deleteRows(at: [indexPath], with: .fade)
+                tableView.reloadSections(IndexSet(integer: indexPath.section), with: .fade)
             } else {
                 todoList.remove(at: indexPath.section)
+              
                 tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
             }
 //            tableView.reloadSections(IndexSet(indexPath.section...indexPath.section), with: .fade)
             
-            editingStatus.textView!.resignFirstResponder()
-            editingStatus.isEditingMode = false
+//            editingStatus.textView!.resignFirstResponder()
+//            editingStatus.isEditingMode = false
             //afterOp(indexPath: indexPath) // 여기서는 필요없지않나...
             return
         }
@@ -127,8 +131,8 @@ class TodoListViewController: UIViewController {
             editTodo.regDate = Date()
         }
         
-        editingStatus.textView!.resignFirstResponder()
-        editingStatus.isEditingMode = false
+//        editingStatus.textView!.resignFirstResponder()
+//        editingStatus.isEditingMode = false
         afterOp(indexPath: indexPath)
         
     }
@@ -138,11 +142,6 @@ class TodoListViewController: UIViewController {
         if editingStatus.isEditingMode {
             editingStatus.textView?.resignFirstResponder()
         }
-    }
-    
-    @IBAction func updateView(_ sender: Any) {
-        self.tableView.invalidateIntrinsicContentSize()
-        self.tableView.reloadData()
     }
     
     func hasMemo(indexPath: IndexPath) -> Bool {
@@ -161,14 +160,37 @@ class TodoListViewController: UIViewController {
     @objc func tappedSelectImage(_ sender: Any) {
         print("tapped SelectImage")
     }
-
+    
     @objc func tappedOpenImage(_ sender: Any) {
         print("tapped OpenImage")
-        if let tgr = sender as? UITapGestureRecognizer {
-            let section = (tgr.view?.tag)!
+        
+        if editingStatus.isEditingMode {
+            print("memoCell을 여기서 만들어주면 됩니다.")
+            if let tgr = sender as? UITapGestureRecognizer {
+                if let cell = tgr.view?.superview?.superview as? UITableViewCell {
+                    if editingStatus.cell == cell {
+                        // memoCell segue
+                        print("go to memoCellSegue")
+                    } else {
+                        print("open/close기능에만 신경")
+                        //let indexPath = tableView.indexPath(for: cell)
+                        //let section = (indexPath?.section)!
+                        var section = (tableView.indexPath(for: cell)?.section)!
+                
+                        todoList[section].isOpen = !(todoList[section].isOpen!)
+                        editingStatus.textView?.resignFirstResponder()
+                        tableView.reloadSections(IndexSet(integer: section), with: .none)
+                    }
+                }
+            }
             
-            todoList[section].isOpen = !(todoList[section].isOpen!)
-            tableView.reloadSections(IndexSet(section...section), with: .none)
+        } else {
+            if let tgr = sender as? UITapGestureRecognizer {
+                let section = (tgr.view?.tag)!
+                
+                todoList[section].isOpen = !(todoList[section].isOpen!)
+                tableView.reloadSections(IndexSet(section...section), with: .none)
+            }
         }
     }
     
@@ -214,11 +236,8 @@ extension TodoListViewController: UITextViewDelegate {
         if let cell = textView.superview?.superview as? DynamicCellProtocol {
             cell.shrinkAccessory(false)
             cell.changeBtnStatusImage(statusType: .InfoCircle)
-            // 여기서 completion 버튼 이미지 변경도 해줘야함.
-            //editingMode = true
             
-//            let indexPath = tableView.indexPath(for: cell as! UITableViewCell)
-            editingStatus = (true, cell as! UITableViewCell, textView)
+            editingStatus = (true, cell as? UITableViewCell, textView)
         }
     }
 
@@ -226,13 +245,16 @@ extension TodoListViewController: UITextViewDelegate {
         if (text == "\n") {
             textView.resignFirstResponder()
         }
-        
         return true
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         print("textViewDidEndEtiting] \(textView.text)")
         textEditingFinish()
+        
+        if editingStatus.isEditingMode {
+            editingStatus = (false, nil, nil)
+        }
     }
     
     func textViewDidChange(_ textView: UITextView) {
@@ -281,18 +303,61 @@ extension TodoListViewController: UITableViewDelegate,
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         print("delete?? section: \(indexPath.section), row : \(indexPath.row)")
+        
+//        let isStatusEditing = editingStatus.isEditingMode
+//        if isStatusEditing {
+//            editingStatus.isEditingMode = false
+//        }
+        
         if editingStyle == .delete {
+//            if editingStatus.isEditingMode {
+//                editingStatus.textView?.resignFirstResponder()
+////                editingStatus.isEditingMode = false
+//            }
+            
+            // commit위치가 빈셀의 바로 위일때만 빈셀의 지워짐도 같이처리됨
             if indexPath.row == 0 {
                 todoList.remove(at: indexPath.section)
                 tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
-//                tableView.reloadData()
             } else {
                 todoList[indexPath.section].subTodoList.remove(at: indexPath.row - 1)
+                
                 tableView.deleteRows(at: [indexPath], with: .fade)
-//                tableView.reloadSections(IndexSet(indexPath.section...indexPath.section), with: .fade)
-
+                //현재 indexPath가 isEdidtingMode인 셀이 아니라면 업데이트
+                
+                
+                if editingStatus.isEditingMode {
+                    let isEditingParentCell = tableView.indexPath(for: editingStatus.cell!) != IndexPath(row: 0, section: indexPath.section)
+                    editingStatus.textView?.resignFirstResponder()
+                    if isEditingParentCell {
+                        tableView.reloadRows(at: [IndexPath(row: 0, section: indexPath.section)], with: .automatic)
+                    }
+                } else {
+                    tableView.reloadRows(at: [IndexPath(row: 0, section: indexPath.section)], with: .automatic)
+                }
+                
+//                if editingStatus.isEditingMode {
+//                    editingStatus.textView?.resignFirstResponder()
+//                    // 만약 editing하는곳이 현재 subtodo셀의 부모라면 reloadSection하면안됨
+//                    // 만약 editing하는곳이 다른 셀이라면 reload해도될듯?
+//                    // 만약 edidting하는 중이 아니었다면, reloadSection
+//                    if tableView.indexPath(for: editingStatus.cell!) != indexPath {
+//
+//                    }
+//
+//                } else {
+//                    tableView.reloadSections(IndexSet(integer: indexPath.section), with: .automatic)
+//                }
+                // delete, reload할 때 해당영역에 빈셀이 있거나하면 에러가남.
+                // reload도중에 endAnimation하면서 resignResponder로 가서 textEditingFinish가 결국 호출되는데 이게 데이터 소스 불일치를 만들어냄. 해결방법은? reloadSection전에 직접 호출?
+//                tableView.reloadSections(IndexSet(integer: indexPath.section), with: .automatic)
             }
         }
+//
+//        if isStatusEditing {
+//            editingStatus.isEditingMode = true
+//            editingStatus.textView?.becomeFirstResponder()
+//        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -352,6 +417,8 @@ extension TodoListViewController: UITableViewDelegate,
     
     func setupBasicCell(indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath) as! BasicCell
+        cell.btn.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedOpenImage(_:))))
+        cell.btn.isUserInteractionEnabled = true
         
         if indexPath.row == 0 { // main cell
             let mainTodo = todoList[indexPath.section]
@@ -362,9 +429,9 @@ extension TodoListViewController: UITableViewDelegate,
             
             if mainTodo.numberOfSubTodo > 0 {
                 cell.btn.image = mainTodo.isOpen! ? UIImage(named: "disclosure_open") : UIImage(named: "disclosure_close")
-                cell.btn.isUserInteractionEnabled = true
+//                cell.btn.isUserInteractionEnabled = true
                 cell.btn.tag = indexPath.section
-                cell.btn.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedOpenImage(_:))))
+//                cell.btn.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedOpenImage(_:))))
                 cell.childNumber.text = mainTodo.isOpen! ? "" : String(todoList[indexPath.section].numberOfSubTodo)
                 cell.shrinkAccessory(false) // constraint 설정, not shrink
             } else { // shrink
@@ -386,12 +453,24 @@ extension TodoListViewController: UITableViewDelegate,
         
         return cell
     }
+    
+//    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+//        print("targetIndexPathForMoveFromRowAt")
+//        if editingStatus.isEditingMode {
+//            return sourceIndexPath
+//        } else {
+//            return proposedDestinationIndexPath
+//        }
+//    }
 }
 
 extension TodoListViewController: UITableViewDragDelegate {
     
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         print("itemsForBeginning] \(indexPath)")
+        if editingStatus.isEditingMode {
+            editingStatus.textView?.resignFirstResponder()
+        }
         self.startIndexPath = indexPath
         
         let section = indexPath.section
@@ -501,13 +580,7 @@ extension TodoListViewController: UITableViewDropDelegate {
         if !isC(sourceIndexPath: sourceIndexPath) { // P, Pc
             guard !isLastDestination(destinationPath: destinationIndexPath) else { // 마지막 셀이 아닐 때
                 let data = todoList.remove(at: sourceIndexPath.section) // 마지막 셀일 때
-                // dao.delete 호출
-                // dao context안정화... dao.delete->나머지데이터들의 displayorder가 다 틀리게 되므로,
-                //
-                // appdelegate에 있는 todoList와
                 todoList.append(data)
-                // dao.insert 호출
-                // dao context안정화
                 return
             }
             
