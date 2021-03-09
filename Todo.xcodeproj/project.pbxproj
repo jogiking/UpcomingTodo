@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF092BF725F76E5700ECFC1A /* TextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF092BF625F76E5700ECFC1A /* TextViewCell.swift */; };
+		DF092BFA25F76E9F00ECFC1A /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF092BF925F76E9F00ECFC1A /* SwitchCell.swift */; };
+		DF092BFE25F76F7400ECFC1A /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF092BFD25F76F7400ECFC1A /* DatePickerCell.swift */; };
 		DF19E6B425DA9DA2002544FB /* NormalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF19E6B225DA9DA2002544FB /* NormalCell.swift */; };
 		DF19E6B525DA9DA2002544FB /* NormalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF19E6B325DA9DA2002544FB /* NormalCell.xib */; };
 		DF4631EB25E8BD8B008B5FFB /* TodoListTableFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF4631EA25E8BD8B008B5FFB /* TodoListTableFooterView.xib */; };
@@ -39,6 +42,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DF092BF625F76E5700ECFC1A /* TextViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewCell.swift; sourceTree = "<group>"; };
+		DF092BF925F76E9F00ECFC1A /* SwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
+		DF092BFD25F76F7400ECFC1A /* DatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
 		DF19E6B225DA9DA2002544FB /* NormalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalCell.swift; sourceTree = "<group>"; };
 		DF19E6B325DA9DA2002544FB /* NormalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NormalCell.xib; sourceTree = "<group>"; };
 		DF4631EA25E8BD8B008B5FFB /* TodoListTableFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodoListTableFooterView.xib; sourceTree = "<group>"; };
@@ -95,11 +101,14 @@
 		DF4631F325E8C00B008B5FFB /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				DF092BF625F76E5700ECFC1A /* TextViewCell.swift */,
+				DF092BF925F76E9F00ECFC1A /* SwitchCell.swift */,
 				DF19E6B225DA9DA2002544FB /* NormalCell.swift */,
 				DF19E6B325DA9DA2002544FB /* NormalCell.xib */,
 				DFF18D4625EBDE9400CA777E /* BasicCell.swift */,
 				DFF18D4725EBDE9400CA777E /* BasicCell.xib */,
 				DFF18D4B25EBE0A500CA777E /* MemoCell.swift */,
+				DF092BFD25F76F7400ECFC1A /* DatePickerCell.swift */,
 				DFF18D4C25EBE0A500CA777E /* MemoCell.xib */,
 			);
 			path = Cells;
@@ -117,7 +126,6 @@
 		DF8E09C525DA7ADD005B5755 = {
 			isa = PBXGroup;
 			children = (
-				DF92A7C025F751D40032DA0C /* TodoDetailViewController.swift */,
 				DF8E09F725DA9223005B5755 /* Resources */,
 				DF8E09D025DA7ADD005B5755 /* Todo */,
 				DF8E09CF25DA7ADD005B5755 /* Products */,
@@ -143,6 +151,7 @@
 				DF7807AE25DFEE16008EAE7F /* MainPageViewController.swift */,
 				DF8E09D325DA7ADD005B5755 /* SceneDelegate.swift */,
 				DF8E09D525DA7ADD005B5755 /* ViewController.swift */,
+				DF92A7C025F751D40032DA0C /* TodoDetailViewController.swift */,
 				DF7CFC9A25E7E80700C389B4 /* TodoListViewController.swift */,
 				DF8E09EC25DA7B7C005B5755 /* TodoData.swift */,
 				DF8A2CF025E51082009417C6 /* TodoDAO.swift */,
@@ -254,15 +263,18 @@
 				DF19E6B425DA9DA2002544FB /* NormalCell.swift in Sources */,
 				DF7807AF25DFEE16008EAE7F /* MainPageViewController.swift in Sources */,
 				DF4631EF25E8BFAE008B5FFB /* TodoListTableFooterView.swift in Sources */,
+				DF092BFE25F76F7400ECFC1A /* DatePickerCell.swift in Sources */,
 				DFF18D4825EBDE9400CA777E /* BasicCell.swift in Sources */,
 				DF8E09D625DA7ADD005B5755 /* ViewController.swift in Sources */,
 				DFF18D4D25EBE0A500CA777E /* MemoCell.swift in Sources */,
 				DFB4079725E677F500BF79BA /* AddCatalogViewController.swift in Sources */,
 				DF8E09D225DA7ADD005B5755 /* AppDelegate.swift in Sources */,
+				DF092BFA25F76E9F00ECFC1A /* SwitchCell.swift in Sources */,
 				DF54651325E3DA0300B6E2F4 /* CardBoardView.swift in Sources */,
 				DF8E09D425DA7ADD005B5755 /* SceneDelegate.swift in Sources */,
 				DFF18D5325EBE4C000CA777E /* NewCellTestViewController.swift in Sources */,
 				DF8E09DC25DA7ADD005B5755 /* Todo.xcdatamodeld in Sources */,
+				DF092BF725F76E5700ECFC1A /* TextViewCell.swift in Sources */,
 				DF8E09ED25DA7B7C005B5755 /* TodoData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

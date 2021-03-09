@@ -308,6 +308,7 @@
                                             <action selector="addTodo:" destination="dnT-nX-dDX" id="PtK-TN-BKu"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem title="go to next" id="kBy-u6-msS"/>
                                 </items>
                             </toolbar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="66O-JP-acl">
@@ -358,7 +359,7 @@
                         <outlet property="completeButton" destination="pGw-dr-wqi" id="G1Z-TH-fRO"/>
                         <outlet property="mainTitle" destination="ODK-tL-Ksg" id="jCP-Fb-rRO"/>
                         <outlet property="tableView" destination="66O-JP-acl" id="0I1-CO-0I7"/>
-                        <segue destination="era-Vv-aDc" kind="presentation" id="imf-4A-ePO"/>
+                        <segue destination="era-Vv-aDc" kind="presentation" identifier="" id="imf-4A-ePO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cCl-Kb-z0G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -368,7 +369,7 @@
         <!--Todo Detail View Controller-->
         <scene sceneID="qfL-Fl-sWm">
             <objects>
-                <viewController id="era-Vv-aDc" customClass="TodoDetailViewController" customModule="Todo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="todoDetailVC" id="era-Vv-aDc" customClass="TodoDetailViewController" customModule="Todo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BWM-V6-Ens">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -398,7 +399,7 @@
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="textViewCell" id="Bgy-Np-zzU">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="textViewCell" id="Bgy-Np-zzU" customClass="TextViewCell" customModule="Todo" customModuleProvider="target">
                                         <rect key="frame" x="20" y="55.5" width="374" height="57.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Bgy-Np-zzU" id="p0F-0p-FFk">
@@ -419,8 +420,11 @@
                                                 <constraint firstItem="ZdI-ro-soF" firstAttribute="leading" secondItem="p0F-0p-FFk" secondAttribute="leading" constant="20" id="Ssm-hU-krQ"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="textView" destination="ZdI-ro-soF" id="3eY-Hs-S9V"/>
+                                        </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="switchCell" id="9eH-Ki-wgE">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="switchCell" id="9eH-Ki-wgE" customClass="SwitchCell" customModule="Todo" customModuleProvider="target">
                                         <rect key="frame" x="20" y="113" width="374" height="51.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9eH-Ki-wgE" id="66P-HK-ILh">
@@ -430,23 +434,16 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A2s-k2-3dY">
                                                     <rect key="frame" x="305" y="10" width="51" height="31.5"/>
                                                 </switch>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dwt-Pi-Cvm">
-                                                    <rect key="frame" x="20" y="10" width="42" height="31.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="A2s-k2-3dY" secondAttribute="bottom" constant="10" id="QPh-n8-LOz"/>
-                                                <constraint firstItem="dwt-Pi-Cvm" firstAttribute="top" secondItem="66P-HK-ILh" secondAttribute="top" constant="10" id="RrK-SJ-Ilj"/>
                                                 <constraint firstAttribute="trailing" secondItem="A2s-k2-3dY" secondAttribute="trailing" constant="20" id="dON-b4-K4g"/>
                                                 <constraint firstItem="A2s-k2-3dY" firstAttribute="top" secondItem="66P-HK-ILh" secondAttribute="top" constant="10" id="eo8-Wp-ZLh"/>
-                                                <constraint firstItem="dwt-Pi-Cvm" firstAttribute="leading" secondItem="66P-HK-ILh" secondAttribute="leading" constant="20" id="gQw-7N-RVR"/>
-                                                <constraint firstItem="A2s-k2-3dY" firstAttribute="centerY" secondItem="dwt-Pi-Cvm" secondAttribute="centerY" id="gTs-Xv-s8M"/>
-                                                <constraint firstAttribute="bottom" secondItem="dwt-Pi-Cvm" secondAttribute="bottom" constant="10" id="hFK-mM-2cf"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="openSwitch" destination="A2s-k2-3dY" id="z4Y-eo-bsV"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="statusCell" textLabel="zj7-G1-xJk" detailTextLabel="XtU-Uu-EDg" style="IBUITableViewCellStyleValue1" id="lKg-65-6MR">
                                         <rect key="frame" x="20" y="164.5" width="374" height="43.5"/>
@@ -472,7 +469,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="datePickerCell" id="5IV-22-anw">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="datePickerCell" id="5IV-22-anw" customClass="DatePickerCell" customModule="Todo" customModuleProvider="target">
                                         <rect key="frame" x="20" y="208" width="374" height="216.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5IV-22-anw" id="mwF-Yc-YUy">
@@ -490,6 +487,9 @@
                                                 <constraint firstAttribute="trailing" secondItem="RnI-Zu-Er9" secondAttribute="trailing" id="tMZ-TA-rvm"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="datePicker" destination="RnI-Zu-Er9" id="weO-Vf-cPv"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <sections/>
@@ -509,6 +509,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="saveButton" destination="R9t-3Q-Hnx" id="svZ-sk-c5O"/>
                         <outlet property="tableView" destination="kdF-LG-TKG" id="H8b-OS-8p1"/>
                     </connections>
                 </viewController>

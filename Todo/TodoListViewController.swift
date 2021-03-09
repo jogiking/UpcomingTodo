@@ -31,10 +31,15 @@ class TodoListViewController: UIViewController {
 
     var startIndexPath: IndexPath?
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("viewWillAppear in TodoListVC")
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         
         super.viewWillDisappear(animated)
-//        print("🍎viewWillDisappear")
+        print("🍎viewWillDisappear")
         currentCatalogData?.todoList = todoList
         dao.saveCatalogContext(currentCatalogData!, discardingCatalogObjectID: (currentCatalogData?.objectID)!)
     }
@@ -148,10 +153,12 @@ class TodoListViewController: UIViewController {
         var hasMemo: Bool
         if indexPath.row == 0 { // main cell
             let todo = todoList[indexPath.section]
-            hasMemo = todo.memo == nil ? false : true
+//            hasMemo = todo.memo == nil ? false : true
+            hasMemo = todo.memo?.isEmpty == false ? true : false
         } else { // sub cell
             let subTodo = todoList[indexPath.section].subTodoList[indexPath.row - 1]
-            hasMemo = subTodo.memo == nil ? false : true
+//            hasMemo = subTodo.memo == nil ? false : true
+            hasMemo = subTodo.memo?.isEmpty == false ? true : false
         }
         
         return hasMemo
@@ -165,18 +172,36 @@ class TodoListViewController: UIViewController {
         print("tapped OpenImage")
         
         if editingStatus.isEditingMode {
-            print("memoCell을 여기서 만들어주면 됩니다.")
             if let tgr = sender as? UITapGestureRecognizer {
                 if let cell = tgr.view?.superview?.superview as? UITableViewCell {
                     if editingStatus.cell == cell {
                         // memoCell segue
                         print("go to memoCellSegue")
+                        guard let indexPath = tableView.indexPath(for:  editingStatus.cell!) else {
+                            print("memoCell segue Index nil error")
+                            return
+                        }
+                        let storyboard: UIStoryboard? = UIStoryboard(name: "Main", bundle: Bundle.main)
+                        guard let todoDetailVC = storyboard?.instantiateViewController(identifier: "todoDetailVC") as? TodoDetailViewController else {
+                            return
+                        }
+                        
+                        todoDetailVC.modalPresentationStyle = .pageSheet
+                        todoDetailVC.isParent = indexPath.row == 0 ? true : false
+                        todoDetailVC.indexPath = indexPath
+                    
+                        if editingStatus.textView?.text.isEmpty != false {
+                            editingStatus.textView?.text = "새로운 할 일"
+                        }
+                        editingStatus.textView?.resignFirstResponder()
+                        present(todoDetailVC, animated: true)
+                        
                     } else {
                         print("open/close기능에만 신경")
                         let section = (tableView.indexPath(for: cell)?.section)!
                         todoList[section].isOpen = !(todoList[section].isOpen!)
-                        editingStatus.textView?.resignFirstResponder()
-                        tableView.reloadSections(IndexSet(integer: section), with: .none)
+//                        editingStatus.textView?.resignFirstResponder()
+                        tableView.reloadSections(IndexSet(integer: section), with: .automatic)
                     }
                 }
             }
@@ -186,7 +211,7 @@ class TodoListViewController: UIViewController {
                 let section = (tgr.view?.tag)!
                 
                 todoList[section].isOpen = !(todoList[section].isOpen!)
-                tableView.reloadSections(IndexSet(section...section), with: .none)
+                tableView.reloadSections(IndexSet(section...section), with: .automatic)
             }
         }
     }
@@ -371,7 +396,9 @@ extension TodoListViewController: UITableViewDelegate,
     
     func setupMemoCell(indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "memoCell", for: indexPath) as! MemoCell
-           
+        cell.btn.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedOpenImage(_:))))
+        cell.btn.isUserInteractionEnabled = true
+        
         if indexPath.row == 0 { // main cell
             let mainTodo = todoList[indexPath.section]
             cell.selectImg.image = mainTodo.isFinish! ? UIImage(named: "click") : UIImage(named: "unclick")
@@ -383,9 +410,9 @@ extension TodoListViewController: UITableViewDelegate,
             
             if mainTodo.numberOfSubTodo > 0 {
                 cell.btn.image = mainTodo.isOpen! ? UIImage(named: "disclosure_open") : UIImage(named: "disclosure_close")
-                cell.btn.isUserInteractionEnabled = true
+//                cell.btn.isUserInteractionEnabled = true
                 cell.btn.tag = indexPath.section
-                cell.btn.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedOpenImage(_:))))
+//                cell.btn.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedOpenImage(_:))))
                 
                 cell.childNumber.text = mainTodo.isOpen! ? "" : String(todoList[indexPath.section].numberOfSubTodo)
                 
@@ -466,6 +493,7 @@ extension TodoListViewController: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         print("itemsForBeginning] \(indexPath)")
         if editingStatus.isEditingMode {
+            editingStatus.textView?.text = "새로운 할 일"
             editingStatus.textView?.resignFirstResponder()
         }
         self.startIndexPath = indexPath
