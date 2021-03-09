@@ -173,10 +173,7 @@ class TodoListViewController: UIViewController {
                         print("go to memoCellSegue")
                     } else {
                         print("open/close기능에만 신경")
-                        //let indexPath = tableView.indexPath(for: cell)
-                        //let section = (indexPath?.section)!
-                        var section = (tableView.indexPath(for: cell)?.section)!
-                
+                        let section = (tableView.indexPath(for: cell)?.section)!
                         todoList[section].isOpen = !(todoList[section].isOpen!)
                         editingStatus.textView?.resignFirstResponder()
                         tableView.reloadSections(IndexSet(integer: section), with: .none)
