@@ -21,6 +21,7 @@ class TodoData: Todo {
             return self.subTodoList.count
         }
     }
+    var deadline: Date?
     
     override init() {
         super.init()

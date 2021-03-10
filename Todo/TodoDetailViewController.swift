@@ -21,22 +21,33 @@ class TodoDetailViewController: UIViewController, UIAdaptivePresentationControll
     weak var delegate: TodoDetailViewControllerDelegate?
     
     var hasTimer = false
+    var deadline: Date? = nil
     let todoTextContents = ["제목", "메모"]
     var hasChanges: Bool {
         guard let contents = bringContents() else { return false }
         let originalTodo = isParent ? todoList[todoIndexPath.section] : todoList[todoIndexPath.section].subTodoList[todoIndexPath.row - 1]
-        return (contents.title != originalTodo.title) || (contents.memo != originalTodo.memo)
+        let commonFlag = (contents.title != originalTodo.title) || (contents.memo != originalTodo.memo)
+        guard isParent else { return commonFlag }
+        return commonFlag || (deadline != (originalTodo as! TodoData).deadline)
     }
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("todoDetail.viewDidLoad")
+
+        self.deadline = todoList[todoIndexPath.section].deadline
         
-        hasTimer = true
+        hasTimer = {
+            if isParent {
+                if deadline != nil {
+                    return true
+                }
+            }
+            return false
+        }()
+        
         tableView.dataSource = self
         tableView.rowHeight = UITableView.automaticDimension
     }
@@ -71,8 +82,6 @@ class TodoDetailViewController: UIViewController, UIAdaptivePresentationControll
     }
     
     func bringContents() -> (title: String?, memo: String?)? {
-        // 지금은 title, memo만 작동하게 함
-        
         guard let titleCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? TextViewCell else {
             return nil
         }
@@ -110,6 +119,28 @@ class TodoDetailViewController: UIViewController, UIAdaptivePresentationControll
     @objc func openDatePicker(_ sender: UISwitch) {
         hasTimer = sender.isOn
         tableView.reloadSections(IndexSet(integer: 1), with: .fade)
+        view.setNeedsLayout()
+        if isParent {
+           if hasTimer == false {
+                deadline = nil
+           }
+        }
+//           } else {
+//                deadline =
+//           }
+//        }
+    }
+    
+    @objc func datepickerChanged(_ sender: UIDatePicker) {
+        print("datepickerChanged] deadline=\(sender.date)")
+        view.setNeedsLayout()
+        deadline = sender.date
+        let datefomatter = DateFormatter()
+        datefomatter.dateStyle = .long
+        datefomatter.timeStyle = .medium
+        let dateString = datefomatter.string(from: deadline!)
+        let statusCell = tableView.cellForRow(at: IndexPath(row: 2, section: 1))
+        statusCell?.detailTextLabel?.text = dateString
     }
 }
 
@@ -160,10 +191,6 @@ extension TodoDetailViewController: UITextViewDelegate{
     }
 }
 
-extension TodoDetailViewController: UITableViewDelegate {
-    
-}
-
 extension TodoDetailViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -208,6 +235,16 @@ extension TodoDetailViewController: UITableViewDataSource {
                 // 있다면 datePickerCell
                 let cell = tableView.dequeueReusableCell(withIdentifier: "datePickerCell") as! DatePickerCell
                 cell.datePicker.datePickerMode = .dateAndTime
+                cell.datePicker.addTarget(self, action: #selector(datepickerChanged(_:)), for: .valueChanged)
+                cell.datePicker.minimumDate = Date()
+                
+                if let date = deadline {
+                    cell.datePicker.date = date
+                } else {
+                    cell.datePicker.date = Date().dayAfter
+                    deadline = cell.datePicker.date
+                }
+                
                 
                 cell.selectionStyle = .none
                 return cell
@@ -215,8 +252,13 @@ extension TodoDetailViewController: UITableViewDataSource {
                 // 있다면 statusCell
                 let cell = tableView.dequeueReusableCell(withIdentifier: "statusCell")!
                 cell.selectionStyle = .none
-                cell.textLabel?.text = "Start"
-                cell.detailTextLabel?.text = "Ends"                
+                cell.textLabel?.text = "마감시간"
+                let datefomatter = DateFormatter()
+                datefomatter.dateStyle = .long
+                datefomatter.timeStyle = .medium
+                
+                cell.detailTextLabel?.text = datefomatter.string(from: deadline ?? Date().dayAfter)
+                cell.detailTextLabel?.textColor = .red
                 return cell
             default:
                 return UITableViewCell()
@@ -231,3 +273,10 @@ extension TodoDetailViewController: UITableViewDataSource {
     
 }
 
+extension Date {
+   static var tomorrow:  Date { return Date().dayAfter }
+   static var today: Date {return Date()}
+   var dayAfter: Date {
+      return Calendar.current.date(byAdding: .day, value: 1, to: Date())!
+   }
+}

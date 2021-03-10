@@ -314,11 +314,16 @@ extension TodoListViewController: UITextViewDelegate {
         // 콘텐츠 변경작업 수행
         guard let contents = todoDetailViewController.bringContents() else { return }
         let indexPath = todoDetailViewController.todoIndexPath!
-        let targetTodo = todoDetailViewController.isParent ? todoList[indexPath.section] : todoList[indexPath.section].subTodoList[indexPath.row - 1]
         
-        // 여기에 앞으로 datepicker관련한 데이터 처리도 하게 된다.
+        let isParentCell = todoDetailViewController.isParent
+        let targetTodo = isParentCell ? todoList[indexPath.section] : todoList[indexPath.section].subTodoList[indexPath.row - 1]
+    
         targetTodo.title = contents.title
         targetTodo.memo = contents.memo
+        if isParentCell {
+            (targetTodo as! TodoData).deadline = todoDetailViewController.deadline
+        }
+        
         dismiss(animated: true) {
             self.tableView.reloadSections(IndexSet(integer: indexPath.section), with: .automatic)
         }
@@ -347,6 +352,14 @@ extension TodoListViewController: UITableViewDelegate,
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return todoList.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let dateFomatter = DateFormatter()
+        dateFomatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        guard let date = todoList[section].deadline else { return nil}//"\(section)번째입니다." }
+        let dateString = dateFomatter.string(from: date)
+        return String("\(section)번째 todo의 Deadline = \(dateString)")
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

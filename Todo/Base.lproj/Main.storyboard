@@ -308,12 +308,10 @@
                                             <action selector="addTodo:" destination="dnT-nX-dDX" id="PtK-TN-BKu"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="go to next" id="kBy-u6-msS"/>
                                 </items>
                             </toolbar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="66O-JP-acl">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="HUB-7h-Pvs">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -495,7 +493,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="ACY-fU-neh">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="textViewCell" id="uhc-R3-5f2" customClass="TextViewCell" customModule="Todo" customModuleProvider="target">
                                         <rect key="frame" x="20" y="55.5" width="374" height="57"/>
@@ -597,7 +595,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="nXn-pt-r8l" firstAttribute="trailing" secondItem="ACY-fU-neh" secondAttribute="trailing" id="BX1-a1-0yr"/>
-                            <constraint firstItem="nXn-pt-r8l" firstAttribute="bottom" secondItem="ACY-fU-neh" secondAttribute="bottom" id="k1u-eV-dqo"/>
+                            <constraint firstAttribute="bottom" secondItem="ACY-fU-neh" secondAttribute="bottom" id="k1u-eV-dqo"/>
                             <constraint firstItem="ACY-fU-neh" firstAttribute="top" secondItem="KtE-mW-aH9" secondAttribute="top" id="tSc-bX-Hg7"/>
                             <constraint firstItem="ACY-fU-neh" firstAttribute="leading" secondItem="KtE-mW-aH9" secondAttribute="leading" id="zT6-xp-UTe"/>
                         </constraints>

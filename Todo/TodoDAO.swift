@@ -43,6 +43,7 @@ class TodoDAO {
                     todoData.memo = todo.memo
                     todoData.isOpen = todo.isopen
                     todoData.objectID = todo.objectID
+                    todoData.deadline = todo.deadline
                     
                     let subTodos = todo.subTodos?.array as! [SubTodoMO]
                     for subTodo in subTodos {
@@ -89,6 +90,7 @@ class TodoDAO {
         object.isfinish = data.isFinish!
         object.regdate = data.regDate
         object.isopen = data.isOpen!
+        object.deadline = data.deadline
         
         let catalogObject = context.object(with: catalogObjectID) as! CatalogMO
         object.catalogList = catalogObject
@@ -179,21 +181,6 @@ class TodoDAO {
             context.rollback()
         }
     }
-    
-//    func updateDisplayOrder(todoList: [Todo], removeIndex at: Int) {
-//        guard at < todoList.count - 1 else { return }
-//        
-//        for index in at...todoList.count - 1 {
-//            let objID = todoList[index].objectID
-//            let object = context.object(with: objID!)
-//            object.setValue(index, forKey: "displayorder")
-//        }
-//        do {
-//            try context.save()
-//        } catch {
-//            context.rollback()
-//        }
-//    }
     
     func updateDisplayOrder(removeCatalogIndex at: Int) {
         let indexOfLast = appDelegate.myData.count - 1
