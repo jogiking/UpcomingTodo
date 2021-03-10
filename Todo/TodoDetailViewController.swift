@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TodoDetailViewController: UIViewController {
+class TodoDetailViewController: UIViewController, UIAdaptivePresentationControllerDelegate {
     var isParent = false
     var indexPath: IndexPath!
     
@@ -15,6 +15,11 @@ class TodoDetailViewController: UIViewController {
     var originalTodo: Todo!
     var hasTimer = false
     let todoTextContents = ["제목", "메모"]
+    
+    var hasChanges: Bool {
+        guard let contents = bringContents() else { return false}
+        return (contents.title != originalTodo.title) || (contents.memo != originalTodo.memo)
+    }
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var saveButton: UIBarButtonItem!
@@ -27,6 +32,8 @@ class TodoDetailViewController: UIViewController {
         self.todoList = todoListVC.todoList
         let targetTodo = isParent ? todoList[indexPath.section] : todoList[indexPath.section].subTodoList[indexPath.row - 1]
         
+        //self.navigationController?.presentationController?.delegate = self
+        self.presentingViewController?.presentationController?.delegate = self
         // copy
         originalTodo = Todo()
         originalTodo.title = targetTodo.title
@@ -36,6 +43,10 @@ class TodoDetailViewController: UIViewController {
         
         tableView.dataSource = self
         
+    }
+    func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+        print("ShoulDismiss]")
+        return true
     }
     
     func getPresentingVC() -> TodoListViewController? {
@@ -52,6 +63,34 @@ class TodoDetailViewController: UIViewController {
         self.dismiss(animated: true, completion: {
             todoListVC.tableView.reloadData()
         })
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+//
+//        guard let contents = bringContents() else { return }
+//        let hasChanges = (contents.title != originalTodo.title) || (contents.memo != originalTodo.memo)
+        isModalInPresentation = hasChanges
+        print("viewWillLayoutSubviews]\(isModalInPresentation)")
+    }
+    
+    func confirmCancel() {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "변경 사항 취소", style: .destructive, handler: { (action: UIAlertAction) in
+            
+            // 그대로 취소
+            self.dismiss(animated: true)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+        
+        present(alert, animated: true)
+    }
+    
+    func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+        print("DidAttemptToDismiss")
+        confirmCancel()
     }
     
     func dismissAndReloadPreviousVC() {
@@ -104,10 +143,16 @@ class TodoDetailViewController: UIViewController {
         // 변경 사항이 있다면, 종료가 바로 되면 안된다. 액션 시트로 한번 더 띄운다.
         // 변경 사항이 없으면 그대로 종료
         // 변경 사항의 확인은........전용 메서드를 호출해서 처리하는 것으로 한다.
-
-        dismissAndReloadPreviousVC()
+        if hasChanges {
+            confirmCancel()
+        } else {
+            dismiss(animated: true, completion: nil)
+        }
+        
+//        dismissAndReloadPreviousVC()
     }
 
+    
 }
 
 extension TodoDetailViewController: UITextViewDelegate{
@@ -144,7 +189,7 @@ extension TodoDetailViewController: UITextViewDelegate{
                 }
             }
         }
-        
+        viewIfLoaded?.setNeedsLayout()
         if textView.tag == 0 {
             if textView.text.isEmpty {
                 saveButton.isEnabled = false
