@@ -7,8 +7,8 @@
 import UIKit
 import CoreData
 
-class TodoListViewController: UIViewController {
-    
+class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate {
+
     @IBOutlet weak var mainTitle: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var completeButton: UIBarButtonItem!
@@ -164,6 +164,24 @@ class TodoListViewController: UIViewController {
         return hasMemo
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "TodoDetailSegue":
+            let navigationController = segue.destination as! UINavigationController
+            let todoDetailViewController = navigationController.topViewController as! TodoDetailViewController
+            
+            navigationController.presentationController?.delegate = todoDetailViewController
+            todoDetailViewController.delegate = self
+            
+            let data = sender as! (isParent: Bool, indexPath: IndexPath)
+            todoDetailViewController.isParent = data.isParent
+            todoDetailViewController.todoIndexPath = data.indexPath
+            todoDetailViewController.todoList = self.todoList
+        default:
+            break
+        }
+    }
+    
     @objc func tappedSelectImage(_ sender: Any) {
         print("tapped SelectImage")
     }
@@ -181,20 +199,31 @@ class TodoListViewController: UIViewController {
                             print("memoCell segue Index nil error")
                             return
                         }
-                        let storyboard: UIStoryboard? = UIStoryboard(name: "Main", bundle: Bundle.main)
-                        guard let todoDetailVC = storyboard?.instantiateViewController(identifier: "todoDetailVC") as? TodoDetailViewController else {
-                            return
-                        }
                         
-                        todoDetailVC.modalPresentationStyle = .pageSheet
-                        todoDetailVC.isParent = indexPath.row == 0 ? true : false
-                        todoDetailVC.indexPath = indexPath
-                    
                         if editingStatus.textView?.text.isEmpty != false {
                             editingStatus.textView?.text = "새로운 할 일"
                         }
                         editingStatus.textView?.resignFirstResponder()
-                        present(todoDetailVC, animated: true)
+                        
+                        let isParent = indexPath.row == 0 ? true : false
+                        let data = (isParent, indexPath)
+                        
+                        performSegue(withIdentifier: "TodoDetailSegue", sender: data)
+                        
+//                        let storyboard: UIStoryboard? = UIStoryboard(name: "Main", bundle: Bundle.main)
+//                        guard let todoDetailVC = storyboard?.instantiateViewController(identifier: "todoDetailVC") as? TodoDetailViewController else {
+//                            return
+//                        }
+//
+//                        todoDetailVC.modalPresentationStyle = .pageSheet
+//                        todoDetailVC.isParent = indexPath.row == 0 ? true : false
+//                        todoDetailVC.indexPath = indexPath
+                    
+//                        if editingStatus.textView?.text.isEmpty != false {
+//                            editingStatus.textView?.text = "새로운 할 일"
+//                        }
+//                        editingStatus.textView?.resignFirstResponder()
+//                        present(todoDetailVC, animated: true)
                         
                     } else {
                         print("open/close기능에만 신경")
@@ -295,6 +324,27 @@ extension TodoListViewController: UITextViewDelegate {
             }
         }
     }
+    
+    // MARK: - TodoDetailViewControllerDelegate
+    func todoDetailViewControllerDidFinish(_ todoDetailViewController: TodoDetailViewController) {
+        // 콘텐츠 변경작업 수행
+        guard let contents = todoDetailViewController.bringContents() else { return }
+        let indexPath = todoDetailViewController.todoIndexPath!
+        let targetTodo = todoDetailViewController.isParent ? todoList[indexPath.section] : todoList[indexPath.section].subTodoList[indexPath.row - 1]
+        
+        // 여기에 앞으로 datepicker관련한 데이터 처리도 하게 된다.
+        targetTodo.title = contents.title
+        targetTodo.memo = contents.memo
+        dismiss(animated: true) {
+            self.tableView.reloadSections(IndexSet(integer: indexPath.section), with: .automatic)
+        }
+    }
+    
+    func todoDetailViewControllerDidCancel(_ todoDetailViewController: TodoDetailViewController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
 }
 
 extension TodoListViewController: UITableViewDelegate,

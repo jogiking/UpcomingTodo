@@ -7,17 +7,24 @@
 
 import UIKit
 
+
+protocol TodoDetailViewControllerDelegate: AnyObject {
+    func todoDetailViewControllerDidFinish(_ todoDetailViewController: TodoDetailViewController)
+    func todoDetailViewControllerDidCancel(_ todoDetailViewController: TodoDetailViewController)
+}
+
 class TodoDetailViewController: UIViewController, UIAdaptivePresentationControllerDelegate {
     var isParent = false
-    var indexPath: IndexPath!
-    
+    var todoIndexPath: IndexPath!
     var todoList: [TodoData]!
-    var originalTodo: Todo!
+    
+    weak var delegate: TodoDetailViewControllerDelegate?
+    
     var hasTimer = false
     let todoTextContents = ["제목", "메모"]
-    
     var hasChanges: Bool {
-        guard let contents = bringContents() else { return false}
+        guard let contents = bringContents() else { return false }
+        let originalTodo = isParent ? todoList[todoIndexPath.section] : todoList[todoIndexPath.section].subTodoList[todoIndexPath.row - 1]
         return (contents.title != originalTodo.title) || (contents.memo != originalTodo.memo)
     }
     
@@ -28,42 +35,42 @@ class TodoDetailViewController: UIViewController, UIAdaptivePresentationControll
     override func viewDidLoad() {
         super.viewDidLoad()
         print("todoDetail.viewDidLoad")
-        guard let todoListVC = getPresentingVC() else { return }
-        self.todoList = todoListVC.todoList
-        let targetTodo = isParent ? todoList[indexPath.section] : todoList[indexPath.section].subTodoList[indexPath.row - 1]
+//        guard let todoListVC = getPresentingVC() else { return }
+//        let todoList = todoListVC.todoList
+//        let targetTodo = isParent ? todoList[indexPath.section] : todoList[indexPath.section].subTodoList[indexPath.row - 1]
         
         //self.navigationController?.presentationController?.delegate = self
-        self.presentingViewController?.presentationController?.delegate = self
+//        self.presentingViewController?.presentationController?.delegate = self
         // copy
-        originalTodo = Todo()
-        originalTodo.title = targetTodo.title
-        originalTodo.memo = targetTodo.memo
-        originalTodo.objectID = targetTodo.objectID
-        originalTodo.regDate = targetTodo.regDate
+//        originalTodo = Todo()
+//        originalTodo.title = targetTodo.title
+//        originalTodo.memo = targetTodo.memo
+//        originalTodo.objectID = targetTodo.objectID
+//        originalTodo.regDate = targetTodo.regDate
         
         tableView.dataSource = self
         
     }
-    func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
-        print("ShoulDismiss]")
-        return true
-    }
+//    func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+//        print("ShoulDismiss]")
+//        return true
+//    }
     
-    func getPresentingVC() -> TodoListViewController? {
-        guard let pvc = self.presentingViewController as? UINavigationController else { return nil }
-        guard let todoListVC = pvc.topViewController as? TodoListViewController else { return nil }
-        return todoListVC
-    }
+//    func getPresentingVC() -> TodoListViewController? {
+//        guard let pvc = self.presentingViewController as? UINavigationController else { return nil }
+//        guard let todoListVC = pvc.topViewController as? TodoListViewController else { return nil }
+//        return todoListVC
+//    }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        print("TodoDetailVC] viewWillDisappear")
-        guard let todoListVC = getPresentingVC() else { return }
-        
-        self.dismiss(animated: true, completion: {
-            todoListVC.tableView.reloadData()
-        })
-    }
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        print("TodoDetailVC] viewWillDisappear")
+//        guard let todoListVC = getPresentingVC() else { return }
+//
+//        self.dismiss(animated: true, completion: {
+//            todoListVC.tableView.reloadData()
+//        })
+//    }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -80,7 +87,8 @@ class TodoDetailViewController: UIViewController, UIAdaptivePresentationControll
         alert.addAction(UIAlertAction(title: "변경 사항 취소", style: .destructive, handler: { (action: UIAlertAction) in
             
             // 그대로 취소
-            self.dismiss(animated: true)
+//            self.dismiss(animated: true)
+            self.delegate?.todoDetailViewControllerDidCancel(self)
         }))
         
         alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
@@ -91,14 +99,6 @@ class TodoDetailViewController: UIViewController, UIAdaptivePresentationControll
     func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
         print("DidAttemptToDismiss")
         confirmCancel()
-    }
-    
-    func dismissAndReloadPreviousVC() {
-        guard let todoListVC = getPresentingVC() else { return }
-        
-        self.dismiss(animated: true, completion: {
-            todoListVC.tableView.reloadSections(IndexSet(integer: self.indexPath.section), with: .automatic)
-        })
     }
     
     func bringContents() -> (title: String?, memo: String?)? {
@@ -124,18 +124,21 @@ class TodoDetailViewController: UIViewController, UIAdaptivePresentationControll
         print("saveAction Click.")
         // 만약에 title에 텍스트가 없으면 버튼이안눌려야함
         // 그 외의 경우에는 모두 저장
-        guard let contents = bringContents() else { return }
-        guard (contents.title != originalTodo.title) || (contents.memo != originalTodo.memo) else {
-            dismissAndReloadPreviousVC()
-            return
+        
+        if hasChanges {
+            delegate?.todoDetailViewControllerDidFinish(self)
+        } else {
+            delegate?.todoDetailViewControllerDidCancel(self)
         }
         
-        // 콘텐츠 변경작업 수행
-        let targetTodo = isParent ? todoList[indexPath.section] : todoList[indexPath.section].subTodoList[indexPath.row - 1]
-        targetTodo.title = contents.title
-        targetTodo.memo = contents.memo
+//        // 콘텐츠 변경작업 수행
+//        guard let contents = bringContents() else { return }
+//        let targetTodo = isParent ? todoList[indexPath.section] : todoList[indexPath.section].subTodoList[indexPath.row - 1]
+//        targetTodo.title = contents.title
+//        targetTodo.memo = contents.memo
         
-        dismissAndReloadPreviousVC()
+//        dismissAndReloadPreviousVC()
+        
     }
     
     @IBAction func cancelAction(_ sender: Any) {
@@ -146,7 +149,7 @@ class TodoDetailViewController: UIViewController, UIAdaptivePresentationControll
         if hasChanges {
             confirmCancel()
         } else {
-            dismiss(animated: true, completion: nil)
+            delegate?.todoDetailViewControllerDidCancel(self)
         }
         
 //        dismissAndReloadPreviousVC()
@@ -226,6 +229,7 @@ extension TodoDetailViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "textViewCell") as! TextViewCell
             cell.textView.delegate = self
             cell.textView.tag = indexPath.row
+            let originalTodo = isParent ? todoList[todoIndexPath.section] : todoList[todoIndexPath.section].subTodoList[todoIndexPath.row - 1]
             cell.textView.text = indexPath.row == 0 ? originalTodo.title : originalTodo.memo
             placeHolderSetting(cell.textView)
             return cell
