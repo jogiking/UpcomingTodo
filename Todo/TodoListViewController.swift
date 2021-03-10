@@ -210,26 +210,10 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
                         
                         performSegue(withIdentifier: "TodoDetailSegue", sender: data)
                         
-//                        let storyboard: UIStoryboard? = UIStoryboard(name: "Main", bundle: Bundle.main)
-//                        guard let todoDetailVC = storyboard?.instantiateViewController(identifier: "todoDetailVC") as? TodoDetailViewController else {
-//                            return
-//                        }
-//
-//                        todoDetailVC.modalPresentationStyle = .pageSheet
-//                        todoDetailVC.isParent = indexPath.row == 0 ? true : false
-//                        todoDetailVC.indexPath = indexPath
-                    
-//                        if editingStatus.textView?.text.isEmpty != false {
-//                            editingStatus.textView?.text = "새로운 할 일"
-//                        }
-//                        editingStatus.textView?.resignFirstResponder()
-//                        present(todoDetailVC, animated: true)
-                        
                     } else {
                         print("open/close기능에만 신경")
                         let section = (tableView.indexPath(for: cell)?.section)!
                         todoList[section].isOpen = !(todoList[section].isOpen!)
-//                        editingStatus.textView?.resignFirstResponder()
                         tableView.reloadSections(IndexSet(integer: section), with: .automatic)
                     }
                 }
@@ -460,10 +444,8 @@ extension TodoListViewController: UITableViewDelegate,
             
             if mainTodo.numberOfSubTodo > 0 {
                 cell.btn.image = mainTodo.isOpen! ? UIImage(named: "disclosure_open") : UIImage(named: "disclosure_close")
-//                cell.btn.isUserInteractionEnabled = true
                 cell.btn.tag = indexPath.section
-//                cell.btn.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedOpenImage(_:))))
-                
+
                 cell.childNumber.text = mainTodo.isOpen! ? "" : String(todoList[indexPath.section].numberOfSubTodo)
                 
                 cell.shrinkAccessory(false) // constraint 설정, not shrink
@@ -503,9 +485,8 @@ extension TodoListViewController: UITableViewDelegate,
             
             if mainTodo.numberOfSubTodo > 0 {
                 cell.btn.image = mainTodo.isOpen! ? UIImage(named: "disclosure_open") : UIImage(named: "disclosure_close")
-//                cell.btn.isUserInteractionEnabled = true
                 cell.btn.tag = indexPath.section
-//                cell.btn.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedOpenImage(_:))))
+
                 cell.childNumber.text = mainTodo.isOpen! ? "" : String(todoList[indexPath.section].numberOfSubTodo)
                 cell.shrinkAccessory(false) // constraint 설정, not shrink
             } else { // shrink
@@ -527,15 +508,6 @@ extension TodoListViewController: UITableViewDelegate,
         
         return cell
     }
-    
-//    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
-//        print("targetIndexPathForMoveFromRowAt")
-//        if editingStatus.isEditingMode {
-//            return sourceIndexPath
-//        } else {
-//            return proposedDestinationIndexPath
-//        }
-//    }
 }
 
 extension TodoListViewController: UITableViewDragDelegate {
@@ -661,7 +633,6 @@ extension TodoListViewController: UITableViewDropDelegate {
             
             if isP(sourceIndexPath: sourceIndexPath) && (destinationIndexPath.row != 0) { // x섹션의 y위치로 삽입
                 guard isC(sourceIndexPath: destinationIndexPath) && todoList[destinationIndexPath.section].isOpen! else {
-//                guard isPc(sourceIndexPath: destinationIndexPath) && todoList[destinationIndexPath.section].isOpen! else {
                     let data = todoList.remove(at: sourceIndexPath.section) // x섹션 그 자리에 삽입
                     var toSection = destinationIndexPath.section
                     if sourceIndexPath.section > destinationIndexPath.section { toSection += 1 }

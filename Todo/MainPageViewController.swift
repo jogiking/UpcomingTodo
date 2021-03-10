@@ -64,7 +64,7 @@ class MainPageViewController: UIViewController {
         upcomingCardView.countTitle.text = "0"
         totalCardView.countTitle.text = {
             var count = 0
-            for catalog in appDelegate.myData {
+            for _ in appDelegate.myData {
                 //count += catalog.todoList.count
                 
                 count += 1

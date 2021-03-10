@@ -496,11 +496,6 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="ACY-fU-neh">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
-                                <view key="tableFooterView" contentMode="scaleToFill" id="3m4-7F-FXB">
-                                    <rect key="frame" x="0.0" y="442" width="414" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="textViewCell" id="uhc-R3-5f2" customClass="TextViewCell" customModule="Todo" customModuleProvider="target">
                                         <rect key="frame" x="20" y="55.5" width="374" height="57"/>
@@ -572,22 +567,22 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="datePickerCell" id="gKA-Ct-7ru" customClass="DatePickerCell" customModule="Todo" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="207.5" width="374" height="216.5"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="datePickerCell" rowHeight="390" id="gKA-Ct-7ru" customClass="DatePickerCell" customModule="Todo" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="207.5" width="374" height="390"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gKA-Ct-7ru" id="Hsd-sw-Py0">
-                                            <rect key="frame" x="0.0" y="0.0" width="374" height="216.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="390"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="ynh-uS-An9">
-                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="216.5"/>
+                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" style="inline" translatesAutoresizingMaskIntoConstraints="NO" id="ynh-uS-An9">
+                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="390"/>
                                                 </datePicker>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="ynh-uS-An9" firstAttribute="top" secondItem="Hsd-sw-Py0" secondAttribute="top" id="7EL-ec-bJH"/>
-                                                <constraint firstAttribute="trailing" secondItem="ynh-uS-An9" secondAttribute="trailing" id="TuU-v9-Qls"/>
-                                                <constraint firstAttribute="bottom" secondItem="ynh-uS-An9" secondAttribute="bottom" id="n2H-Qw-prD"/>
-                                                <constraint firstItem="ynh-uS-An9" firstAttribute="leading" secondItem="Hsd-sw-Py0" secondAttribute="leading" id="yOh-o1-qmO"/>
+                                                <constraint firstAttribute="bottom" secondItem="ynh-uS-An9" secondAttribute="bottom" id="2Eg-gz-2oo"/>
+                                                <constraint firstItem="ynh-uS-An9" firstAttribute="leading" secondItem="Hsd-sw-Py0" secondAttribute="leading" id="KWO-zP-FG6"/>
+                                                <constraint firstAttribute="trailing" secondItem="ynh-uS-An9" secondAttribute="trailing" id="a84-e5-knc"/>
+                                                <constraint firstItem="ynh-uS-An9" firstAttribute="top" secondItem="Hsd-sw-Py0" secondAttribute="top" id="xqL-Cr-IOe"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -626,7 +621,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sXa-vq-Hk3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2936" y="116"/>
+            <point key="canvasLocation" x="2934.7826086956525" y="115.84821428571428"/>
         </scene>
     </scenes>
     <resources>

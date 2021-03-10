@@ -35,42 +35,11 @@ class TodoDetailViewController: UIViewController, UIAdaptivePresentationControll
     override func viewDidLoad() {
         super.viewDidLoad()
         print("todoDetail.viewDidLoad")
-//        guard let todoListVC = getPresentingVC() else { return }
-//        let todoList = todoListVC.todoList
-//        let targetTodo = isParent ? todoList[indexPath.section] : todoList[indexPath.section].subTodoList[indexPath.row - 1]
         
-        //self.navigationController?.presentationController?.delegate = self
-//        self.presentingViewController?.presentationController?.delegate = self
-        // copy
-//        originalTodo = Todo()
-//        originalTodo.title = targetTodo.title
-//        originalTodo.memo = targetTodo.memo
-//        originalTodo.objectID = targetTodo.objectID
-//        originalTodo.regDate = targetTodo.regDate
-        
+        hasTimer = true
         tableView.dataSource = self
-        
+        tableView.rowHeight = UITableView.automaticDimension
     }
-//    func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
-//        print("ShoulDismiss]")
-//        return true
-//    }
-    
-//    func getPresentingVC() -> TodoListViewController? {
-//        guard let pvc = self.presentingViewController as? UINavigationController else { return nil }
-//        guard let todoListVC = pvc.topViewController as? TodoListViewController else { return nil }
-//        return todoListVC
-//    }
-    
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        print("TodoDetailVC] viewWillDisappear")
-//        guard let todoListVC = getPresentingVC() else { return }
-//
-//        self.dismiss(animated: true, completion: {
-//            todoListVC.tableView.reloadData()
-//        })
-//    }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -122,40 +91,26 @@ class TodoDetailViewController: UIViewController, UIAdaptivePresentationControll
     
     @IBAction func saveAction(_ sender: Any) {
         print("saveAction Click.")
-        // 만약에 title에 텍스트가 없으면 버튼이안눌려야함
-        // 그 외의 경우에는 모두 저장
-        
         if hasChanges {
             delegate?.todoDetailViewControllerDidFinish(self)
         } else {
             delegate?.todoDetailViewControllerDidCancel(self)
         }
-        
-//        // 콘텐츠 변경작업 수행
-//        guard let contents = bringContents() else { return }
-//        let targetTodo = isParent ? todoList[indexPath.section] : todoList[indexPath.section].subTodoList[indexPath.row - 1]
-//        targetTodo.title = contents.title
-//        targetTodo.memo = contents.memo
-        
-//        dismissAndReloadPreviousVC()
-        
     }
     
     @IBAction func cancelAction(_ sender: Any) {
         print("cancelAction Click")
-        // 변경 사항이 있다면, 종료가 바로 되면 안된다. 액션 시트로 한번 더 띄운다.
-        // 변경 사항이 없으면 그대로 종료
-        // 변경 사항의 확인은........전용 메서드를 호출해서 처리하는 것으로 한다.
         if hasChanges {
             confirmCancel()
         } else {
             delegate?.todoDetailViewControllerDidCancel(self)
         }
-        
-//        dismissAndReloadPreviousVC()
     }
 
-    
+    @objc func openDatePicker(_ sender: UISwitch) {
+        hasTimer = sender.isOn
+        tableView.reloadSections(IndexSet(integer: 1), with: .fade)
+    }
 }
 
 extension TodoDetailViewController: UITextViewDelegate{
@@ -205,6 +160,10 @@ extension TodoDetailViewController: UITextViewDelegate{
     }
 }
 
+extension TodoDetailViewController: UITableViewDelegate {
+    
+}
+
 extension TodoDetailViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -216,7 +175,7 @@ extension TodoDetailViewController: UITableViewDataSource {
         case 0:
             return todoTextContents.count
         case 1:
-            return hasTimer ? 4 : 1
+            return hasTimer ? 3 : 1
         default:
             return 0
         }
@@ -229,6 +188,7 @@ extension TodoDetailViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "textViewCell") as! TextViewCell
             cell.textView.delegate = self
             cell.textView.tag = indexPath.row
+            cell.selectionStyle = .none
             let originalTodo = isParent ? todoList[todoIndexPath.section] : todoList[todoIndexPath.section].subTodoList[todoIndexPath.row - 1]
             cell.textView.text = indexPath.row == 0 ? originalTodo.title : originalTodo.memo
             placeHolderSetting(cell.textView)
@@ -239,24 +199,24 @@ extension TodoDetailViewController: UITableViewDataSource {
             case 0:
             // 항상 스위치 셀
                 let cell = tableView.dequeueReusableCell(withIdentifier: "switchCell") as! SwitchCell
+                cell.selectionStyle = .none
                 cell.textLabel?.text = "마감 카운트 다운 설정"
                 cell.openSwitch.isOn = hasTimer // 여기서 자동으로 보여지는게달라지는지 체크
+                cell.openSwitch.addTarget(self, action: #selector(openDatePicker(_:)), for: .valueChanged)
                 return cell
             case 1:
-                // 있다면 statusCell
-                let cell = tableView.dequeueReusableCell(withIdentifier: "statusCell")!
-                cell.textLabel?.text = "Start"
-                cell.detailTextLabel?.text = "Ends"
-                return cell
-            case 2:
                 // 있다면 datePickerCell
                 let cell = tableView.dequeueReusableCell(withIdentifier: "datePickerCell") as! DatePickerCell
+                cell.datePicker.datePickerMode = .dateAndTime
+                
+                cell.selectionStyle = .none
                 return cell
-            case 3:
+            case 2:
                 // 있다면 statusCell
                 let cell = tableView.dequeueReusableCell(withIdentifier: "statusCell")!
+                cell.selectionStyle = .none
                 cell.textLabel?.text = "Start"
-                cell.detailTextLabel?.text = "Ends"
+                cell.detailTextLabel?.text = "Ends"                
                 return cell
             default:
                 return UITableViewCell()
@@ -265,6 +225,7 @@ extension TodoDetailViewController: UITableViewDataSource {
         default:
             return UITableViewCell()
         }
+    
     }
     
     
