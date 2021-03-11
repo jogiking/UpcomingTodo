@@ -16,6 +16,8 @@
 		DF4631EF25E8BFAE008B5FFB /* TodoListTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4631EE25E8BFAE008B5FFB /* TodoListTableFooterView.swift */; };
 		DF54651025E3D87A00B6E2F4 /* CardBoardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF54650F25E3D87A00B6E2F4 /* CardBoardView.xib */; };
 		DF54651325E3DA0300B6E2F4 /* CardBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF54651225E3DA0300B6E2F4 /* CardBoardView.swift */; };
+		DF5F663B25F9DD0D00D587B3 /* UpcomingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF5F663A25F9DD0D00D587B3 /* UpcomingView.xib */; };
+		DF5F663E25F9DD2700D587B3 /* UpcomingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5F663D25F9DD2700D587B3 /* UpcomingView.swift */; };
 		DF7807AF25DFEE16008EAE7F /* MainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7807AE25DFEE16008EAE7F /* MainPageViewController.swift */; };
 		DF7CFC9B25E7E80700C389B4 /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7CFC9A25E7E80700C389B4 /* TodoListViewController.swift */; };
 		DF8A2CF125E51082009417C6 /* TodoDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8A2CF025E51082009417C6 /* TodoDAO.swift */; };
@@ -51,6 +53,8 @@
 		DF4631EE25E8BFAE008B5FFB /* TodoListTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListTableFooterView.swift; sourceTree = "<group>"; };
 		DF54650F25E3D87A00B6E2F4 /* CardBoardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardBoardView.xib; sourceTree = "<group>"; };
 		DF54651225E3DA0300B6E2F4 /* CardBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBoardView.swift; sourceTree = "<group>"; };
+		DF5F663A25F9DD0D00D587B3 /* UpcomingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpcomingView.xib; sourceTree = "<group>"; };
+		DF5F663D25F9DD2700D587B3 /* UpcomingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingView.swift; sourceTree = "<group>"; };
 		DF7807AE25DFEE16008EAE7F /* MainPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageViewController.swift; sourceTree = "<group>"; };
 		DF7CFC9A25E7E80700C389B4 /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
 		DF8A2CF025E51082009417C6 /* TodoDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDAO.swift; sourceTree = "<group>"; };
@@ -114,6 +118,15 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		DF5F663925F9DCE700D587B3 /* UpcomingView */ = {
+			isa = PBXGroup;
+			children = (
+				DF5F663A25F9DD0D00D587B3 /* UpcomingView.xib */,
+				DF5F663D25F9DD2700D587B3 /* UpcomingView.swift */,
+			);
+			path = UpcomingView;
+			sourceTree = "<group>";
+		};
 		DF631B3425E50E9B00DAD0F1 /* CardBoardView */ = {
 			isa = PBXGroup;
 			children = (
@@ -143,6 +156,7 @@
 		DF8E09D025DA7ADD005B5755 /* Todo */ = {
 			isa = PBXGroup;
 			children = (
+				DF5F663925F9DCE700D587B3 /* UpcomingView */,
 				DF631B3425E50E9B00DAD0F1 /* CardBoardView */,
 				DF4631F125E8BFB7008B5FFB /* TodoListFooterView */,
 				DF4631F325E8C00B008B5FFB /* Cells */,
@@ -246,6 +260,7 @@
 				DF8E09FF25DA922E005B5755 /* unclick.png in Resources */,
 				DF8E09D925DA7ADD005B5755 /* Main.storyboard in Resources */,
 				DF8E09FD25DA922E005B5755 /* disclosure_open.png in Resources */,
+				DF5F663B25F9DD0D00D587B3 /* UpcomingView.xib in Resources */,
 				DF54651025E3D87A00B6E2F4 /* CardBoardView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -259,6 +274,7 @@
 			files = (
 				DF8A2CF125E51082009417C6 /* TodoDAO.swift in Sources */,
 				DF92A7C125F751D40032DA0C /* TodoDetailViewController.swift in Sources */,
+				DF5F663E25F9DD2700D587B3 /* UpcomingView.swift in Sources */,
 				DF7CFC9B25E7E80700C389B4 /* TodoListViewController.swift in Sources */,
 				DF19E6B425DA9DA2002544FB /* NormalCell.swift in Sources */,
 				DF7807AF25DFEE16008EAE7F /* MainPageViewController.swift in Sources */,

@@ -29,7 +29,7 @@ class CardBoardView: UIView {
         let view = bundle.loadNibNamed("CardBoardView", owner: self, options: nil)?.first as! UIView
         
         view.frame = bounds
-        view.subviews.first!.backgroundColor = .lightGray
+//        view.subviews.first!.backgroundColor = .lightGray
         
         self.layer.cornerRadius = 20
         self.clipsToBounds = true

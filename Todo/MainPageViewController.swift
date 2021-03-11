@@ -13,7 +13,6 @@ class MainPageViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var todayCardView: CardBoardView!
-    @IBOutlet weak var upcomingCardView: CardBoardView!
     @IBOutlet weak var totalCardView: CardBoardView!
     
     lazy var dao = TodoDAO()
@@ -56,12 +55,12 @@ class MainPageViewController: UIViewController {
     }
     
     func setupCardViews() {
-        todayCardView.title.text = "오늘"
-        upcomingCardView.title.text = "예정"
+//        todayCardView.title.text = "오늘"
+//        upcomingCardView.title.text = "예정"
         totalCardView.title.text = "전체"
-        
-        todayCardView.countTitle.text = "0"
-        upcomingCardView.countTitle.text = "0"
+        todayCardView.title.text = "오늘"
+//        todayCardView.countTitle.text = "0"
+//        upcomingCardView.countTitle.text = "0"
         totalCardView.countTitle.text = {
             var count = 0
             for _ in appDelegate.myData {
