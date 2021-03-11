@@ -129,11 +129,11 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
         if isC(sourceIndexPath: indexPath) {
             let editTodo = todoList[indexPath.section].subTodoList[indexPath.row - 1]
             editTodo.title = editingStatus.textView!.text
-            editTodo.regDate = Date()
+//            editTodo.regDate = Date()
         } else {
             let editTodo = todoList[indexPath.section]
             editTodo.title = editingStatus.textView!.text
-            editTodo.regDate = Date()
+//            editTodo.regDate = Date()
         }
         
 //        editingStatus.textView!.resignFirstResponder()
@@ -320,7 +320,12 @@ extension TodoListViewController: UITextViewDelegate {
     
         targetTodo.title = contents.title
         targetTodo.memo = contents.memo
+        
+    
         if isParentCell {
+            if todoDetailViewController.deadline != (targetTodo as! TodoData).deadline {
+                targetTodo.regDate = Date()
+            }
             (targetTodo as! TodoData).deadline = todoDetailViewController.deadline
         }
         

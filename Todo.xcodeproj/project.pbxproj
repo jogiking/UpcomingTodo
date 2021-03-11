@@ -20,6 +20,7 @@
 		DF5F663E25F9DD2700D587B3 /* UpcomingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5F663D25F9DD2700D587B3 /* UpcomingView.swift */; };
 		DF7807AF25DFEE16008EAE7F /* MainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7807AE25DFEE16008EAE7F /* MainPageViewController.swift */; };
 		DF7CFC9B25E7E80700C389B4 /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7CFC9A25E7E80700C389B4 /* TodoListViewController.swift */; };
+		DF878C2225FA56FB00E88DD4 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF878C2125FA56FB00E88DD4 /* TestViewController.swift */; };
 		DF8A2CF125E51082009417C6 /* TodoDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8A2CF025E51082009417C6 /* TodoDAO.swift */; };
 		DF8E09D225DA7ADD005B5755 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8E09D125DA7ADD005B5755 /* AppDelegate.swift */; };
 		DF8E09D425DA7ADD005B5755 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8E09D325DA7ADD005B5755 /* SceneDelegate.swift */; };
@@ -57,6 +58,7 @@
 		DF5F663D25F9DD2700D587B3 /* UpcomingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingView.swift; sourceTree = "<group>"; };
 		DF7807AE25DFEE16008EAE7F /* MainPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageViewController.swift; sourceTree = "<group>"; };
 		DF7CFC9A25E7E80700C389B4 /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
+		DF878C2125FA56FB00E88DD4 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		DF8A2CF025E51082009417C6 /* TodoDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDAO.swift; sourceTree = "<group>"; };
 		DF8E09CE25DA7ADD005B5755 /* Todo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Todo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF8E09D125DA7ADD005B5755 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 		DF8E09C525DA7ADD005B5755 = {
 			isa = PBXGroup;
 			children = (
+				DF878C2125FA56FB00E88DD4 /* TestViewController.swift */,
 				DF8E09F725DA9223005B5755 /* Resources */,
 				DF8E09D025DA7ADD005B5755 /* Todo */,
 				DF8E09CF25DA7ADD005B5755 /* Products */,
@@ -279,6 +282,7 @@
 				DF19E6B425DA9DA2002544FB /* NormalCell.swift in Sources */,
 				DF7807AF25DFEE16008EAE7F /* MainPageViewController.swift in Sources */,
 				DF4631EF25E8BFAE008B5FFB /* TodoListTableFooterView.swift in Sources */,
+				DF878C2225FA56FB00E88DD4 /* TestViewController.swift in Sources */,
 				DF092BFE25F76F7400ECFC1A /* DatePickerCell.swift in Sources */,
 				DFF18D4825EBDE9400CA777E /* BasicCell.swift in Sources */,
 				DF8E09D625DA7ADD005B5755 /* ViewController.swift in Sources */,

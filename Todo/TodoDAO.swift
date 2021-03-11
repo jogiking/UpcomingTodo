@@ -17,17 +17,54 @@ class TodoDAO {
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
-    func fetch() -> [CatalogData] {
+    func fetchUpcomingTodo() -> TodoData? {
+        var todoData: TodoData? = nil
+        let fetchRequest: NSFetchRequest<TodoMO> = TodoMO.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "deadline", ascending: true)
+        fetchRequest.predicate = NSPredicate(format: "deadline != nil")
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        do {
+            let todoDataResultSet = try self.context.fetch(fetchRequest)
+            guard let firstTodoDataMO = todoDataResultSet.first else { return todoData }
+            todoData = TodoData()
+            todoData?.title = firstTodoDataMO.title
+            todoData?.memo = firstTodoDataMO.memo
+            todoData?.deadline = firstTodoDataMO.deadline
+            todoData?.regDate = firstTodoDataMO.regdate
+            todoData?.isFinish = firstTodoDataMO.isfinish
+            let subTodos = firstTodoDataMO.subTodos?.array as! [SubTodoMO]
+            for subTodo in subTodos {
+                let subTodoData = Todo()
+                subTodoData.title = subTodo.title
+                subTodoData.memo = subTodo.memo
+                subTodoData.objectID = subTodo.objectID
+                subTodoData.regDate = subTodo.regdate
+                subTodoData.isFinish = subTodo.isfinish
+                
+                todoData!.subTodoList.append(subTodoData)
+            }
+        } catch let e as NSError {
+            NSLog("An error has occurred.", e.localizedDescription)
+        }
+        return todoData
+    }
+    
+    func fetch(keyword text: String? = nil) -> [CatalogData] {
         
         var data = [CatalogData]()
         
         let fetchRequestOfCatalogMO: NSFetchRequest<CatalogMO> = CatalogMO.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "displayorder", ascending: true)
         fetchRequestOfCatalogMO.sortDescriptors = [sortDescriptor]
+        
+        if let t = text, t.isEmpty == false {
+            fetchRequestOfCatalogMO.predicate = NSPredicate(format: "title CONTAINS[c] %@ OR memo CONTAINS[c] %@", t, t)
+        }
 
         do {
-            let catalogResutSet = try self.context.fetch(fetchRequestOfCatalogMO)
-            for catalog in catalogResutSet {
+            let catalogResultSet = try self.context.fetch(fetchRequestOfCatalogMO)
+            for catalog in catalogResultSet {
                 let catalogData = CatalogData()
                 catalogData.regDate = catalog.regdate
                 catalogData.name = catalog.name

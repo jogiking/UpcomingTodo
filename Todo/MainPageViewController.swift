@@ -15,6 +15,11 @@ class MainPageViewController: UIViewController {
     @IBOutlet weak var todayCardView: CardBoardView!
     @IBOutlet weak var totalCardView: CardBoardView!
     
+    @IBOutlet weak var upcomingView: UIView!
+//    @IBOutlet weak var upcomingSubView: UpcomingView!
+    
+    @IBOutlet weak var upcomingSubView: UIView!
+    
     lazy var dao = TodoDAO()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
@@ -35,42 +40,56 @@ class MainPageViewController: UIViewController {
         
     }
     
-    @IBAction func update(_ sender: Any) {
-        updateMainPage()
-        //        print("myData.count: \(self.appDelegate.myData.count)")
-        tableView.reloadData()
-    }
     override func viewWillAppear(_ animated: Bool) {
         print("viewWillAppear in MainVC")
         updateMainPage()
     }
     
     func updateMainPage() {
-//        print("updateMainPage. contentSizeHeight = \(tableView.contentSize.height)")
         appDelegate.myData = self.dao.fetch()
         setupCardViews()
+        setupUpcomingView()
         
         tableView.invalidateIntrinsicContentSize()
         self.tableView.reloadData()
     }
+
     
+    func setupUpcomingView() {
+        upcomingView.layer.cornerRadius = 20
+        upcomingView.clipsToBounds = true
+
+        // 조건에 맞는 데이터 fetch를 해야한다.
+        if let data = self.dao.fetchUpcomingTodo() {
+            // 보여줄 todo가 존재 할 때
+            print("setupUpcomingView] todoData=\(data.title)")
+            let view = UpcomingView()
+            view.updateContent(data: data)
+            view.frame = upcomingSubView.bounds
+            upcomingSubView.addSubview(view)
+        } else {
+            // deadline todo가 하나도 없을 때
+            print("setupUpcomingView] no deadline data")
+            // 이때 없다는 새로운 뷰를 만들어서 넣어줘야함....
+        }
+
+    }
+
+       
     func setupCardViews() {
-//        todayCardView.title.text = "오늘"
-//        upcomingCardView.title.text = "예정"
         totalCardView.title.text = "전체"
         todayCardView.title.text = "오늘"
-//        todayCardView.countTitle.text = "0"
-//        upcomingCardView.countTitle.text = "0"
-        totalCardView.countTitle.text = {
-            var count = 0
-            for _ in appDelegate.myData {
-                //count += catalog.todoList.count
-                
-                count += 1
-            }
-            let countText = "\(count)"
-            return countText
-        }()
+        totalCardView.countTitle.text = "\(appDelegate.myData.count)"
+//            {
+//            var count = 0
+//            for _ in appDelegate.myData {
+//                //count += catalog.todoList.count
+//
+//                count += 1
+//            }
+//            let countText = "\(count)"
+//            return countText
+//        }()
     }
     
     @IBAction func addCatalog(_ sender: Any) {
