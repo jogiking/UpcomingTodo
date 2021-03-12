@@ -23,6 +23,10 @@ class UpcomingView: UIView {
     @IBOutlet weak var timeCounterProgressView: UIProgressView!
     @IBOutlet weak var numberOfCompletionProgressView: UIProgressView!
     
+    var refreshTimer: Timer?
+    var targetData: TodoData?
+    var i = 0
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setup()
@@ -40,9 +44,35 @@ class UpcomingView: UIView {
         self.addSubview(view)
     }
     
-    func updateContent(data: TodoData) {
-        title.text = data.title
+    func onTimerStart() {
+        if let timer = self.refreshTimer {
+            if !timer.isValid {
+                self.refreshTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(upcomingViewTimerCallback), userInfo: nil, repeats: true)
+                RunLoop.main.add(timer, forMode: .common)
+                timer.fire()
+                
+            }
+        } else {
+            self.refreshTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(upcomingViewTimerCallback), userInfo: nil, repeats: true)
+            RunLoop.main.add(self.refreshTimer!, forMode: .common)
+            self.refreshTimer!.fire()
+        }
+    }
+    
+    func onTimerStop() {
+        if let timer = refreshTimer {
+            if(timer.isValid){
+                timer.invalidate()
+            }
+        }
+    }
+    
+    @objc func upcomingViewTimerCallback() {
+        print("Callback] \(i)")
+        i += 1
         
+        guard let data = self.targetData else { return }
+        title.text = data.title
         totalDetailLabel.text = "전체 세부 항목 \(data.numberOfSubTodo)건"
         
         let dateFormatter = DateFormatter()
@@ -59,18 +89,31 @@ class UpcomingView: UIView {
         numberOfCompletionLabel.text = "\(numberOfCompletedSubtodo)건 완료"
         numberOfCompletionProgressView.progress = numberOfCompletedSubtodo == 0 ? 0.001 : Float(numberOfCompletedSubtodo) / Float(data.numberOfSubTodo)
         
-        let interval = Date() - data.regDate!
+        let recent = Date()
+        timeCounterLabel.text = getDiffDateString(recent: recent, previous: data.regDate!) + " 지남"
+                
+        let interval = recent - data.regDate!
+        let totalSecond = (data.deadline! - data.regDate!).second
+        timeCounterProgressView.progress = Float(interval.second!) / Float(totalSecond!)
+        
+        if recent <= data.deadline! {
+            timerLabel.text = getDiffDateString(recent: data.deadline!, previous: recent)
+        } else {
+            timerLabel.text = "시간 만료"
+        }
+        
+    }
+    
+    func getDiffDateString(recent: Date, previous: Date) -> String {
+        let interval = recent - previous
         let year = interval.month! / 12 == 0 ? "" : "\(interval.month! / 12)년"
         let month = interval.month! % 12 == 0 ? "" : " \(interval.month! % 12)월"
         let day = interval.day! % 365 == 0 ? "" : " \(interval.day! % 365)일"
         let hour = interval.hour! % 24 == 0 ? "" : " \(interval.hour! % 24)시간"
         let minute = interval.minute! % 60 == 0 ? "" : " \(interval.minute! % 60)분"
         let second = interval.second! % 60 == 0 ? "" : " \(interval.second! % 60)초"
-        let counterString = year + month + day + hour + minute + second + " 지남"
-        timeCounterLabel.text = counterString
-        
-        let totalSecond = (data.deadline! - data.regDate!).second
-        timeCounterProgressView.progress = Float(interval.second!) / Float(totalSecond!)
+        let counterString = year + month + day + hour + minute + second
+        return counterString
     }
 }
 

@@ -8,7 +8,7 @@
 import UIKit
 
 class MainPageViewController: UIViewController {
-    
+
     @IBOutlet weak var navItem: UINavigationItem!
     @IBOutlet weak var tableView: UITableView!
     
@@ -62,18 +62,24 @@ class MainPageViewController: UIViewController {
             let upcomingView = upcomingStackView.arrangedSubviews[1] as! UpcomingView
             let warningView = upcomingStackView.arrangedSubviews[2]
               
+            upcomingView.isHidden = false
             if warningView.isHidden == false {
                 UIView.animate(withDuration: 0.25) {
                     warningView.isHidden = true
                 }
             }
-            upcomingView.updateContent(data: data)
             
+            upcomingView.targetData = data
+            upcomingView.onTimerStart()
         } else {
             print("setupUpcomingView] no deadline data")
             let upcomingView = upcomingStackView.arrangedSubviews[1] as! UpcomingView
             let warningView = upcomingStackView.arrangedSubviews[2]
             
+            upcomingView.targetData = nil
+            upcomingView.onTimerStop()
+            
+            warningView.isHidden = false
             if upcomingView.isHidden == false {
                 UIView.animate(withDuration: 0.25) {
                     upcomingView.isHidden = true
