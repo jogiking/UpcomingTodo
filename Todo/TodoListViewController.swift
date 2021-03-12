@@ -184,6 +184,21 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
     
     @objc func tappedSelectImage(_ sender: Any) {
         print("tapped SelectImage")
+        
+        if let tgr = sender as? UITapGestureRecognizer {
+            if let cell = tgr.view?.superview?.superview as? UITableViewCell {
+                if let indexPath = tableView.indexPath(for: cell) {
+                    // 데이터에 isFinish = !isFinish
+                    // 사진 바꾸기
+                    let todo = isC(sourceIndexPath: indexPath) ?
+                        todoList[indexPath.section].subTodoList[indexPath.row - 1] : todoList[indexPath.section]
+                    
+                    todo.isFinish = !(todo.isFinish!)
+                    
+                    (cell as? DynamicCellProtocol)?.changeSelectImg(isFinish: todo.isFinish!)
+                }
+            }
+        }
     }
     
     @objc func tappedOpenImage(_ sender: Any) {
@@ -195,7 +210,7 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
                     if editingStatus.cell == cell {
                         // memoCell segue
                         print("go to memoCellSegue")
-                        guard let indexPath = tableView.indexPath(for:  editingStatus.cell!) else {
+                        guard let indexPath = tableView.indexPath(for: editingStatus.cell!) else {
                             print("memoCell segue Index nil error")
                             return
                         }
@@ -450,11 +465,14 @@ extension TodoListViewController: UITableViewDelegate,
         let cell = tableView.dequeueReusableCell(withIdentifier: "memoCell", for: indexPath) as! MemoCell
         cell.btn.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedOpenImage(_:))))
         cell.btn.isUserInteractionEnabled = true
+        cell.selectImg.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedSelectImage(_:))))
+        cell.selectImg.isUserInteractionEnabled = true
         
         if indexPath.row == 0 { // main cell
             let mainTodo = todoList[indexPath.section]
-            cell.selectImg.image = mainTodo.isFinish! ? UIImage(named: "click") : UIImage(named: "unclick")
-            cell.selectImg.isUserInteractionEnabled = true
+            cell.changeSelectImg(isFinish: mainTodo.isFinish!)
+//            cell.selectImg.image = mainTodo.isFinish! ? UIImage(named: "click") : UIImage(named: "unclick")
+//            cell.selectImg.isUserInteractionEnabled = true
             cell.title.text = mainTodo.title
             cell.title.delegate = self
             cell.memo.text = mainTodo.memo
@@ -475,8 +493,9 @@ extension TodoListViewController: UITableViewDelegate,
         
         } else { // sub cell
             let subTodo = todoList[indexPath.section].subTodoList[indexPath.row - 1]
-            cell.selectImg.image = subTodo.isFinish! ? UIImage(named: "click") : UIImage(named: "unclick")
-            cell.selectImg.isUserInteractionEnabled = true
+            cell.changeSelectImg(isFinish: subTodo.isFinish!)
+//            cell.selectImg.image = subTodo.isFinish! ? UIImage(named: "click") : UIImage(named: "unclick")
+//            cell.selectImg.isUserInteractionEnabled = true
             cell.title.text = subTodo.title
             cell.title.delegate = self
             cell.memo.text = subTodo.memo
@@ -493,11 +512,14 @@ extension TodoListViewController: UITableViewDelegate,
         let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath) as! BasicCell
         cell.btn.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedOpenImage(_:))))
         cell.btn.isUserInteractionEnabled = true
+        cell.selectImg.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedSelectImage(_:))))
+        cell.selectImg.isUserInteractionEnabled = true
         
         if indexPath.row == 0 { // main cell
             let mainTodo = todoList[indexPath.section]
-            cell.selectImg.image = mainTodo.isFinish! ? UIImage(named: "click") : UIImage(named: "unclick")
-            cell.selectImg.isUserInteractionEnabled = true
+//            cell.selectImg.image = mainTodo.isFinish! ? UIImage(named: "click") : UIImage(named: "unclick")
+            cell.changeSelectImg(isFinish: mainTodo.isFinish!)
+//            cell.selectImg.isUserInteractionEnabled = true
             cell.title.text = mainTodo.title
             cell.title.delegate = self
             
@@ -515,8 +537,9 @@ extension TodoListViewController: UITableViewDelegate,
         
         } else { // sub cell
             let subTodo = todoList[indexPath.section].subTodoList[indexPath.row - 1]
-            cell.selectImg.image = subTodo.isFinish! ? UIImage(named: "click") : UIImage(named: "unclick")
-            cell.selectImg.isUserInteractionEnabled = true
+//            cell.selectImg.image = subTodo.isFinish! ? UIImage(named: "click") : UIImage(named: "unclick")
+            cell.changeSelectImg(isFinish: subTodo.isFinish!)
+//            cell.selectImg.isUserInteractionEnabled = true
             cell.title.text = subTodo.title
             cell.title.delegate = self
             

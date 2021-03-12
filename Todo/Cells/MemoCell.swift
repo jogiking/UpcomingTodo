@@ -59,4 +59,8 @@ class MemoCell: UITableViewCell, DynamicCellProtocol {
         print("rawValue=\(statusType.rawValue)")
         btn.image = UIImage(systemName: statusType.rawValue)
     }
+    
+    func changeSelectImg(isFinish: Bool) {
+        self.selectImg.image = isFinish ? UIImage(named: "click") : UIImage(named: "unclick")
+    }
 }

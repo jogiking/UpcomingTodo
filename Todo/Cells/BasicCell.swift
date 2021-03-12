@@ -14,10 +14,12 @@ enum TableViewCellRightButtonStatus: String {
 }
 
 protocol DynamicCellProtocol {
+    var rightBtnUITapGestureRecognizerDelegate: UITapGestureRecognizer? { get set }
+    
     func shrinkAccessory(_: Bool)
     func indentLeading(_: Bool)
     func changeBtnStatusImage(statusType: TableViewCellRightButtonStatus)
-    var rightBtnUITapGestureRecognizerDelegate: UITapGestureRecognizer? { get set }
+    func changeSelectImg(isFinish: Bool)
 }
 
 class BasicCell: UITableViewCell, DynamicCellProtocol {
@@ -78,5 +80,9 @@ class BasicCell: UITableViewCell, DynamicCellProtocol {
             shrinkAccessory(false)
         }
         
+    }
+    
+    func changeSelectImg(isFinish: Bool) {
+        self.selectImg.image = isFinish ? UIImage(named: "click") : UIImage(named: "unclick")
     }
 }
