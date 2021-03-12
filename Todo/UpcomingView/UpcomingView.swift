@@ -71,8 +71,6 @@ class UpcomingView: UIView {
         
         let totalSecond = (data.deadline! - data.regDate!).second
         timeCounterProgressView.progress = Float(interval.second!) / Float(totalSecond!)
-        
-        self.invalidateIntrinsicContentSize()
     }
 }
 
