@@ -25,6 +25,8 @@ class UpcomingView: UIView {
     
     var refreshTimer: Timer?
     var targetData: TodoData?
+    var callbackCompletion: (() -> Void)?
+    
     var i = 0
     
     required init?(coder: NSCoder) {
@@ -44,7 +46,9 @@ class UpcomingView: UIView {
         self.addSubview(view)
     }
     
-    func onTimerStart() {
+    func onTimerStart(callbackCompletion: (() -> Void)? = nil) {
+        self.callbackCompletion = callbackCompletion
+        
         if let timer = self.refreshTimer {
             if !timer.isValid {
                 self.refreshTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(upcomingViewTimerCallback), userInfo: nil, repeats: true)
@@ -68,7 +72,7 @@ class UpcomingView: UIView {
     }
     
     @objc func upcomingViewTimerCallback() {
-        print("Callback] \(i)")
+        print("Callback] \(i), data=\(self.targetData?.title)")
         i += 1
         
         guard let data = self.targetData else { return }
@@ -102,6 +106,9 @@ class UpcomingView: UIView {
             timerLabel.text = "시간 만료"
         }
         
+        if let completion = self.callbackCompletion {
+            completion()
+        }
     }
     
     func getDiffDateString(recent: Date, previous: Date) -> String {

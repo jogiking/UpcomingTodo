@@ -471,8 +471,6 @@ extension TodoListViewController: UITableViewDelegate,
         if indexPath.row == 0 { // main cell
             let mainTodo = todoList[indexPath.section]
             cell.changeSelectImg(isFinish: mainTodo.isFinish!)
-//            cell.selectImg.image = mainTodo.isFinish! ? UIImage(named: "click") : UIImage(named: "unclick")
-//            cell.selectImg.isUserInteractionEnabled = true
             cell.title.text = mainTodo.title
             cell.title.delegate = self
             cell.memo.text = mainTodo.memo
@@ -494,8 +492,6 @@ extension TodoListViewController: UITableViewDelegate,
         } else { // sub cell
             let subTodo = todoList[indexPath.section].subTodoList[indexPath.row - 1]
             cell.changeSelectImg(isFinish: subTodo.isFinish!)
-//            cell.selectImg.image = subTodo.isFinish! ? UIImage(named: "click") : UIImage(named: "unclick")
-//            cell.selectImg.isUserInteractionEnabled = true
             cell.title.text = subTodo.title
             cell.title.delegate = self
             cell.memo.text = subTodo.memo
@@ -517,9 +513,7 @@ extension TodoListViewController: UITableViewDelegate,
         
         if indexPath.row == 0 { // main cell
             let mainTodo = todoList[indexPath.section]
-//            cell.selectImg.image = mainTodo.isFinish! ? UIImage(named: "click") : UIImage(named: "unclick")
             cell.changeSelectImg(isFinish: mainTodo.isFinish!)
-//            cell.selectImg.isUserInteractionEnabled = true
             cell.title.text = mainTodo.title
             cell.title.delegate = self
             
@@ -537,9 +531,7 @@ extension TodoListViewController: UITableViewDelegate,
         
         } else { // sub cell
             let subTodo = todoList[indexPath.section].subTodoList[indexPath.row - 1]
-//            cell.selectImg.image = subTodo.isFinish! ? UIImage(named: "click") : UIImage(named: "unclick")
             cell.changeSelectImg(isFinish: subTodo.isFinish!)
-//            cell.selectImg.isUserInteractionEnabled = true
             cell.title.text = subTodo.title
             cell.title.delegate = self
             

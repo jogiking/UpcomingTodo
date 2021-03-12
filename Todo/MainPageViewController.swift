@@ -42,8 +42,18 @@ class MainPageViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         print("viewWillAppear in MainVC")
         updateMainPage()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("viewWillDisappear")
+        
+        if let upcomingView = upcomingStackView.arrangedSubviews[1] as? UpcomingView {
+            upcomingView.onTimerStop()
+        }
     }
     
     func updateMainPage() {
@@ -103,6 +113,17 @@ class MainPageViewController: UIViewController {
 //            let countText = "\(count)"
 //            return countText
 //        }()
+    }
+    
+    @IBAction func showFullScreen(_ sender: Any) {
+        guard let upcomingView = upcomingStackView.arrangedSubviews[1] as? UpcomingView else { return }
+        guard let fullScreenVC = self.storyboard?.instantiateViewController(withIdentifier: "fullscreenVC") as? FullScreenViewController else { return }
+ 
+        fullScreenVC.modalTransitionStyle = .coverVertical
+        fullScreenVC.modalPresentationStyle = .fullScreen
+        fullScreenVC.targetData = upcomingView.targetData
+
+        self.present(fullScreenVC, animated: true, completion: nil)
     }
     
     @IBAction func addCatalog(_ sender: Any) {
