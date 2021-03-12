@@ -162,13 +162,13 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="730"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wvu-Vl-z61">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="679.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="768.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="M8w-hY-wEI">
-                                                <rect key="frame" x="18" y="18" width="378" height="643.5"/>
+                                                <rect key="frame" x="18" y="18" width="378" height="732.5"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wle-yv-3dV">
-                                                        <rect key="frame" x="0.0" y="0.0" width="378" height="427"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wle-yv-3dV" userLabel="UpcomingStackView">
+                                                        <rect key="frame" x="0.0" y="0.0" width="378" height="516"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cPO-Dg-Q3r">
                                                                 <rect key="frame" x="0.0" y="0.0" width="378" height="59"/>
@@ -193,17 +193,35 @@
                                                                     <constraint firstItem="AAk-ax-Qn7" firstAttribute="top" secondItem="cPO-Dg-Q3r" secondAttribute="top" constant="20" id="nPt-Eh-UjG"/>
                                                                 </constraints>
                                                             </view>
-                                                            <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="slL-KD-CPG" userLabel="Upcoming Sub View">
-                                                                <rect key="frame" x="0.0" y="59" width="378" height="368"/>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hsG-Z1-i3Q" customClass="UpcomingView" customModule="Todo" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="59" width="378" height="329"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dQH-o4-C3J" userLabel="warning View">
+                                                                <rect key="frame" x="0.0" y="388" width="378" height="128"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="시간 지정된 할 일 없음" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xwp-2L-BXV">
+                                                                        <rect key="frame" x="114" y="28" width="150" height="20.5"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                        <color key="textColor" systemColor="systemGray3Color"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" secondItem="slL-KD-CPG" secondAttribute="height" multiplier="189:184" id="aQc-D0-Dvd"/>
+                                                                    <constraint firstItem="xwp-2L-BXV" firstAttribute="centerX" secondItem="dQH-o4-C3J" secondAttribute="centerX" id="EJq-H6-scW"/>
+                                                                    <constraint firstAttribute="height" constant="128" id="WbH-0y-YZa"/>
+                                                                    <constraint firstItem="xwp-2L-BXV" firstAttribute="centerY" secondItem="dQH-o4-C3J" secondAttribute="centerY" multiplier="0.6" id="cE1-oN-PYU"/>
                                                                 </constraints>
                                                             </view>
                                                         </subviews>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="dQH-o4-C3J" secondAttribute="trailing" id="Orc-C0-rDc"/>
+                                                            <constraint firstItem="dQH-o4-C3J" firstAttribute="leading" secondItem="wle-yv-3dV" secondAttribute="leading" id="ezc-ln-euF"/>
+                                                        </constraints>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="H4C-8x-KcQ">
-                                                        <rect key="frame" x="0.0" y="437" width="378" height="96.5"/>
+                                                        <rect key="frame" x="0.0" y="526" width="378" height="96.5"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ry0-cK-4bR" customClass="CardBoardView" customModule="Todo" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="184" height="96.5"/>
@@ -219,7 +237,7 @@
                                                         </constraints>
                                                     </stackView>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pQS-vI-G64">
-                                                        <rect key="frame" x="0.0" y="543.5" width="378" height="100"/>
+                                                        <rect key="frame" x="0.0" y="632.5" width="378" height="100"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <prototypes>
                                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="catalogCell" textLabel="f0Q-yK-GHh" detailTextLabel="WCc-Z0-5m9" style="IBUITableViewCellStyleValue1" id="Sn2-Gt-cK5">
@@ -290,12 +308,12 @@
                         <barButtonItem key="rightBarButtonItem" title="편집" id="95S-Ik-E1x"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="expandingUpcomingButton" destination="AAk-ax-Qn7" id="q0A-BZ-PNv"/>
                         <outlet property="navItem" destination="JOU-qG-9sX" id="vgu-95-C3i"/>
                         <outlet property="tableView" destination="pQS-vI-G64" id="bWe-lB-gLg"/>
                         <outlet property="todayCardView" destination="ldX-nE-shc" id="tHc-EF-SAg"/>
                         <outlet property="totalCardView" destination="Ry0-cK-4bR" id="IYk-Py-Vy4"/>
-                        <outlet property="upcomingSubView" destination="slL-KD-CPG" id="BlP-9P-Vxe"/>
-                        <outlet property="upcomingView" destination="wle-yv-3dV" id="vIL-d7-Pay"/>
+                        <outlet property="upcomingStackView" destination="wle-yv-3dV" id="Blh-Xy-Pez"/>
                         <segue destination="mk3-bf-qu3" kind="presentation" id="kin-ms-f3E"/>
                         <segue destination="Ban-Ar-Tpp" kind="presentation" id="flq-eH-ufo"/>
                         <segue destination="dnT-nX-dDX" kind="show" identifier="todoListSegue" id="ocC-C0-rbH"/>
@@ -669,6 +687,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray3Color">
+            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

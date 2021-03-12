@@ -15,10 +15,10 @@ class MainPageViewController: UIViewController {
     @IBOutlet weak var todayCardView: CardBoardView!
     @IBOutlet weak var totalCardView: CardBoardView!
     
-    @IBOutlet weak var upcomingView: UIView!
-//    @IBOutlet weak var upcomingSubView: UpcomingView!
+    @IBOutlet weak var upcomingStackView: UIStackView!
+    @IBOutlet weak var expandingUpcomingButton: UIButton!
+    //    @IBOutlet weak var upcomingSubView: UpcomingView!
     
-    @IBOutlet weak var upcomingSubView: UIView!
     
     lazy var dao = TodoDAO()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -36,8 +36,9 @@ class MainPageViewController: UIViewController {
         tableView.estimatedRowHeight = 44
         tableView.layer.cornerRadius = 20
         tableView.layer.masksToBounds = true
-//        tableView.estimatedRowHeight = 100
         
+        upcomingStackView.layer.cornerRadius = 20
+        upcomingStackView.clipsToBounds = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,52 +50,36 @@ class MainPageViewController: UIViewController {
         appDelegate.myData = self.dao.fetch()
         setupCardViews()
         setupUpcomingView()
-        
+                
         tableView.invalidateIntrinsicContentSize()
         self.tableView.reloadData()
     }
     
     func setupUpcomingView() {
-        upcomingView.layer.cornerRadius = 20
-        upcomingView.clipsToBounds = true
-
-        // 조건에 맞는 데이터 fetch를 해야한다.
         if let data = self.dao.fetchUpcomingTodo() {
             // 보여줄 todo가 존재 할 때
-//            upcomingSubView.isHidden = false
-//            upcomingView.isHidden = false
             print("setupUpcomingView] todoData=\(data.title)")
-            let view = UpcomingView()
-            upcomingSubView.addSubview(view)
-            view.updateContent(data: data)
-
-            view.frame = upcomingSubView.bounds
-
+            let upcomingView = upcomingStackView.arrangedSubviews[1] as! UpcomingView
+            let warningView = upcomingStackView.arrangedSubviews[2]
+              
+            if warningView.isHidden == false {
+                UIView.animate(withDuration: 0.25) {
+                    warningView.isHidden = true
+                }
+            }
+            upcomingView.updateContent(data: data)
+            
         } else {
-            // deadline todo가 하나도 없을 때
-            let view = UIView()
-            view.frame = upcomingSubView.bounds
-            let label = UILabel(frame: upcomingSubView.frame)
-            label.frame.origin = upcomingSubView.frame.origin
-            label.text = "다가오는 할 일 없음"
-            label.textColor = .gray
-            
-            view.backgroundColor = .none
-            view.addSubview(label)
-            upcomingSubView.addSubview(view)
-//            self.upcomingSubView.isHidden = true
-            
-//            self.upcomingView.isHidden = true
-//            UIView.animate(withDuration: 0.5) {
-//
-//                self.view.layoutIfNeeded()
-//            }
-//            upcomingView.isHidden = true
-            
             print("setupUpcomingView] no deadline data")
-            // 이때 없다는 새로운 뷰를 만들어서 넣어줘야함....
+            let upcomingView = upcomingStackView.arrangedSubviews[1] as! UpcomingView
+            let warningView = upcomingStackView.arrangedSubviews[2]
+            
+            if upcomingView.isHidden == false {
+                UIView.animate(withDuration: 0.25) {
+                    upcomingView.isHidden = true
+                }
+            }
         }
-
     }
 
        
