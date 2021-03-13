@@ -376,10 +376,33 @@ extension TodoListViewController: UITableViewDelegate,
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let dateFomatter = DateFormatter()
-        dateFomatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFomatter.dateFormat = "yyyy년 MM월 dd일 a hh시 mm분"
         guard let date = todoList[section].deadline else { return nil}//"\(section)번째입니다." }
         let dateString = dateFomatter.string(from: date)
-        return String("\(section)번째 todo의 Deadline = \(dateString)")
+//        return String("\(section)번째 todo의 Deadline = \(dateString)")
+        return "\(dateString)까지"
+    }
+    
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let label = UILabel()
+//
+//        let dateFomatter = DateFormatter()
+//        dateFomatter.dateFormat = "yyyy년 MM월 dd일 a hh시 mm분"
+//        guard let date = todoList[section].deadline else { return nil}//"\(section)번째입니다." }
+//        let dateString = dateFomatter.string(from: date)
+//
+//        label.text = dateString + "까지"
+//
+//        return label
+//    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let header = view as! UITableViewHeaderFooterView
+//        header.backgroundColor = .
+        header.tintColor = tableView.backgroundColor
+//        header.alpha = 1
+//        header.textLabel?.textColor = .cyan
+
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
