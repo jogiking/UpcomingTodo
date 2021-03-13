@@ -18,6 +18,7 @@ class UpcomingView: UIView {
     @IBOutlet weak var timeCounterLabel: UILabel!
     @IBOutlet weak var totalDetailLabel: UILabel!
     @IBOutlet weak var numberOfCompletionLabel: UILabel!
+    @IBOutlet weak var timeCounterRightLabel: UILabel!
     
     
     @IBOutlet weak var timeCounterProgressView: UIProgressView!
@@ -102,8 +103,11 @@ class UpcomingView: UIView {
         
         if recent <= data.deadline! {
             timerLabel.text = getDiffDateString(recent: data.deadline!, previous: recent)
+            timeCounterRightLabel.text = "남음"
         } else {
             timerLabel.text = "시간 만료"
+            timeCounterRightLabel.text = ""
+            timeCounterProgressView.progress = 1
         }
         
         if let completion = self.callbackCompletion {

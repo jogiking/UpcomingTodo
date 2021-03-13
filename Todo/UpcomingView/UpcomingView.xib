@@ -15,6 +15,7 @@
                 <outlet property="startLabel" destination="A1q-1X-DXz" id="XDD-sb-bMw"/>
                 <outlet property="timeCounterLabel" destination="eS7-uA-Azq" id="Ni3-mV-nle"/>
                 <outlet property="timeCounterProgressView" destination="9Rf-6s-LUz" id="Oeo-hJ-7Mb"/>
+                <outlet property="timeCounterRightLabel" destination="GR4-rF-p8q" id="KQC-CC-2XW"/>
                 <outlet property="timerLabel" destination="yGT-Wm-BGd" id="xNP-RJ-ozB"/>
                 <outlet property="title" destination="Ejg-ZA-Pjp" id="eYT-ra-2u5"/>
                 <outlet property="totalDetailLabel" destination="ztE-uj-Jy9" id="80e-Ri-FQZ"/>
