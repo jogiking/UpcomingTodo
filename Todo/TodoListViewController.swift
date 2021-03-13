@@ -92,6 +92,8 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
             }
             cell.shrinkAccessory(true) // p, c
         }
+        
+        
     }
     
     func textEditingFinish() {
@@ -308,7 +310,7 @@ extension TodoListViewController: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        // print(textView.text)
+        print("textViewDidChange")
         let size = CGSize(width: textView.frame.width, height: .infinity)
         let estimatedSize = textView.sizeThatFits(size)
         print("estimatedSize = \(estimatedSize)")
@@ -398,11 +400,8 @@ extension TodoListViewController: UITableViewDelegate,
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header = view as! UITableViewHeaderFooterView
-//        header.backgroundColor = .
         header.tintColor = tableView.backgroundColor
-//        header.alpha = 1
-//        header.textLabel?.textColor = .cyan
-
+        header.textLabel?.textColor = .systemBlue
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
