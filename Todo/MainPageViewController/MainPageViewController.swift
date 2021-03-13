@@ -27,9 +27,11 @@ class MainPageViewController: UIViewController {
         super.viewDidLoad()
         
         let searchController = UISearchController(searchResultsController: nil)
-        
+        searchController.searchBar.delegate = self
+        searchController.searchBar.placeholder = "검색"
         navItem.searchController = searchController
         navItem.hidesSearchBarWhenScrolling = true
+        
         
         tableView.dataSource = self
         tableView.delegate = self

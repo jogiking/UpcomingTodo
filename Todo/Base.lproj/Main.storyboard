@@ -218,18 +218,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6MX-Gv-yQU">
-                                <rect key="frame" x="0.0" y="813" width="414" height="49"/>
-                                <items>
-                                    <barButtonItem title="새로운 할일 추가" id="OMz-09-rFR"/>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="fbO-yg-cyT"/>
-                                    <barButtonItem title="목록 추가" id="5gQ-K2-Yhs">
-                                        <connections>
-                                            <action selector="addCatalog:" destination="cQT-XY-L9U" id="pBn-RE-tzf"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zJ3-qG-MSO">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
@@ -322,14 +310,14 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="347" height="43.5"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
-                                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="f0Q-yK-GHh">
+                                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="f0Q-yK-GHh">
                                                                             <rect key="frame" x="20" y="12" width="33" height="20.5"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WCc-Z0-5m9">
+                                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WCc-Z0-5m9">
                                                                             <rect key="frame" x="295" y="12" width="44" height="20.5"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -366,6 +354,18 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="HvX-LI-Z5z"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="6S0-sr-ge7"/>
                             </scrollView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6MX-Gv-yQU">
+                                <rect key="frame" x="0.0" y="813" width="414" height="49"/>
+                                <items>
+                                    <barButtonItem title="새로운 할일 추가" id="OMz-09-rFR"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="fbO-yg-cyT"/>
+                                    <barButtonItem title="목록 추가" id="5gQ-K2-Yhs">
+                                        <connections>
+                                            <action selector="addCatalog:" destination="cQT-XY-L9U" id="pBn-RE-tzf"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="NWi-yM-Qm7"/>
                         <color key="backgroundColor" systemColor="systemGray6Color"/>
