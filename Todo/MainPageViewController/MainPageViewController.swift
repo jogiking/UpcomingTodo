@@ -184,8 +184,6 @@ extension MainPageViewController: UITableViewDataSource {
         cell.accessoryType = .disclosureIndicator
         let detailNumber = "\(appDelegate.myData[indexPath.row].todoList.count)"
         cell.detailTextLabel?.text = detailNumber
-        cell.backgroundColor = .white
-        
         return cell
     }
     
