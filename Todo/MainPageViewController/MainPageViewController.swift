@@ -17,28 +17,12 @@ class MainPageViewController: UIViewController {
     
     @IBOutlet weak var upcomingStackView: UIStackView!
     @IBOutlet weak var expandingUpcomingButton: UIButton!
-    //    @IBOutlet weak var upcomingSubView: UpcomingView!
-    
     
     lazy var dao = TodoDAO()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
-    func whereIsMySQLite() {
-        let path = FileManager
-            .default
-            .urls(for: .applicationSupportDirectory, in: .userDomainMask)
-            .last?
-            .absoluteString
-            .replacingOccurrences(of: "file://", with: "")
-            .removingPercentEncoding
-
-        print(path ?? "Not found")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        whereIsMySQLite()
         
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.delegate = self
@@ -181,20 +165,12 @@ extension MainPageViewController: UITableViewDataSource {
             return
         }
         
-        let row = indexPath.row
-//        todoListVC.mainTitleText = self.appDelegate.myData[row].name!
-//        todoListVC.todoList = self.appDelegate.myData[row].todoList
-//        todoListVC.catalogObjectID = self.appDelegate.myData[row].objectID
-        
-//        todoListVC.currentCatalogData = self.appDelegate.myData[row]
-        todoListVC.indexOfCatalog = row
+        todoListVC.indexOfCatalog = indexPath.row
         
         self.navigationController?.pushViewController(todoListVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        print("cellForRowAt. name = \(appDelegate.myData[indexPath.row].name)")
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "catalogCell",for: indexPath)
         cell.textLabel?.text = appDelegate.myData[indexPath.row].name
         cell.accessoryType = .disclosureIndicator

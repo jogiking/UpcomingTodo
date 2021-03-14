@@ -20,7 +20,7 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
     var editingStatus: (isEditingMode: Bool, cell: UITableViewCell?, textView: UITextView?) = (false, nil, nil) {
         didSet(oldValue) {
             if oldValue.isEditingMode != editingStatus.isEditingMode {
-                chageCompletionBtnImage()
+                changeCompletionBtnImage()
             }
         }
     }
@@ -33,30 +33,21 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-//        let fetchData = dao.fetch()
-        
-        
         self.currentCatalogData = appDelegate.myData[indexOfCatalog]
         mainTitle.text = currentCatalogData?.name
         todoList = currentCatalogData!.todoList
-        
-        print("🍎viewWillAppear in TodoListVC. paseedCatalogDataObjectID=\(currentCatalogData?.objectID), original=\(appDelegate.myData[0].objectID)")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        
         super.viewWillDisappear(animated)
-        print("🍎viewWillDisappear in TodoListVC-1")
+        
         currentCatalogData?.todoList = todoList
         dao.saveCatalogContext(currentCatalogData!, discardingCatalogObjectID: (currentCatalogData?.objectID)!)
-        print("🍎viewWillDisappear in TodoListVC-2")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        print("🍎viewDidLoad")
-        
-        
+
         tableView.dataSource = self
         tableView.delegate = self
         tableView.dragInteractionEnabled = true
@@ -104,50 +95,28 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
     
     func textEditingFinish() {
         guard editingStatus.isEditingMode else { return }
-//        guard let indexPath = editingStatus.indexPath else {  // 이 경우는 존재하는가?
-//            return
-//        }
-        
-        guard let cell = editingStatus.cell else {
-            print("textEditingFinish] cell was nil")
-            return
-        }
-        
+        guard let cell = editingStatus.cell else { return }
         guard let indexPath = tableView.indexPath(for: cell) else { return }
-        
-        //  guard let cell = tableView.cellForRow(at: indexPath) as? BasicCell, let tv = cell.title else { return }
         guard editingStatus.textView?.text.isEmpty == false else {
             if isC(sourceIndexPath: indexPath) {
                 todoList[indexPath.section].subTodoList.remove(at: indexPath.row - 1)
-//                tableView.deleteRows(at: [indexPath], with: .fade)
                 tableView.reloadSections(IndexSet(integer: indexPath.section), with: .fade)
             } else {
                 todoList.remove(at: indexPath.section)
-              
                 tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
             }
-//            tableView.reloadSections(IndexSet(indexPath.section...indexPath.section), with: .fade)
-            
-//            editingStatus.textView!.resignFirstResponder()
-//            editingStatus.isEditingMode = false
-            //afterOp(indexPath: indexPath) // 여기서는 필요없지않나...
             return
         }
         
         if isC(sourceIndexPath: indexPath) {
             let editTodo = todoList[indexPath.section].subTodoList[indexPath.row - 1]
             editTodo.title = editingStatus.textView!.text
-//            editTodo.regDate = Date()
         } else {
             let editTodo = todoList[indexPath.section]
             editTodo.title = editingStatus.textView!.text
-//            editTodo.regDate = Date()
         }
         
-//        editingStatus.textView!.resignFirstResponder()
-//        editingStatus.isEditingMode = false
         afterOp(indexPath: indexPath)
-        
     }
     
     @IBAction func completionClick(_ sender: Any) {
@@ -161,11 +130,9 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
         var hasMemo: Bool
         if indexPath.row == 0 { // main cell
             let todo = todoList[indexPath.section]
-//            hasMemo = todo.memo == nil ? false : true
             hasMemo = todo.memo?.isEmpty == false ? true : false
         } else { // sub cell
             let subTodo = todoList[indexPath.section].subTodoList[indexPath.row - 1]
-//            hasMemo = subTodo.memo == nil ? false : true
             hasMemo = subTodo.memo?.isEmpty == false ? true : false
         }
         
@@ -196,8 +163,6 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
         if let tgr = sender as? UITapGestureRecognizer {
             if let cell = tgr.view?.superview?.superview as? UITableViewCell {
                 if let indexPath = tableView.indexPath(for: cell) {
-                    // 데이터에 isFinish = !isFinish
-                    // 사진 바꾸기
                     let todo = isC(sourceIndexPath: indexPath) ?
                         todoList[indexPath.section].subTodoList[indexPath.row - 1] : todoList[indexPath.section]
                     
@@ -247,7 +212,7 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
                 let section = (tgr.view?.tag)!
                 
                 todoList[section].isOpen = !(todoList[section].isOpen!)
-                tableView.reloadSections(IndexSet(section...section), with: .automatic)
+                tableView.reloadSections(IndexSet(integer: section), with: .automatic)
             }
         }
     }
@@ -271,7 +236,7 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
          }
     }
     
-    func chageCompletionBtnImage() {
+    func changeCompletionBtnImage() {
         if editingStatus.isEditingMode {
             completeButton.image = nil
         } else {
@@ -385,24 +350,10 @@ extension TodoListViewController: UITableViewDelegate,
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let dateFomatter = DateFormatter()
         dateFomatter.dateFormat = "yyyy년 MM월 dd일 a hh시 mm분"
-        guard let date = todoList[section].deadline else { return nil}//"\(section)번째입니다." }
+        guard let date = todoList[section].deadline else { return nil }
         let dateString = dateFomatter.string(from: date)
-//        return String("\(section)번째 todo의 Deadline = \(dateString)")
         return "\(dateString)까지"
     }
-    
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let label = UILabel()
-//
-//        let dateFomatter = DateFormatter()
-//        dateFomatter.dateFormat = "yyyy년 MM월 dd일 a hh시 mm분"
-//        guard let date = todoList[section].deadline else { return nil}//"\(section)번째입니다." }
-//        let dateString = dateFomatter.string(from: date)
-//
-//        label.text = dateString + "까지"
-//
-//        return label
-//    }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header = view as! UITableViewHeaderFooterView
@@ -419,19 +370,8 @@ extension TodoListViewController: UITableViewDelegate,
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        print("delete?? section: \(indexPath.section), row : \(indexPath.row)")
-        
-//        let isStatusEditing = editingStatus.isEditingMode
-//        if isStatusEditing {
-//            editingStatus.isEditingMode = false
-//        }
-        
+//        print("delete?? section: \(indexPath.section), row : \(indexPath.row)")
         if editingStyle == .delete {
-//            if editingStatus.isEditingMode {
-//                editingStatus.textView?.resignFirstResponder()
-////                editingStatus.isEditingMode = false
-//            }
-            
             // commit위치가 빈셀의 바로 위일때만 빈셀의 지워짐도 같이처리됨
             if indexPath.row == 0 {
                 todoList.remove(at: indexPath.section)
@@ -441,8 +381,6 @@ extension TodoListViewController: UITableViewDelegate,
                 
                 tableView.deleteRows(at: [indexPath], with: .fade)
                 //현재 indexPath가 isEdidtingMode인 셀이 아니라면 업데이트
-                
-                
                 if editingStatus.isEditingMode {
                     let isEditingParentCell = tableView.indexPath(for: editingStatus.cell!) != IndexPath(row: 0, section: indexPath.section)
                     editingStatus.textView?.resignFirstResponder()
@@ -452,29 +390,8 @@ extension TodoListViewController: UITableViewDelegate,
                 } else {
                     tableView.reloadRows(at: [IndexPath(row: 0, section: indexPath.section)], with: .automatic)
                 }
-                
-//                if editingStatus.isEditingMode {
-//                    editingStatus.textView?.resignFirstResponder()
-//                    // 만약 editing하는곳이 현재 subtodo셀의 부모라면 reloadSection하면안됨
-//                    // 만약 editing하는곳이 다른 셀이라면 reload해도될듯?
-//                    // 만약 edidting하는 중이 아니었다면, reloadSection
-//                    if tableView.indexPath(for: editingStatus.cell!) != indexPath {
-//
-//                    }
-//
-//                } else {
-//                    tableView.reloadSections(IndexSet(integer: indexPath.section), with: .automatic)
-//                }
-                // delete, reload할 때 해당영역에 빈셀이 있거나하면 에러가남.
-                // reload도중에 endAnimation하면서 resignResponder로 가서 textEditingFinish가 결국 호출되는데 이게 데이터 소스 불일치를 만들어냄. 해결방법은? reloadSection전에 직접 호출?
-//                tableView.reloadSections(IndexSet(integer: indexPath.section), with: .automatic)
             }
         }
-//
-//        if isStatusEditing {
-//            editingStatus.isEditingMode = true
-//            editingStatus.textView?.becomeFirstResponder()
-//        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
