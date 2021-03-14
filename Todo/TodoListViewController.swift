@@ -24,32 +24,38 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
             }
         }
     }
-    
     var todoList: [TodoData] = []
     
+    var indexOfCatalog: Int!
     var currentCatalogData: CatalogData?
-
     var startIndexPath: IndexPath?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("viewWillAppear in TodoListVC")
+        
+//        let fetchData = dao.fetch()
+        
+        
+        self.currentCatalogData = appDelegate.myData[indexOfCatalog]
+        mainTitle.text = currentCatalogData?.name
+        todoList = currentCatalogData!.todoList
+        
+        print("🍎viewWillAppear in TodoListVC. paseedCatalogDataObjectID=\(currentCatalogData?.objectID), original=\(appDelegate.myData[0].objectID)")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         
         super.viewWillDisappear(animated)
-        print("🍎viewWillDisappear")
+        print("🍎viewWillDisappear in TodoListVC-1")
         currentCatalogData?.todoList = todoList
         dao.saveCatalogContext(currentCatalogData!, discardingCatalogObjectID: (currentCatalogData?.objectID)!)
+        print("🍎viewWillDisappear in TodoListVC-2")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 //        print("🍎viewDidLoad")
         
-        mainTitle.text = currentCatalogData?.name
-        todoList = currentCatalogData!.todoList
         
         tableView.dataSource = self
         tableView.delegate = self

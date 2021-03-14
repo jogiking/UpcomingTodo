@@ -23,8 +23,22 @@ class MainPageViewController: UIViewController {
     lazy var dao = TodoDAO()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
+    func whereIsMySQLite() {
+        let path = FileManager
+            .default
+            .urls(for: .applicationSupportDirectory, in: .userDomainMask)
+            .last?
+            .absoluteString
+            .replacingOccurrences(of: "file://", with: "")
+            .removingPercentEncoding
+
+        print(path ?? "Not found")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        whereIsMySQLite()
         
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.delegate = self
@@ -51,7 +65,7 @@ class MainPageViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        print("viewWillDisappear")
+        print("viewWillDisappear in MainVC")
         
         if let upcomingView = upcomingStackView.arrangedSubviews[1] as? UpcomingView {
             upcomingView.onTimerStop()
@@ -162,6 +176,7 @@ extension MainPageViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("MainPageVC+didSelectRowAt] indexPath=\(indexPath.row)")
         guard let todoListVC = self.storyboard?.instantiateViewController(identifier: "todoListVC") as? TodoListViewController else {
             return
         }
@@ -170,7 +185,9 @@ extension MainPageViewController: UITableViewDataSource {
 //        todoListVC.mainTitleText = self.appDelegate.myData[row].name!
 //        todoListVC.todoList = self.appDelegate.myData[row].todoList
 //        todoListVC.catalogObjectID = self.appDelegate.myData[row].objectID
-        todoListVC.currentCatalogData = self.appDelegate.myData[row]
+        
+//        todoListVC.currentCatalogData = self.appDelegate.myData[row]
+        todoListVC.indexOfCatalog = row
         
         self.navigationController?.pushViewController(todoListVC, animated: true)
     }
@@ -179,11 +196,11 @@ extension MainPageViewController: UITableViewDataSource {
 //        print("cellForRowAt. name = \(appDelegate.myData[indexPath.row].name)")
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "catalogCell",for: indexPath)
-        
         cell.textLabel?.text = appDelegate.myData[indexPath.row].name
         cell.accessoryType = .disclosureIndicator
         let detailNumber = "\(appDelegate.myData[indexPath.row].todoList.count)"
         cell.detailTextLabel?.text = detailNumber
+        
         return cell
     }
     

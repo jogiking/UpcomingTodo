@@ -99,6 +99,7 @@ class TodoDAO {
             }
             
         } catch let e as NSError {
+            print("Fetch Fail.")
             NSLog("An error has occurred.", e.localizedDescription)
         }
         
@@ -106,12 +107,16 @@ class TodoDAO {
     }
     
     func insert(_ data: CatalogData) -> CatalogMO {
-        let object = NSEntityDescription.insertNewObject(forEntityName: "Catalog", into: self.context) as! CatalogMO
+        guard let object = NSEntityDescription.insertNewObject(forEntityName: "Catalog", into: self.context) as? CatalogMO else {
+            print("여기서 에러 발생")
+            return CatalogMO()
+            
+        }
 
         object.name = data.name
         object.regdate = data.regDate
         object.displayorder = Int16(data.displayOrder!)
-        
+        print("afterinsertCatalogMO")
         do {
             try self.context.save()
         } catch let e as NSError {
@@ -164,8 +169,10 @@ class TodoDAO {
         
         do {
             try self.context.save()
+            print("delete success")
             return true
         } catch let e as NSError {
+            print("delete fail")
             NSLog("An error has occurred : %s", e.localizedDescription)
             return false
         }
