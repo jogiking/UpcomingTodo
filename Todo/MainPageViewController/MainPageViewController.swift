@@ -66,9 +66,13 @@ class MainPageViewController: UIViewController {
             let warningView = upcomingStackView.arrangedSubviews[2]
               
             upcomingView.isHidden = false
+            expandingUpcomingButton.isEnabled = true
+            expandingUpcomingButton.tintColor = .systemBlue
+            
             if warningView.isHidden == false {
                 UIView.animate(withDuration: 0.25) {
                     warningView.isHidden = true
+                    
                 }
             }
             
@@ -83,6 +87,9 @@ class MainPageViewController: UIViewController {
             upcomingView.onTimerStop()
             
             warningView.isHidden = false
+            expandingUpcomingButton.isEnabled = false
+            expandingUpcomingButton.tintColor = .systemGray
+            
             if upcomingView.isHidden == false {
                 UIView.animate(withDuration: 0.25) {
                     upcomingView.isHidden = true
@@ -91,11 +98,41 @@ class MainPageViewController: UIViewController {
         }
     }
 
+    func getYearMonthDayString(date: Date) -> String {
+        let dateFomatter = DateFormatter()
+        dateFomatter.dateFormat = "yyyy-MM-dd"
+        let dateString = dateFomatter.string(from: date)
+        return dateString
+    }
+    
+    func getNumberOfTodayDeadLine() -> Int {
+        var numberOfTodayDeadline = 0
+        let today = getYearMonthDayString(date: Date())
+        for catalog in appDelegate.myData {
+            for todo in catalog.todoList {
+                if let todoDeadline = todo.deadline {
+                    let todoDeadlineString = getYearMonthDayString(date: todoDeadline)
+                    if today == todoDeadlineString {
+                        numberOfTodayDeadline += 1
+                    }
+                }
+            }
+        }
+        
+        return numberOfTodayDeadline
+    }
        
     func setupCardViews() {
         totalCardView.title.text = "전체"
-        todayCardView.title.text = "오늘"
         totalCardView.countTitle.text = "\(appDelegate.myData.count)"
+        totalCardView.imgView.image = UIImage(systemName: "tray")
+        totalCardView.imgView.tintColor = .systemGray
+        
+        todayCardView.title.text = "오늘"
+        todayCardView.countTitle.text = "\(getNumberOfTodayDeadLine())"
+        todayCardView.imgView.image = UIImage(systemName: "clock")
+        todayCardView.imgView.tintColor = .systemGray
+        
 //            {
 //            var count = 0
 //            for _ in appDelegate.myData {
