@@ -22,14 +22,7 @@ class MainPageViewController: UIViewController {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        let searchController = UISearchController(searchResultsController: nil)
-        searchController.searchBar.delegate = self
-        searchController.searchBar.placeholder = "검색"
-        navItem.searchController = searchController
-        navItem.hidesSearchBarWhenScrolling = true
-        
+        super.viewDidLoad()ㄴ
         
         tableView.dataSource = self
         tableView.delegate = self
