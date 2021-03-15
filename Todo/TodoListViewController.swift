@@ -64,8 +64,9 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
 //        tableViewGestureRecognizer.cancelsTouchesInView = false
         tableView.addGestureRecognizer(tableViewGestureRecognizer)
         
-        completeButton.image = UIImage(systemName: "ellipsis.circle")
+//        completeButton.image = UIImage(systemName: "ellipsis.circle")
         completeButton.title = "완료"
+        completeButton.isEnabled = false
         
         
     }
@@ -238,9 +239,11 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
     
     func changeCompletionBtnImage() {
         if editingStatus.isEditingMode {
-            completeButton.image = nil
+//            completeButton.image = nil
+            completeButton.isEnabled = true
         } else {
-            completeButton.image = UIImage(systemName: "ellipsis.circle")
+//            completeButton.image = UIImage(systemName: "ellipsis.circle")
+            completeButton.isEnabled = false
         }
     }
 
