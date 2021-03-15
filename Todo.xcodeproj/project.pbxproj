@@ -37,7 +37,6 @@
 		DF8E0A0125DA922E005B5755 /* click.png in Resources */ = {isa = PBXBuildFile; fileRef = DF8E09FC25DA922E005B5755 /* click.png */; };
 		DF92A7C125F751D40032DA0C /* TodoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF92A7C025F751D40032DA0C /* TodoDetailViewController.swift */; };
 		DFA6E85325FBAB9400FF822A /* FullScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA6E85225FBAB9400FF822A /* FullScreenViewController.swift */; };
-		DFB4079725E677F500BF79BA /* AddCatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB4079625E677F500BF79BA /* AddCatalogViewController.swift */; };
 		DFF18D4825EBDE9400CA777E /* BasicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF18D4625EBDE9400CA777E /* BasicCell.swift */; };
 		DFF18D4925EBDE9400CA777E /* BasicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DFF18D4725EBDE9400CA777E /* BasicCell.xib */; };
 		DFF18D4D25EBE0A500CA777E /* MemoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF18D4B25EBE0A500CA777E /* MemoCell.swift */; };
@@ -78,7 +77,6 @@
 		DF8E09FC25DA922E005B5755 /* click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = click.png; sourceTree = "<group>"; };
 		DF92A7C025F751D40032DA0C /* TodoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailViewController.swift; sourceTree = "<group>"; };
 		DFA6E85225FBAB9400FF822A /* FullScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenViewController.swift; sourceTree = "<group>"; };
-		DFB4079625E677F500BF79BA /* AddCatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCatalogViewController.swift; sourceTree = "<group>"; };
 		DFF18D4625EBDE9400CA777E /* BasicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicCell.swift; sourceTree = "<group>"; };
 		DFF18D4725EBDE9400CA777E /* BasicCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasicCell.xib; sourceTree = "<group>"; };
 		DFF18D4B25EBE0A500CA777E /* MemoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoCell.swift; sourceTree = "<group>"; };
@@ -173,7 +171,6 @@
 				DF631B3425E50E9B00DAD0F1 /* CardBoardView */,
 				DF4631F125E8BFB7008B5FFB /* TodoListFooterView */,
 				DF4631F325E8C00B008B5FFB /* Cells */,
-				DFB4079625E677F500BF79BA /* AddCatalogViewController.swift */,
 				DF8E09D125DA7ADD005B5755 /* AppDelegate.swift */,
 				DF704A0425FCEFF3004ED588 /* MainPageViewController */,
 				DF8E09D325DA7ADD005B5755 /* SceneDelegate.swift */,
@@ -298,7 +295,6 @@
 				DFF18D4825EBDE9400CA777E /* BasicCell.swift in Sources */,
 				DF8E09D625DA7ADD005B5755 /* ViewController.swift in Sources */,
 				DFF18D4D25EBE0A500CA777E /* MemoCell.swift in Sources */,
-				DFB4079725E677F500BF79BA /* AddCatalogViewController.swift in Sources */,
 				DF8E09D225DA7ADD005B5755 /* AppDelegate.swift in Sources */,
 				DF092BFA25F76E9F00ECFC1A /* SwitchCell.swift in Sources */,
 				DF54651325E3DA0300B6E2F4 /* CardBoardView.swift in Sources */,
