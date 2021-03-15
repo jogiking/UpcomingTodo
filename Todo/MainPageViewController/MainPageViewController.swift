@@ -156,22 +156,68 @@ class MainPageViewController: UIViewController {
         self.present(fullScreenVC, animated: true, completion: nil)
     }
     
+    @objc func addAlertTextFieldDidChange(_ sender: UITextField) {
+        
+    }
+    
     @IBAction func addCatalog(_ sender: Any) {
-        let storyboard: UIStoryboard? = UIStoryboard(name: "Main", bundle: Bundle.main)
-        guard let addCatalogVC = storyboard?.instantiateViewController(identifier: "addCatalogVC") else {
-            return
+        
+//        let storyboard: UIStoryboard? = UIStoryboard(name: "Main", bundle: Bundle.main)
+//        guard let addCatalogVC = storyboard?.instantiateViewController(identifier: "addCatalogVC") else {
+//            return
+//        }
+//
+//        addCatalogVC.modalPresentationStyle = .pageSheet
+//        present(addCatalogVC, animated: true)
+        
+        let alertController = UIAlertController(title: "새로운 목록", message: nil, preferredStyle: .alert)
+
+        let okAction = UIAlertAction(title: "확인", style: .default, handler: { (save) in
+            print("확인 눌림")
+            
+            let data = CatalogData()
+            data.name = alertController.textFields?.first?.text
+            data.regDate = Date()
+            
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            data.displayOrder = appDelegate.myData.count
+            self.dao.insert(data)
+            
+            self.updateMainPage()
+            
+            NotificationCenter.default.removeObserver(self, name: UITextField.textDidChangeNotification, object: nil)
+        })
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .destructive) { (_) in
+            print("취소 눌림")
+            NotificationCenter.default.removeObserver(self, name: UITextField.textDidChangeNotification, object: nil)
         }
         
-        addCatalogVC.modalPresentationStyle = .pageSheet
-        present(addCatalogVC, animated: true)
+        alertController.addTextField { (tf) in
+            tf.borderStyle = .none
+            tf.placeholder = "목록 이름을 입력"
+            
+            NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: tf, queue: .main) { (_) in
+                let textCount = tf.text?.trimmingCharacters(in: .whitespacesAndNewlines).count ?? 0
+                let textIsNotEmpty = textCount > 0
+                
+                okAction.isEnabled = textIsNotEmpty
+            }
+        }
+        
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+            
+        okAction.isEnabled = false
+        
+        
+        self.present(alertController, animated: true)
     }
     
 }
 
-extension MainPageViewController: UITableViewDelegate {
-}
 
-extension MainPageViewController: UITableViewDataSource {
+extension MainPageViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
@@ -219,6 +265,7 @@ extension MainPageViewController: UITableViewDataSource {
         return UITableView.automaticDimension
     }
 }
+
 
 extension UITableView {
     open override var intrinsicContentSize: CGSize {
