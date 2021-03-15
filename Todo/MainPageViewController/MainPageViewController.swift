@@ -22,7 +22,7 @@ class MainPageViewController: UIViewController {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     override func viewDidLoad() {
-        super.viewDidLoad()ㄴ
+        super.viewDidLoad()
         
         tableView.dataSource = self
         tableView.delegate = self
