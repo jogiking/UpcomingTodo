@@ -62,7 +62,6 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
         
         print("todoListVC will disappear. originID=\(appDelegate.myData[indexOfCatalog].objectID), currentID=\(currentCatalogData?.objectID)")
         
-        
         appDelegate.myData = self.dao.fetch()
         self.currentCatalogData = appDelegate.myData[indexOfCatalog]
         

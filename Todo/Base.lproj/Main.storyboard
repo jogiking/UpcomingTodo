@@ -224,7 +224,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wvu-Vl-z61">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="768.5"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="M8w-hY-wEI">
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="M8w-hY-wEI">
                                                 <rect key="frame" x="18" y="18" width="378" height="732.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wle-yv-3dV" userLabel="UpcomingStackView">
@@ -379,10 +379,15 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="JOU-qG-9sX">
-                        <barButtonItem key="rightBarButtonItem" title="편집" id="95S-Ik-E1x"/>
+                        <barButtonItem key="rightBarButtonItem" title="편집" id="95S-Ik-E1x">
+                            <connections>
+                                <action selector="editAction:" destination="cQT-XY-L9U" id="5yt-wv-j1f"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="expandingUpcomingButton" destination="AAk-ax-Qn7" id="q0A-BZ-PNv"/>
+                        <outlet property="mainStackView" destination="M8w-hY-wEI" id="T5a-jq-hQe"/>
                         <outlet property="navItem" destination="JOU-qG-9sX" id="vgu-95-C3i"/>
                         <outlet property="tableView" destination="pQS-vI-G64" id="bWe-lB-gLg"/>
                         <outlet property="todayCardView" destination="ldX-nE-shc" id="tHc-EF-SAg"/>

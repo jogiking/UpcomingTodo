@@ -18,6 +18,9 @@ class MainPageViewController: UIViewController {
     @IBOutlet weak var upcomingStackView: UIStackView!
     @IBOutlet weak var expandingUpcomingButton: UIButton!
     
+    @IBOutlet weak var mainStackView: UIStackView!
+    
+    
     lazy var dao = TodoDAO()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
@@ -31,6 +34,7 @@ class MainPageViewController: UIViewController {
         tableView.layer.masksToBounds = true
         
         upcomingStackView.layer.cornerRadius = 20
+        
         upcomingStackView.clipsToBounds = true
     }
     
@@ -64,15 +68,19 @@ class MainPageViewController: UIViewController {
             print("setupUpcomingView] todoData=\(data.title)")
             let upcomingView = upcomingStackView.arrangedSubviews[1] as! UpcomingView
             let warningView = upcomingStackView.arrangedSubviews[2]
-              
-            upcomingView.isHidden = false
+            
+            UIView.animate(withDuration: 0.25) {
+                upcomingView.isHidden = false
+                upcomingView.alpha = 1
+            }
+            
             expandingUpcomingButton.isEnabled = true
             expandingUpcomingButton.tintColor = .systemBlue
             
             if warningView.isHidden == false {
                 UIView.animate(withDuration: 0.25) {
                     warningView.isHidden = true
-                    
+                    warningView.alpha = 0
                 }
             }
             
@@ -86,13 +94,18 @@ class MainPageViewController: UIViewController {
             upcomingView.targetData = nil
             upcomingView.onTimerStop()
             
-            warningView.isHidden = false
+            UIView.animate(withDuration: 0.25) {
+                warningView.isHidden = false
+                warningView.alpha = 1
+            }
+            
             expandingUpcomingButton.isEnabled = false
             expandingUpcomingButton.tintColor = .systemGray
             
             if upcomingView.isHidden == false {
                 UIView.animate(withDuration: 0.25) {
                     upcomingView.isHidden = true
+                    upcomingView.alpha = 0
                 }
             }
         }
@@ -132,17 +145,39 @@ class MainPageViewController: UIViewController {
         todayCardView.countTitle.text = "\(getNumberOfTodayDeadLine())"
         todayCardView.imgView.image = UIImage(systemName: "clock")
         todayCardView.imgView.tintColor = .systemGray
+    }
+    
+    
+    @IBAction func editAction(_ sender: UIBarButtonItem) {
+//        print((sender as! UIBarButtonItem).description)
         
-//            {
-//            var count = 0
-//            for _ in appDelegate.myData {
-//                //count += catalog.todoList.count
-//
-//                count += 1
-//            }
-//            let countText = "\(count)"
-//            return countText
-//        }()
+        guard appDelegate.myData.count > 0 else {
+            return
+        }
+        
+        if sender.title == "편집" {
+            for item in mainStackView.arrangedSubviews {
+                if item == mainStackView.arrangedSubviews.last { continue }
+//                item.isHidden = true
+                
+                UIView.animate(withDuration: 0.25) {
+                    item.isHidden = true
+                    item.alpha = 0
+                }
+            }
+            sender.title = "완료"
+        } else {
+            for item in mainStackView.arrangedSubviews {
+                if item == mainStackView.arrangedSubviews.last { continue }
+//                item.isHidden = false
+//                UIView.ani
+                UIView.animate(withDuration: 0.25) {
+                    item.isHidden = false
+                    item.alpha = 1
+                }
+            }
+            sender.title = "편집"
+        }
     }
     
     @IBAction func showFullScreen(_ sender: Any) {
