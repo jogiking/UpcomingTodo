@@ -36,6 +36,7 @@ class MainPageViewController: UIViewController {
         upcomingStackView.layer.cornerRadius = 20
         
         upcomingStackView.clipsToBounds = true
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -155,28 +156,30 @@ class MainPageViewController: UIViewController {
             return
         }
         
-        if sender.title == "편집" {
+        switch tableView.isEditing {
+        case false:
+            tableView.isEditing = true
             for item in mainStackView.arrangedSubviews {
                 if item == mainStackView.arrangedSubviews.last { continue }
-//                item.isHidden = true
                 
-                UIView.animate(withDuration: 0.25) {
+                UIView.animate(withDuration: 0.35) {
                     item.isHidden = true
                     item.alpha = 0
                 }
             }
             sender.title = "완료"
-        } else {
+            
+        case true:
+            tableView.isEditing = false
             for item in mainStackView.arrangedSubviews {
                 if item == mainStackView.arrangedSubviews.last { continue }
-//                item.isHidden = false
-//                UIView.ani
-                UIView.animate(withDuration: 0.25) {
+                UIView.animate(withDuration: 0.35) {
                     item.isHidden = false
                     item.alpha = 1
                 }
             }
             sender.title = "편집"
+            
         }
     }
     
@@ -244,12 +247,21 @@ class MainPageViewController: UIViewController {
 
 
 extension MainPageViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
+    func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
+        navItem.rightBarButtonItem?.title = "완료"
+    }
+    
+    func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
+        navItem.rightBarButtonItem?.title = "편집"
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        print("moveRowAt")
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            
             let catalog = appDelegate.myData[indexPath.row]
             if dao.delete(catalog.objectID!) {
                 appDelegate.myData.remove(at: indexPath.row)
