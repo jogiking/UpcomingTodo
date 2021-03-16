@@ -32,17 +32,44 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        print("viewwillappear")
         self.currentCatalogData = appDelegate.myData[indexOfCatalog]
         mainTitle.text = currentCatalogData?.name
         todoList = currentCatalogData!.todoList
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(willResign(_:)), name: UIApplication.willResignActiveNotification, object: nil)
+    }
+    
+    @objc func willResign(_ sender: Any) {
+        print("willResign")
+        if editingStatus.isEditingMode {
+            editingStatus.textView?.resignFirstResponder()
+        }
+        
+        appDelegate.myData = self.dao.fetch()
+        self.currentCatalogData = appDelegate.myData[indexOfCatalog]
+        
+        currentCatalogData?.todoList = todoList
+        dao.saveCatalogContext(currentCatalogData!, discardingCatalogObjectID: (currentCatalogData?.objectID)!)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
+        if editingStatus.isEditingMode {
+            editingStatus.textView?.resignFirstResponder()
+        }
+        
+        print("todoListVC will disappear. originID=\(appDelegate.myData[indexOfCatalog].objectID), currentID=\(currentCatalogData?.objectID)")
+        
+        
+        appDelegate.myData = self.dao.fetch()
+        self.currentCatalogData = appDelegate.myData[indexOfCatalog]
+        
         currentCatalogData?.todoList = todoList
         dao.saveCatalogContext(currentCatalogData!, discardingCatalogObjectID: (currentCatalogData?.objectID)!)
+        
+//        NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
     }
     
     override func viewDidLoad() {
@@ -61,14 +88,11 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
         tableView.register(UINib(nibName: "MemoCell", bundle: nil), forCellReuseIdentifier: "memoCell")
         
         let tableViewGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tableViewTouch(_:)))
-//        tableViewGestureRecognizer.cancelsTouchesInView = false
         tableView.addGestureRecognizer(tableViewGestureRecognizer)
         
-//        completeButton.image = UIImage(systemName: "ellipsis.circle")
         completeButton.title = "완료"
         completeButton.isEnabled = false
-        
-        
+                
     }
     
     @objc func tableViewTouch(_ sender: Any) {

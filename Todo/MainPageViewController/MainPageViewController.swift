@@ -161,15 +161,6 @@ class MainPageViewController: UIViewController {
     }
     
     @IBAction func addCatalog(_ sender: Any) {
-        
-//        let storyboard: UIStoryboard? = UIStoryboard(name: "Main", bundle: Bundle.main)
-//        guard let addCatalogVC = storyboard?.instantiateViewController(identifier: "addCatalogVC") else {
-//            return
-//        }
-//
-//        addCatalogVC.modalPresentationStyle = .pageSheet
-//        present(addCatalogVC, animated: true)
-        
         let alertController = UIAlertController(title: "새로운 목록", message: nil, preferredStyle: .alert)
 
         let okAction = UIAlertAction(title: "확인", style: .default, handler: { (save) in
