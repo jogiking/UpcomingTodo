@@ -259,6 +259,18 @@ class TodoDAO {
         }
     }
     
+    func editCatalogName(_ objectID: NSManagedObjectID, name: String) -> Bool {
+        let object = context.object(with: objectID)
+        object.setValue(name, forKey: "name")
+        
+        do {
+            try context.save()
+            return true
+        } catch {
+            context.rollback()
+            return false
+        }
+    }
 
     func saveCatalogContext(_ discardingCatalog: CatalogData, discardingCatalogObjectID: NSManagedObjectID) {
         
