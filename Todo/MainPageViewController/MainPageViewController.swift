@@ -170,6 +170,7 @@ class MainPageViewController: UIViewController {
             sender.title = "완료"
             
         case true:
+            print("case true")
             tableView.isEditing = false
             for item in mainStackView.arrangedSubviews {
                 if item == mainStackView.arrangedSubviews.last { continue }
@@ -245,7 +246,6 @@ class MainPageViewController: UIViewController {
     
 }
 
-
 extension MainPageViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
         navItem.rightBarButtonItem?.title = "완료"
@@ -256,7 +256,10 @@ extension MainPageViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        print("moveRowAt")
+        let data = appDelegate.myData.remove(at: sourceIndexPath.row)
+        appDelegate.myData.insert(data, at: destinationIndexPath.row)
+        
+        self.dao.updateDisplayOrder() // 순서 동기화
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
