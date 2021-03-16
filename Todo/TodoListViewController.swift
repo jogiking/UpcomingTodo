@@ -45,7 +45,7 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
     @objc func keyboardWillShow(notification: Notification) {
         if let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height {
             print("Notification: Keyboard will show")
-            tableView.setBottomInset(to: keyboardHeight)
+            tableView.setBottomInset(to: keyboardHeight - view.safeAreaInsets.bottom)
         }
     }
 
@@ -261,16 +261,16 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
             let lastSection = self.todoList.count - 1
             let indexPath = IndexPath(row: lastRowInLastSection, section: lastSection)
             self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-            
-            if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: self.todoList.count - 1)) as? BasicCell {
-                guard let tv = cell.title else {
-                    print("왜안나오지")
-                    return
-
-                }
-                print("무조건 나와야함")
-                tv.becomeFirstResponder()
-            }
+//
+//            if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: self.todoList.count - 1)) as? BasicCell {
+//                guard let tv = cell.title else {
+//                    print("왜안나오지")
+//                    return
+//
+//                }
+//                print("무조건 나와야함")
+//                tv.becomeFirstResponder()
+//            }
          }
     }
     
@@ -287,15 +287,11 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
     @IBAction func addTodo(_ sender: Any) {
         self.todoList.append(TodoData())
         tableView.insertSections(IndexSet(integer: todoList.count - 1), with: .bottom)
-//        scrollToBottom()
+        
+        scrollToBottom()
         
         if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: self.todoList.count - 1)) as? BasicCell {
-            guard let tv = cell.title else {
-                print("왜안나오지")
-                return
-
-            }
-            print("무조건 나와야함")
+            guard let tv = cell.title else { return }
             tv.becomeFirstResponder()
         }
     }
@@ -331,19 +327,21 @@ extension TodoListViewController: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        print("textViewDidChange")
         let size = CGSize(width: textView.frame.width, height: .infinity)
         let estimatedSize = textView.sizeThatFits(size)
-        print("estimatedSize = \(estimatedSize)")
+        print("textViewDidChange] estimatedSize=\(estimatedSize), frame=\(textView.frame)")
+        
         textView.constraints.forEach { (constraint) in
             if constraint.firstAttribute == .height {
-                constraint.constant = estimatedSize.height
-                
-                UIView.performWithoutAnimation {
-                    tableView.beginUpdates()
-                    tableView.endUpdates()
+                if constraint.constant != estimatedSize.height {
+                    constraint.constant = estimatedSize.height
                 }
             }
+        }
+        
+        DispatchQueue.main.async {
+            self.tableView.beginUpdates()
+            self.tableView.endUpdates()
         }
     }
     
