@@ -31,7 +31,7 @@
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rMB-wx-uYN">
-                        <rect key="frame" x="330.5" y="24.5" width="31.5" height="21"/>
+                        <rect key="frame" x="330.5" y="35" width="31.5" height="0.0"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="31.5" id="New-Cx-8vl"/>
                         </constraints>
@@ -52,6 +52,13 @@
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iWs-Kg-Ym4">
+                        <rect key="frame" x="70" y="114" width="362" height="1"/>
+                        <color key="backgroundColor" systemColor="systemGray5Color"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="NM4-Hm-1XU"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="gVy-Tl-f5e" secondAttribute="trailing" constant="20" id="5hs-3g-kzj"/>
@@ -60,6 +67,9 @@
                     <constraint firstAttribute="bottom" secondItem="Bwl-Bf-mNy" secondAttribute="bottom" constant="15" id="HMQ-pb-8qV"/>
                     <constraint firstItem="gVy-Tl-f5e" firstAttribute="centerY" secondItem="rMB-wx-uYN" secondAttribute="centerY" id="SIR-Xa-ZTq"/>
                     <constraint firstItem="rMB-wx-uYN" firstAttribute="leading" secondItem="3vi-fZ-An2" secondAttribute="trailing" constant="10" id="VnT-dV-DM7"/>
+                    <constraint firstAttribute="trailing" secondItem="iWs-Kg-Ym4" secondAttribute="trailing" id="Xlw-bS-bXY"/>
+                    <constraint firstItem="iWs-Kg-Ym4" firstAttribute="leading" secondItem="Bwl-Bf-mNy" secondAttribute="leading" id="axc-rl-UTh"/>
+                    <constraint firstAttribute="bottom" secondItem="iWs-Kg-Ym4" secondAttribute="bottom" id="bv2-uf-Fhp"/>
                     <constraint firstItem="3vi-fZ-An2" firstAttribute="top" secondItem="CmR-kq-5eG" secondAttribute="top" id="idP-Ya-1lc"/>
                     <constraint firstItem="gVy-Tl-f5e" firstAttribute="trailing" secondItem="Bwl-Bf-mNy" secondAttribute="trailing" id="lay-yT-pd3"/>
                     <constraint firstItem="gVy-Tl-f5e" firstAttribute="top" secondItem="CmR-kq-5eG" secondAttribute="top" id="mkJ-WL-Hn5"/>
@@ -86,6 +96,9 @@
     <resources>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGrayColor">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

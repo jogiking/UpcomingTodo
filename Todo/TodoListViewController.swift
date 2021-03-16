@@ -38,6 +38,20 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
         todoList = currentCatalogData!.todoList
         
         NotificationCenter.default.addObserver(self, selector: #selector(willResign(_:)), name: UIApplication.willResignActiveNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    @objc func keyboardWillShow(notification: Notification) {
+        if let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height {
+            print("Notification: Keyboard will show")
+            tableView.setBottomInset(to: keyboardHeight)
+        }
+    }
+
+    @objc func keyboardWillHide(notification: Notification) {
+        print("Notification: Keyboard will hide")
+        tableView.setBottomInset(to: 0.0)
     }
     
     @objc func willResign(_ sender: Any) {
@@ -273,7 +287,17 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
     @IBAction func addTodo(_ sender: Any) {
         self.todoList.append(TodoData())
         tableView.insertSections(IndexSet(integer: todoList.count - 1), with: .bottom)
-        scrollToBottom()
+//        scrollToBottom()
+        
+        if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: self.todoList.count - 1)) as? BasicCell {
+            guard let tv = cell.title else {
+                print("왜안나오지")
+                return
+
+            }
+            print("무조건 나와야함")
+            tv.becomeFirstResponder()
+        }
     }
 }
 
@@ -386,10 +410,10 @@ extension TodoListViewController: UITableViewDelegate,
         header.tintColor = tableView.backgroundColor
         header.textLabel?.textColor = .systemBlue
     }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 1
-    }
+//
+//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        return section == todoList.count - 1 ? 0 : 1
+//    }
         
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
@@ -481,7 +505,7 @@ extension TodoListViewController: UITableViewDelegate,
         cell.btn.isUserInteractionEnabled = true
         cell.selectImg.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedSelectImage(_:))))
         cell.selectImg.isUserInteractionEnabled = true
-        
+    
         if indexPath.row == 0 { // main cell
             let mainTodo = todoList[indexPath.section]
             cell.changeSelectImg(isFinish: mainTodo.isFinish!)
@@ -724,5 +748,15 @@ extension TodoListViewController: UITableViewDropDelegate {
             todoList[destinationIndexPath.section].isOpen = true
             todoList[sourceIndexPath.section].subTodoList.remove(at: sourceIndexPath.row - 1)
         }
+    }
+}
+
+extension UITableView {
+
+    func setBottomInset(to value: CGFloat) {
+        let edgeInset = UIEdgeInsets(top: 0, left: 0, bottom: value, right: 0)
+
+        self.contentInset = edgeInset
+        self.scrollIndicatorInsets = edgeInset
     }
 }

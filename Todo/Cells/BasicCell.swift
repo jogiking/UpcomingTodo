@@ -57,7 +57,6 @@ class BasicCell: UITableViewCell, DynamicCellProtocol {
         } else {
             btnWidthConstraint.constant = constantOfBtnWidth
             childNumberWidthConstraint.constant = constantOfChildNumberWidth
-            
         }
     }
     

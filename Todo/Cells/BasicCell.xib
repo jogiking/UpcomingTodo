@@ -27,7 +27,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iWM-kN-SCb">
-                        <rect key="frame" x="20" y="15.5" width="40" height="39"/>
+                        <rect key="frame" x="20" y="15" width="40" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="e28-pb-4uf"/>
                             <constraint firstAttribute="height" constant="40" id="kZH-vc-mKm"/>
@@ -46,11 +46,21 @@
                             <constraint firstAttribute="width" constant="40" id="XeW-kN-bUC"/>
                         </constraints>
                     </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0OW-Io-bJ0">
+                        <rect key="frame" x="70" y="102" width="470" height="1"/>
+                        <color key="backgroundColor" systemColor="systemGray5Color"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="vnB-Oc-t9x"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="eOC-lP-fgL" firstAttribute="leading" secondItem="iWM-kN-SCb" secondAttribute="trailing" constant="10" id="CPc-Mi-zYa"/>
+                    <constraint firstAttribute="trailing" secondItem="0OW-Io-bJ0" secondAttribute="trailing" id="FzL-iO-C4s"/>
+                    <constraint firstAttribute="bottom" secondItem="0OW-Io-bJ0" secondAttribute="bottom" id="VHI-Ca-hlm"/>
                     <constraint firstAttribute="trailing" secondItem="es1-cJ-YPa" secondAttribute="trailing" constant="20" id="WXl-7w-rMl"/>
                     <constraint firstAttribute="bottom" secondItem="eOC-lP-fgL" secondAttribute="bottom" constant="15" id="Wl0-BW-jbe"/>
+                    <constraint firstItem="0OW-Io-bJ0" firstAttribute="leading" secondItem="eOC-lP-fgL" secondAttribute="leading" id="bFb-1a-JYf"/>
                     <constraint firstItem="es1-cJ-YPa" firstAttribute="centerY" secondItem="EJc-Fi-Y6n" secondAttribute="centerY" id="bij-1Q-HRE"/>
                     <constraint firstItem="es1-cJ-YPa" firstAttribute="leading" secondItem="EJc-Fi-Y6n" secondAttribute="trailing" constant="10" id="dZW-Ka-UJb"/>
                     <constraint firstItem="iWM-kN-SCb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="f7k-gu-Eps"/>
@@ -76,6 +86,9 @@
     <resources>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
