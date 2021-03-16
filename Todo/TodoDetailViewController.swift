@@ -117,6 +117,7 @@ class TodoDetailViewController: UIViewController, UIAdaptivePresentationControll
     }
 
     @objc func openDatePicker(_ sender: UISwitch) {
+        
         hasTimer = sender.isOn
         tableView.reloadSections(IndexSet(integer: 1), with: .fade)
         view.setNeedsLayout()

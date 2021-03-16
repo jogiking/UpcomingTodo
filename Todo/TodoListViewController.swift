@@ -17,7 +17,7 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     lazy var dao = TodoDAO()
         
-    var editingStatus: (isEditingMode: Bool, cell: UITableViewCell?, textView: UITextView?) = (false, nil, nil) {
+    var editingStatus: (isEditingMode: Bool, cell: UITableViewCell?, textView: UITextView?, indexPath: IndexPath?) = (false, nil, nil, nil) {
         didSet(oldValue) {
             if oldValue.isEditingMode != editingStatus.isEditingMode {
                 changeCompletionBtnImage()
@@ -93,6 +93,7 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
         tableView.dragInteractionEnabled = true
         tableView.dragDelegate = self
         tableView.dropDelegate = self
+        tableView.keyboardDismissMode = .interactive
         
         tableView.estimatedRowHeight = 50
         tableView.rowHeight = UITableView.automaticDimension
@@ -134,7 +135,11 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
     func textEditingFinish() {
         guard editingStatus.isEditingMode else { return }
         guard let cell = editingStatus.cell else { return }
-        guard let indexPath = tableView.indexPath(for: cell) else { return }
+//        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        guard let indexPath = editingStatus.indexPath else {
+            return
+        }
+        
         guard editingStatus.textView?.text.isEmpty == false else {
             if isC(sourceIndexPath: indexPath) {
                 todoList[indexPath.section].subTodoList.remove(at: indexPath.row - 1)
@@ -306,7 +311,7 @@ extension TodoListViewController: UITextViewDelegate {
             cell.shrinkAccessory(false)
             cell.changeBtnStatusImage(statusType: .InfoCircle)
             
-            editingStatus = (true, cell as? UITableViewCell, textView)
+            editingStatus = (true, cell as? UITableViewCell, textView, tableView.indexPath(for: cell as! UITableViewCell))
         }
     }
 
@@ -322,7 +327,7 @@ extension TodoListViewController: UITextViewDelegate {
         textEditingFinish()
         
         if editingStatus.isEditingMode {
-            editingStatus = (false, nil, nil)
+            editingStatus = (false, nil, nil, nil)
         }
     }
     
