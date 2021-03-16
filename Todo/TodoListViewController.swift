@@ -310,6 +310,12 @@ extension TodoListViewController: UITextViewDelegate {
         if let cell = textView.superview?.superview as? DynamicCellProtocol {
             cell.shrinkAccessory(false)
             cell.changeBtnStatusImage(statusType: .InfoCircle)
+
+            DispatchQueue.main.async {
+                self.tableView.beginUpdates()
+                (cell as! UITableViewCell).layoutIfNeeded()
+                self.tableView.endUpdates()
+            }            
             
             editingStatus = (true, cell as? UITableViewCell, textView, tableView.indexPath(for: cell as! UITableViewCell))
         }
@@ -326,6 +332,15 @@ extension TodoListViewController: UITextViewDelegate {
         print("textViewDidEndEtiting] \(textView.text)")
         textEditingFinish()
         
+        let cell = textView.superview?.superview as! UITableViewCell
+        
+        DispatchQueue.main.async {
+            self.tableView.beginUpdates()
+            cell.layoutIfNeeded()
+            self.tableView.endUpdates()
+        }
+        
+        
         if editingStatus.isEditingMode {
             editingStatus = (false, nil, nil, nil)
         }
@@ -338,16 +353,16 @@ extension TodoListViewController: UITextViewDelegate {
         
         textView.constraints.forEach { (constraint) in
             if constraint.firstAttribute == .height {
-                if constraint.constant != estimatedSize.height {
+//                if constraint.constant != estimatedSize.height {
                     constraint.constant = estimatedSize.height
+//                }
+                DispatchQueue.main.async {
+                    self.tableView.beginUpdates()
+                    self.tableView.endUpdates()
                 }
             }
         }
         
-        DispatchQueue.main.async {
-            self.tableView.beginUpdates()
-            self.tableView.endUpdates()
-        }
     }
     
     // MARK: - TodoDetailViewControllerDelegate
@@ -472,7 +487,6 @@ extension TodoListViewController: UITableViewDelegate,
             cell.title.text = mainTodo.title
             cell.title.delegate = self
             cell.memo.text = mainTodo.memo
-            cell.memo.delegate = self
             
             if mainTodo.numberOfSubTodo > 0 {
                 cell.btn.image = mainTodo.isOpen! ? UIImage(named: "disclosure_open") : UIImage(named: "disclosure_close")
@@ -493,7 +507,6 @@ extension TodoListViewController: UITableViewDelegate,
             cell.title.text = subTodo.title
             cell.title.delegate = self
             cell.memo.text = subTodo.memo
-            cell.memo.delegate = self
             
             cell.shrinkAccessory(true)
             cell.indentLeading(true) // indent 설정

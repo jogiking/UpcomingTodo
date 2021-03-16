@@ -14,7 +14,7 @@ class MemoCell: UITableViewCell, DynamicCellProtocol {
     @IBOutlet weak var title: UITextView!
     @IBOutlet weak var childNumber: UILabel!
     @IBOutlet weak var btn: UIImageView!
-    @IBOutlet weak var memo: UITextView!
+    @IBOutlet weak var memo: UILabel!
     
     @IBOutlet weak var selectImgLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var btnWidthConstraint: NSLayoutConstraint!

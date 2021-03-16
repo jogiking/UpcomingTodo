@@ -136,7 +136,6 @@ extension NewCellTestViewController: UITableViewDelegate,
             cell.title.text = mainTodo.title
             cell.title.delegate = self
             cell.memo.text = mainTodo.memo
-            cell.memo.delegate = self
             
             if mainTodo.numberOfSubTodo > 0 {
                 cell.btn.image = mainTodo.isOpen! ? UIImage(named: "disclosure_open") : UIImage(named: "disclosure_close")
@@ -160,7 +159,6 @@ extension NewCellTestViewController: UITableViewDelegate,
             cell.title.text = subTodo.title
             cell.title.delegate = self
             cell.memo.text = subTodo.memo
-            cell.memo.delegate = self
             
             cell.shrinkAccessory(true)
             cell.indentLeading(true) // indent 설정
