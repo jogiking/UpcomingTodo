@@ -86,9 +86,11 @@ class MainPageViewController: UIViewController {
                     warningView.alpha = 0
                 }
             }
-            
+
             upcomingView.targetData = data
+            upcomingView.upcomingViewTimerCallback()
             upcomingView.onTimerStart()
+            
         } else {
             print("setupUpcomingView] no deadline data")
             let upcomingView = upcomingStackView.arrangedSubviews[1] as! UpcomingView
