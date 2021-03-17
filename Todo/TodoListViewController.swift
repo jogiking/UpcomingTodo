@@ -338,8 +338,7 @@ extension TodoListViewController: UITextViewDelegate {
             self.tableView.beginUpdates()
             cell.layoutIfNeeded()
             self.tableView.endUpdates()
-        }
-        
+        }        
         
         if editingStatus.isEditingMode {
             editingStatus = (false, nil, nil, nil)

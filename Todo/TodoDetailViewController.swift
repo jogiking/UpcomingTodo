@@ -50,6 +50,7 @@ class TodoDetailViewController: UIViewController, UIAdaptivePresentationControll
         
         tableView.dataSource = self
         tableView.rowHeight = UITableView.automaticDimension
+        tableView.keyboardDismissMode = .onDrag
     }
     
     override func viewWillLayoutSubviews() {
@@ -117,6 +118,7 @@ class TodoDetailViewController: UIViewController, UIAdaptivePresentationControll
     }
 
     @objc func openDatePicker(_ sender: UISwitch) {
+        view.endEditing(true)        
         
         hasTimer = sender.isOn
         tableView.reloadSections(IndexSet(integer: 1), with: .fade)
