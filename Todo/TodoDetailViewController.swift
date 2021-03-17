@@ -118,7 +118,7 @@ class TodoDetailViewController: UIViewController, UIAdaptivePresentationControll
     }
 
     @objc func openDatePicker(_ sender: UISwitch) {
-        view.endEditing(true)        
+        view.endEditing(true)
         
         hasTimer = sender.isOn
         tableView.reloadSections(IndexSet(integer: 1), with: .fade)
@@ -158,7 +158,7 @@ extension TodoDetailViewController: UITextViewDelegate{
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == .gray {
             textView.text = nil
-            textView.textColor = .black
+            textView.textColor = .label
         }
     }
     
@@ -168,19 +168,19 @@ extension TodoDetailViewController: UITextViewDelegate{
     
     func textViewDidChange(_ textView: UITextView) {
         // print(textView.text)
-        let size = CGSize(width: textView.frame.width, height: .infinity)
-        let estimatedSize = textView.sizeThatFits(size)
-        print("estimatedSize = \(estimatedSize)")
-        textView.constraints.forEach { (constraint) in
-            if constraint.firstAttribute == .height {
-                constraint.constant = estimatedSize.height
-                
-                UIView.performWithoutAnimation {
-                    tableView.beginUpdates()
-                    tableView.endUpdates()
-                }
-            }
-        }
+//        let size = CGSize(width: textView.frame.width, height: .infinity)
+//        let estimatedSize = textView.sizeThatFits(size)
+//        print("estimatedSize = \(estimatedSize)")
+//        textView.constraints.forEach { (constraint) in
+//            if constraint.firstAttribute == .height {
+//                constraint.constant = estimatedSize.height
+//
+//                UIView.performWithoutAnimation {
+//                    tableView.beginUpdates()
+//                    tableView.endUpdates()
+//                }
+//            }
+//        }
         viewIfLoaded?.setNeedsLayout()
         if textView.tag == 0 {
             if textView.text.isEmpty {

@@ -143,12 +143,12 @@ class MainPageViewController: UIViewController {
     func setupCardViews() {
         totalCardView.title.text = "전체"
         totalCardView.countTitle.text = "\(appDelegate.myData.count)"
-        totalCardView.imgView.image = UIImage(systemName: "tray")
+        totalCardView.imgView.image = UIImage(systemName: "tray.fill")
         totalCardView.imgView.tintColor = .systemGray
         
         todayCardView.title.text = "오늘"
         todayCardView.countTitle.text = "\(getNumberOfTodayDeadLine())"
-        todayCardView.imgView.image = UIImage(systemName: "clock")
+        todayCardView.imgView.image = UIImage(systemName: "clock.fill")
         todayCardView.imgView.tintColor = .systemGray
     }
     
