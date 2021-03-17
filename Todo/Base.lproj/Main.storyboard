@@ -219,7 +219,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zJ3-qG-MSO">
-                                <rect key="frame" x="0.0" y="88" width="414" height="730"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wvu-Vl-z61">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="777.5"/>
@@ -354,30 +354,24 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="HvX-LI-Z5z"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="6S0-sr-ge7"/>
                             </scrollView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6MX-Gv-yQU">
-                                <rect key="frame" x="0.0" y="818" width="414" height="44"/>
-                                <items>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="fbO-yg-cyT"/>
-                                    <barButtonItem title="목록 추가" id="5gQ-K2-Yhs">
-                                        <connections>
-                                            <action selector="addCatalog:" destination="cQT-XY-L9U" id="pBn-RE-tzf"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="NWi-yM-Qm7"/>
                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <constraints>
-                            <constraint firstItem="6MX-Gv-yQU" firstAttribute="leading" secondItem="NWi-yM-Qm7" secondAttribute="leading" id="0E4-BO-XOq"/>
                             <constraint firstItem="zJ3-qG-MSO" firstAttribute="leading" secondItem="NWi-yM-Qm7" secondAttribute="leading" id="L5Y-cG-NVF"/>
-                            <constraint firstItem="6MX-Gv-yQU" firstAttribute="trailing" secondItem="NWi-yM-Qm7" secondAttribute="trailing" id="MuO-tk-bO8"/>
+                            <constraint firstItem="NWi-yM-Qm7" firstAttribute="bottom" secondItem="zJ3-qG-MSO" secondAttribute="bottom" id="PXP-0i-noe"/>
                             <constraint firstItem="zJ3-qG-MSO" firstAttribute="trailing" secondItem="NWi-yM-Qm7" secondAttribute="trailing" id="WRO-IW-5RB"/>
-                            <constraint firstItem="6MX-Gv-yQU" firstAttribute="top" secondItem="zJ3-qG-MSO" secondAttribute="bottom" id="atI-s5-TLe"/>
                             <constraint firstItem="zJ3-qG-MSO" firstAttribute="top" secondItem="NWi-yM-Qm7" secondAttribute="top" id="p0F-px-2UX"/>
-                            <constraint firstItem="NWi-yM-Qm7" firstAttribute="bottom" secondItem="6MX-Gv-yQU" secondAttribute="bottom" id="whg-SN-1kM"/>
                         </constraints>
                     </view>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="lG3-8G-Wbb"/>
+                        <barButtonItem title="목록 추가" id="am3-aW-ajo">
+                            <connections>
+                                <action selector="addCatalog:" destination="cQT-XY-L9U" id="f5y-oJ-fzm"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" id="JOU-qG-9sX">
                         <barButtonItem key="rightBarButtonItem" title="편집" id="95S-Ik-E1x">
                             <color key="tintColor" systemColor="systemBlueColor"/>
@@ -386,6 +380,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="expandingUpcomingButton" destination="AAk-ax-Qn7" id="q0A-BZ-PNv"/>
                         <outlet property="mainStackView" destination="M8w-hY-wEI" id="T5a-jq-hQe"/>
@@ -410,7 +405,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="66O-JP-acl">
-                                <rect key="frame" x="0.0" y="88" width="414" height="730"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="HUB-7h-Pvs">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -431,7 +426,7 @@
                                     </constraints>
                                 </view>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="h3M-RV-7ja">
-                                    <rect key="frame" x="0.0" y="160" width="414" height="1"/>
+                                    <rect key="frame" x="0.0" y="160" width="414" height="40"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 </view>
@@ -446,29 +441,23 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pWk-Kt-WQu">
-                                <rect key="frame" x="0.0" y="818" width="414" height="44"/>
-                                <items>
-                                    <barButtonItem title="새로운 할일 추가" id="wko-ce-wmV">
-                                        <connections>
-                                            <action selector="addTodo:" destination="dnT-nX-dDX" id="PtK-TN-BKu"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="84z-yd-Ffq"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="66O-JP-acl" firstAttribute="top" secondItem="84z-yd-Ffq" secondAttribute="top" id="6Yg-Zb-T2A"/>
-                            <constraint firstItem="pWk-Kt-WQu" firstAttribute="trailing" secondItem="84z-yd-Ffq" secondAttribute="trailing" id="74N-tU-yAr"/>
-                            <constraint firstItem="pWk-Kt-WQu" firstAttribute="top" secondItem="66O-JP-acl" secondAttribute="bottom" id="PCw-4F-Jub"/>
                             <constraint firstItem="84z-yd-Ffq" firstAttribute="trailing" secondItem="66O-JP-acl" secondAttribute="trailing" id="aVB-uK-Uwl"/>
                             <constraint firstItem="66O-JP-acl" firstAttribute="leading" secondItem="84z-yd-Ffq" secondAttribute="leading" id="fYf-lr-oMV"/>
-                            <constraint firstItem="84z-yd-Ffq" firstAttribute="bottom" secondItem="pWk-Kt-WQu" secondAttribute="bottom" id="jkx-A0-5s1"/>
-                            <constraint firstItem="pWk-Kt-WQu" firstAttribute="leading" secondItem="84z-yd-Ffq" secondAttribute="leading" id="p5N-cK-UpK"/>
+                            <constraint firstItem="84z-yd-Ffq" firstAttribute="bottom" secondItem="66O-JP-acl" secondAttribute="bottom" id="tJl-oE-Kpf"/>
                         </constraints>
                     </view>
+                    <toolbarItems>
+                        <barButtonItem title="새로운 할 일 추가" id="kK6-FT-Wh9">
+                            <connections>
+                                <action selector="addTodo:" destination="dnT-nX-dDX" id="Mol-Mg-kF2"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" id="0Z7-iR-wuq">
                         <barButtonItem key="rightBarButtonItem" title="완료" id="pGw-dr-wqi">
                             <connections>
@@ -476,8 +465,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="addTodoButton" destination="wko-ce-wmV" id="TgI-S9-jal"/>
+                        <outlet property="addTodoButton" destination="kK6-FT-Wh9" id="z6B-Is-wfV"/>
                         <outlet property="completeButton" destination="pGw-dr-wqi" id="G1Z-TH-fRO"/>
                         <outlet property="mainTitle" destination="ODK-tL-Ksg" id="jCP-Fb-rRO"/>
                         <outlet property="tableView" destination="66O-JP-acl" id="0I1-CO-0I7"/>
@@ -516,7 +506,7 @@
         <!--Navigation Controller-->
         <scene sceneID="xxM-T0-F39">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ukO-pB-USx" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="ukO-pB-USx" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6Zr-77-1Mh">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -524,6 +514,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Fo3-8F-0vP">
+                        <rect key="frame" x="0.0" y="813" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
