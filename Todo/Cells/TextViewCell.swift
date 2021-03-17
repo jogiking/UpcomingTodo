@@ -10,6 +10,7 @@ import UIKit
 class TextViewCell: UITableViewCell {
 
     @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var textViewHeightConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()

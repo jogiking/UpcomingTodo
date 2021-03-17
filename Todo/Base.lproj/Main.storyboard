@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ukO-pB-USx">
-    <device id="retina6_1" orientation="portrait" appearance="dark"/>
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -441,7 +441,7 @@
                                     </constraints>
                                 </view>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="h3M-RV-7ja">
-                                    <rect key="frame" x="0.0" y="160" width="414" height="44"/>
+                                    <rect key="frame" x="0.0" y="160" width="414" height="1"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 </view>
@@ -569,16 +569,16 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="textViewCell" id="uhc-R3-5f2" customClass="TextViewCell" customModule="Todo" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="55.5" width="374" height="100.5"/>
+                                        <rect key="frame" x="20" y="55.5" width="374" height="64.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uhc-R3-5f2" id="4JK-8r-4bM">
-                                            <rect key="frame" x="0.0" y="0.0" width="374" height="100.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="64.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hcL-fb-Uhz">
-                                                    <rect key="frame" x="20" y="10" width="334" height="80.5"/>
+                                                    <rect key="frame" x="20" y="10" width="334" height="44.5"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="80" id="YW9-MW-Kby"/>
+                                                        <constraint firstAttribute="height" constant="44" id="YW9-MW-Kby"/>
                                                     </constraints>
                                                     <color key="textColor" systemColor="labelColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -594,10 +594,11 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="textView" destination="hcL-fb-Uhz" id="IAX-A5-JJG"/>
+                                            <outlet property="textViewHeightConstraint" destination="YW9-MW-Kby" id="9n4-P4-d6u"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="switchCell" id="Rht-MO-hLH" customClass="SwitchCell" customModule="Todo" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="156" width="374" height="51.5"/>
+                                        <rect key="frame" x="20" y="120" width="374" height="51.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Rht-MO-hLH" id="8X2-4v-Eho">
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="51.5"/>
@@ -618,7 +619,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="statusCell" textLabel="6SV-A0-6kK" detailTextLabel="Pf3-9L-Myf" style="IBUITableViewCellStyleValue1" id="TgH-s0-BGQ">
-                                        <rect key="frame" x="20" y="207.5" width="374" height="43.5"/>
+                                        <rect key="frame" x="20" y="171.5" width="374" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TgH-s0-BGQ" id="gJv-ki-SIr">
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
@@ -642,7 +643,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="datePickerCell" rowHeight="390" id="gKA-Ct-7ru" customClass="DatePickerCell" customModule="Todo" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="251" width="374" height="390"/>
+                                        <rect key="frame" x="20" y="215" width="374" height="390"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gKA-Ct-7ru" id="Hsd-sw-Py0">
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="390"/>

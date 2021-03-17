@@ -114,6 +114,9 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
         case true:
             editingStatus.textView?.resignFirstResponder()
         case false:
+            print("footerFrame=\(tableView.tableFooterView?.frame)")
+//            tableView.tableFooterView.
+            
             addTodo(sender)
         }
     }
@@ -520,7 +523,6 @@ extension TodoListViewController: UITableViewDelegate,
         cell.btn.isUserInteractionEnabled = true
         cell.selectImg.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedSelectImage(_:))))
         cell.selectImg.isUserInteractionEnabled = true
-    
         if indexPath.row == 0 { // main cell
             let mainTodo = todoList[indexPath.section]
             cell.changeSelectImg(isFinish: mainTodo.isFinish!)

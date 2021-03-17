@@ -167,20 +167,22 @@ extension TodoDetailViewController: UITextViewDelegate{
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        // print(textView.text)
-//        let size = CGSize(width: textView.frame.width, height: .infinity)
-//        let estimatedSize = textView.sizeThatFits(size)
-//        print("estimatedSize = \(estimatedSize)")
-//        textView.constraints.forEach { (constraint) in
-//            if constraint.firstAttribute == .height {
-//                constraint.constant = estimatedSize.height
-//
-//                UIView.performWithoutAnimation {
-//                    tableView.beginUpdates()
-//                    tableView.endUpdates()
-//                }
-//            }
-//        }
+        if let cell = textView.superview?.superview as? TextViewCell {
+            if textView.contentSize.height <= 44 {
+                cell.textViewHeightConstraint.constant = 44
+            } else if textView.contentSize.height >= 90 {
+                cell.textViewHeightConstraint.constant = 90
+                
+            } else {
+                cell.textViewHeightConstraint.constant = textView.contentSize.height
+            }
+            
+            UIView.performWithoutAnimation {
+                tableView.beginUpdates()
+                tableView.endUpdates()
+            }
+        }
+
         viewIfLoaded?.setNeedsLayout()
         if textView.tag == 0 {
             if textView.text.isEmpty {
