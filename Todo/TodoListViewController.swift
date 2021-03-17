@@ -106,7 +106,41 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
         
         completeButton.title = "완료"
         completeButton.isEnabled = false
+        
+//        self.navigationController?.navigationBar.prefersLargeTitles = true
+//        let navigationBarAppearance = UINavigationBarAppearance()
+        navigationItem.title = "asfdasd"
+//        navigationBarAppearance.titleTextAttributes = [
+//            .font: UIFont.systemFont(ofSize: 40)]
+//        navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
+        
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+      
+        if scrollView.contentOffset.y > 30 {
+            print("true")
+//            self.navigationItem.scrollEdgeAppearance = .
+        
+            
+            DispatchQueue.main.async {
+                self.navigationController?.navigationBar.isTranslucent = true
+                self.navigationController?.navigationBar.shadowImage = nil
+                self.navigationItem.title = self.currentCatalogData?.name
+//
+        }
+            
                 
+            
+         
+        } else {
+            DispatchQueue.main.async {
+                self.navigationController?.navigationBar.shadowImage = UIImage()
+                self.navigationController?.navigationBar.isTranslucent = false
+//                self.navigationController?.navigationBar.backgroundColor = .clear
+                self.navigationItem.title = ""
+            }
+        }
     }
     
     @objc func tableViewTouch(_ sender: Any) {
