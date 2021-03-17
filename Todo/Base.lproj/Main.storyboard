@@ -407,32 +407,32 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="66O-JP-acl">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="HUB-7h-Pvs">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ODK-tL-Ksg">
-                                            <rect key="frame" x="20" y="0.0" width="374" height="60"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
-                                            <nil key="textColor"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ODK-tL-Ksg">
+                                            <rect key="frame" x="20" y="0.0" width="374" height="50"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="33"/>
+                                            <color key="textColor" systemColor="systemBlueColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="ODK-tL-Ksg" secondAttribute="bottom" id="2Gd-EF-FSc"/>
-                                        <constraint firstItem="ODK-tL-Ksg" firstAttribute="top" secondItem="HUB-7h-Pvs" secondAttribute="top" id="KA6-lt-jtI"/>
+                                        <constraint firstAttribute="bottom" secondItem="ODK-tL-Ksg" secondAttribute="bottom" id="7wn-Hr-4jh"/>
+                                        <constraint firstItem="ODK-tL-Ksg" firstAttribute="top" secondItem="HUB-7h-Pvs" secondAttribute="top" id="AOR-FH-DCd"/>
                                         <constraint firstAttribute="trailing" secondItem="ODK-tL-Ksg" secondAttribute="trailing" constant="20" id="kyx-Jq-yBc"/>
                                         <constraint firstItem="ODK-tL-Ksg" firstAttribute="leading" secondItem="HUB-7h-Pvs" secondAttribute="leading" constant="20" id="vn3-NW-DEW"/>
                                     </constraints>
                                 </view>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="h3M-RV-7ja">
-                                    <rect key="frame" x="0.0" y="160" width="414" height="40"/>
+                                    <rect key="frame" x="0.0" y="150" width="414" height="40"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="kby-aw-KhH">
-                                        <rect key="frame" x="0.0" y="88" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="78" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kby-aw-KhH" id="s9e-s9-iK8">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>

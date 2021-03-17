@@ -36,8 +36,6 @@ class MainPageViewController: UIViewController {
         upcomingStackView.layer.cornerRadius = 20
         
         upcomingStackView.clipsToBounds = true
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
