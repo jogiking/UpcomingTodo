@@ -45,7 +45,7 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
     @objc func keyboardWillShow(notification: Notification) {
         if let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height {
             print("Notification: Keyboard will show")
-            tableView.setBottomInset(to: keyboardHeight - view.safeAreaInsets.bottom)
+            tableView.setBottomInset(to: keyboardHeight - view.safeAreaInsets.bottom + 20)
         }
     }
 
@@ -106,42 +106,26 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
         
         completeButton.title = "완료"
         completeButton.isEnabled = false
-        
-//        self.navigationController?.navigationBar.prefersLargeTitles = true
-//        let navigationBarAppearance = UINavigationBarAppearance()
-        navigationItem.title = "asfdasd"
-//        navigationBarAppearance.titleTextAttributes = [
-//            .font: UIFont.systemFont(ofSize: 40)]
-//        navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
-        
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
       
         if scrollView.contentOffset.y > 30 {
             print("true")
-//            self.navigationItem.scrollEdgeAppearance = .
-        
-            
             DispatchQueue.main.async {
                 self.navigationController?.navigationBar.isTranslucent = true
                 self.navigationController?.navigationBar.shadowImage = nil
                 self.navigationItem.title = self.currentCatalogData?.name
-//
-        }
-            
-                
-            
-         
+            }
         } else {
             DispatchQueue.main.async {
                 self.navigationController?.navigationBar.shadowImage = UIImage()
                 self.navigationController?.navigationBar.isTranslucent = false
-//                self.navigationController?.navigationBar.backgroundColor = .clear
                 self.navigationItem.title = ""
             }
         }
     }
+    
     
     @objc func tableViewTouch(_ sender: Any) {
         switch editingStatus.isEditingMode {
@@ -383,22 +367,13 @@ extension TodoListViewController: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        let size = CGSize(width: textView.frame.width, height: .infinity)
-        let estimatedSize = textView.sizeThatFits(size)
-        print("textViewDidChange] estimatedSize=\(estimatedSize), frame=\(textView.frame)")
+        textView.sizeToFit()
+        print("textViewDidChange] textViewSize=\(textView.frame)")
         
-        textView.constraints.forEach { (constraint) in
-            if constraint.firstAttribute == .height {
-//                if constraint.constant != estimatedSize.height {
-                    constraint.constant = estimatedSize.height
-//                }
-                DispatchQueue.main.async {
-                    self.tableView.beginUpdates()
-                    self.tableView.endUpdates()
-                }
-            }
+        DispatchQueue.main.async {
+            self.tableView.beginUpdates()
+            self.tableView.endUpdates()
         }
-        
     }
     
     // MARK: - TodoDetailViewControllerDelegate
@@ -429,7 +404,6 @@ extension TodoListViewController: UITextViewDelegate {
     func todoDetailViewControllerDidCancel(_ todoDetailViewController: TodoDetailViewController) {
         dismiss(animated: true, completion: nil)
     }
-    
     
 }
 
