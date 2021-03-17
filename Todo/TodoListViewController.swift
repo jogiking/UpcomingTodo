@@ -45,7 +45,7 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
     @objc func keyboardWillShow(notification: Notification) {
         if let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height {
             print("Notification: Keyboard will show")
-            tableView.setBottomInset(to: keyboardHeight - view.safeAreaInsets.bottom + 20)
+            tableView.setBottomInset(to: keyboardHeight - view.safeAreaInsets.bottom + (tableView.tableFooterView?.frame.height)!)
         }
     }
 
@@ -115,19 +115,18 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-      
-        if scrollView.contentOffset.y > 30 {
-            print("true")
-            DispatchQueue.main.async {
-                self.navigationController?.navigationBar.isTranslucent = true
-                self.navigationController?.navigationBar.shadowImage = nil
-                self.navigationItem.title = self.currentCatalogData?.name
+     
+        guard let navigationController = self.navigationController else { return }
+        let threshold = mainTitle.frame.height
+        let alpha = scrollView.contentOffset.y / threshold
+        navigationController.navigationBar.subviews.first?.alpha = alpha
+        if alpha < 1  {
+            UIView.animate(withDuration: 0.5) {
+                self.navigationItem.title = ""
             }
         } else {
-            DispatchQueue.main.async {
-                self.navigationController?.navigationBar.shadowImage = UIImage()
-                self.navigationController?.navigationBar.isTranslucent = false
-                self.navigationItem.title = ""
+            UIView.animate(withDuration: 0.5) {
+                self.navigationItem.title = self.currentCatalogData?.name
             }
         }
     }
