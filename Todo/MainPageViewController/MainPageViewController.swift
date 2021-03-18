@@ -16,7 +16,6 @@ class MainPageViewController: UIViewController {
     @IBOutlet weak var totalCardView: CardBoardView!
     
     @IBOutlet weak var upcomingStackView: UIStackView!
-    @IBOutlet weak var expandingUpcomingButton: UIButton!
     
     @IBOutlet weak var mainStackView: UIStackView!
     
@@ -76,9 +75,6 @@ class MainPageViewController: UIViewController {
                 upcomingView.alpha = 1
             }
             
-            expandingUpcomingButton.isEnabled = true
-            expandingUpcomingButton.tintColor = .systemBlue
-            
             if warningView.isHidden == false {
                 UIView.animate(withDuration: 0.25) {
                     warningView.isHidden = true
@@ -102,10 +98,7 @@ class MainPageViewController: UIViewController {
                 warningView.isHidden = false
                 warningView.alpha = 1
             }
-            
-            expandingUpcomingButton.isEnabled = false
-            expandingUpcomingButton.tintColor = .systemGray
-            
+  
             if upcomingView.isHidden == false {
                 UIView.animate(withDuration: 0.25) {
                     upcomingView.isHidden = true
@@ -182,17 +175,6 @@ class MainPageViewController: UIViewController {
             sender.title = "편집"
             
         }
-    }
-    
-    @IBAction func showFullScreen(_ sender: Any) {
-        guard let upcomingView = upcomingStackView.arrangedSubviews[1] as? UpcomingView else { return }
-        guard let fullScreenVC = self.storyboard?.instantiateViewController(withIdentifier: "fullscreenVC") as? FullScreenViewController else { return }
- 
-        fullScreenVC.modalTransitionStyle = .coverVertical
-        fullScreenVC.modalPresentationStyle = .fullScreen
-        fullScreenVC.targetData = upcomingView.targetData
-
-        self.present(fullScreenVC, animated: true, completion: nil)
     }
     
     @IBAction func addCatalog(_ sender: Any) {

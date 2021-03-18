@@ -31,7 +31,6 @@
 		DF8E09FF25DA922E005B5755 /* unclick.png in Resources */ = {isa = PBXBuildFile; fileRef = DF8E09FA25DA922E005B5755 /* unclick.png */; };
 		DF8E0A0125DA922E005B5755 /* click.png in Resources */ = {isa = PBXBuildFile; fileRef = DF8E09FC25DA922E005B5755 /* click.png */; };
 		DF92A7C125F751D40032DA0C /* TodoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF92A7C025F751D40032DA0C /* TodoDetailViewController.swift */; };
-		DFA6E85325FBAB9400FF822A /* FullScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA6E85225FBAB9400FF822A /* FullScreenViewController.swift */; };
 		DFF18D4825EBDE9400CA777E /* BasicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF18D4625EBDE9400CA777E /* BasicCell.swift */; };
 		DFF18D4925EBDE9400CA777E /* BasicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DFF18D4725EBDE9400CA777E /* BasicCell.xib */; };
 		DFF18D4D25EBE0A500CA777E /* MemoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF18D4B25EBE0A500CA777E /* MemoCell.swift */; };
@@ -69,7 +68,6 @@
 		DF8E09FA25DA922E005B5755 /* unclick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unclick.png; sourceTree = "<group>"; };
 		DF8E09FC25DA922E005B5755 /* click.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = click.png; sourceTree = "<group>"; };
 		DF92A7C025F751D40032DA0C /* TodoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailViewController.swift; sourceTree = "<group>"; };
-		DFA6E85225FBAB9400FF822A /* FullScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenViewController.swift; sourceTree = "<group>"; };
 		DFF18D4625EBDE9400CA777E /* BasicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicCell.swift; sourceTree = "<group>"; };
 		DFF18D4725EBDE9400CA777E /* BasicCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BasicCell.xib; sourceTree = "<group>"; };
 		DFF18D4B25EBE0A500CA777E /* MemoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoCell.swift; sourceTree = "<group>"; };
@@ -164,7 +162,6 @@
 				DF8E09D125DA7ADD005B5755 /* AppDelegate.swift */,
 				DF8E09D325DA7ADD005B5755 /* SceneDelegate.swift */,
 				DF8E09D725DA7ADD005B5755 /* Main.storyboard */,
-				DFA6E85225FBAB9400FF822A /* FullScreenViewController.swift */,
 				DF8E09DD25DA7ADE005B5755 /* Assets.xcassets */,
 				DF8E09DF25DA7ADE005B5755 /* LaunchScreen.storyboard */,
 				DF8E09E225DA7ADE005B5755 /* Info.plist */,
@@ -299,7 +296,6 @@
 				DF19E6B425DA9DA2002544FB /* NormalCell.swift in Sources */,
 				DF7807AF25DFEE16008EAE7F /* MainPageViewController.swift in Sources */,
 				DF092BFE25F76F7400ECFC1A /* DatePickerCell.swift in Sources */,
-				DFA6E85325FBAB9400FF822A /* FullScreenViewController.swift in Sources */,
 				DFF18D4825EBDE9400CA777E /* BasicCell.swift in Sources */,
 				DFF3A0672603390A004A2BCE /* MainPageViewController+DataSource.swift in Sources */,
 				DFF18D4D25EBE0A500CA777E /* MemoCell.swift in Sources */,
