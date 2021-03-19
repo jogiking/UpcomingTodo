@@ -119,8 +119,8 @@
 				DFF18D4625EBDE9400CA777E /* BasicCell.swift */,
 				DFF18D4725EBDE9400CA777E /* BasicCell.xib */,
 				DFF18D4B25EBE0A500CA777E /* MemoCell.swift */,
-				DF092BFD25F76F7400ECFC1A /* DatePickerCell.swift */,
 				DFF18D4C25EBE0A500CA777E /* MemoCell.xib */,
+				DF092BFD25F76F7400ECFC1A /* DatePickerCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
