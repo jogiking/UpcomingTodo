@@ -88,6 +88,9 @@
                                                             <constraint firstItem="ldX-nE-shc" firstAttribute="width" secondItem="Ry0-cK-4bR" secondAttribute="width" id="4jO-zd-Dhj"/>
                                                         </constraints>
                                                     </stackView>
+                                                    <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mzh-d1-Xbm">
+                                                        <rect key="frame" x="0.0" y="625" width="378" height="0.0"/>
+                                                    </pickerView>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pQS-vI-G64">
                                                         <rect key="frame" x="0.0" y="632.5" width="378" height="100"/>
                                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -171,6 +174,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="editModePickerView" destination="mzh-d1-Xbm" id="XYD-0i-wFl"/>
                         <outlet property="mainStackView" destination="M8w-hY-wEI" id="T5a-jq-hQe"/>
                         <outlet property="navItem" destination="JOU-qG-9sX" id="vgu-95-C3i"/>
                         <outlet property="tableView" destination="pQS-vI-G64" id="bWe-lB-gLg"/>

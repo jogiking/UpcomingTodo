@@ -22,15 +22,18 @@ class TodoData: Todo {
         }
     }
     var deadline: Date?
+    var displaying: Bool?
     
     override init() {
         super.init()
         self.isOpen = false
+        self.displaying = false
     }
     
     init(index: Int) {
         super.init()
         self.isOpen = false
+        self.displaying = false
     }
 }
 

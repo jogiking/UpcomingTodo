@@ -38,10 +38,6 @@ extension TodoListViewController: UITableViewDelegate,
         header.tintColor = tableView.backgroundColor
         header.textLabel?.textColor = .systemBlue
     }
-//
-//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        return section == todoList.count - 1 ? 0 : 1
-//    }
         
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true

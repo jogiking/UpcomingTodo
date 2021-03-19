@@ -38,19 +38,18 @@ extension MainPageViewController: UITableViewDelegate, UITableViewDataSource {
                 if appDelegate.myData.count < 1 {
                     DispatchQueue.main.async {
                         tableView.isEditing = false
-                        
-                        for item in self.mainStackView.arrangedSubviews {
-                            if item == self.mainStackView.arrangedSubviews.last { continue }
-                            UIView.animate(withDuration: 0.35) {
-                                item.isHidden = false
-                                item.alpha = 1
-                            }
+                        for i in 0...self.mainStackView.arrangedSubviews.count - 3 {
+                            let item = self.mainStackView.arrangedSubviews[i]
+                            item.isHidden = false
+                            item.alpha = 1
                         }
                         self.navItem.rightBarButtonItem?.title = "편집"
                     }
                     
                 }
-            }
+                self.updatePickerView()
+                self.editModePickerView.reloadAllComponents()
+            }            
         }
     }
     

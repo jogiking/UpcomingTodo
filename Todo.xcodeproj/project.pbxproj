@@ -10,6 +10,7 @@
 		DF092BF725F76E5700ECFC1A /* TextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF092BF625F76E5700ECFC1A /* TextViewCell.swift */; };
 		DF092BFA25F76E9F00ECFC1A /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF092BF925F76E9F00ECFC1A /* SwitchCell.swift */; };
 		DF092BFE25F76F7400ECFC1A /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF092BFD25F76F7400ECFC1A /* DatePickerCell.swift */; };
+		DF188C692603C99A0077BD8C /* MainPageViewController+PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF188C682603C99A0077BD8C /* MainPageViewController+PickerView.swift */; };
 		DF19E6B425DA9DA2002544FB /* NormalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF19E6B225DA9DA2002544FB /* NormalCell.swift */; };
 		DF19E6B525DA9DA2002544FB /* NormalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF19E6B325DA9DA2002544FB /* NormalCell.xib */; };
 		DF54651025E3D87A00B6E2F4 /* CardBoardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF54650F25E3D87A00B6E2F4 /* CardBoardView.xib */; };
@@ -45,6 +46,7 @@
 		DF092BF625F76E5700ECFC1A /* TextViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewCell.swift; sourceTree = "<group>"; };
 		DF092BF925F76E9F00ECFC1A /* SwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
 		DF092BFD25F76F7400ECFC1A /* DatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
+		DF188C682603C99A0077BD8C /* MainPageViewController+PickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainPageViewController+PickerView.swift"; sourceTree = "<group>"; };
 		DF19E6B225DA9DA2002544FB /* NormalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalCell.swift; sourceTree = "<group>"; };
 		DF19E6B325DA9DA2002544FB /* NormalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NormalCell.xib; sourceTree = "<group>"; };
 		DF54650F25E3D87A00B6E2F4 /* CardBoardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardBoardView.xib; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				DF7807AE25DFEE16008EAE7F /* MainPageViewController.swift */,
+				DF188C682603C99A0077BD8C /* MainPageViewController+PickerView.swift */,
 				DFF3A0662603390A004A2BCE /* MainPageViewController+DataSource.swift */,
 			);
 			path = MainPageViewController;
@@ -292,6 +295,7 @@
 				DFF3A06E26033AB5004A2BCE /* TodoListViewController+DataSource.swift in Sources */,
 				DF92A7C125F751D40032DA0C /* TodoDetailViewController.swift in Sources */,
 				DF5F663E25F9DD2700D587B3 /* UpcomingView.swift in Sources */,
+				DF188C692603C99A0077BD8C /* MainPageViewController+PickerView.swift in Sources */,
 				DF7CFC9B25E7E80700C389B4 /* TodoListViewController.swift in Sources */,
 				DF19E6B425DA9DA2002544FB /* NormalCell.swift in Sources */,
 				DF7807AF25DFEE16008EAE7F /* MainPageViewController.swift in Sources */,
