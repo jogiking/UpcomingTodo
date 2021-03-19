@@ -65,7 +65,7 @@
 		DF7807AE25DFEE16008EAE7F /* MainPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageViewController.swift; sourceTree = "<group>"; };
 		DF7CFC9A25E7E80700C389B4 /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
 		DF8A2CF025E51082009417C6 /* TodoDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDAO.swift; sourceTree = "<group>"; };
-		DF8E09CE25DA7ADD005B5755 /* Todo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Todo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF8E09CE25DA7ADD005B5755 /* UpcomingTodo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UpcomingTodo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF8E09D125DA7ADD005B5755 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF8E09D325DA7ADD005B5755 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		DF8E09D825DA7ADD005B5755 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -166,7 +166,7 @@
 		DF8E09CF25DA7ADD005B5755 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DF8E09CE25DA7ADD005B5755 /* Todo.app */,
+				DF8E09CE25DA7ADD005B5755 /* UpcomingTodo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -190,7 +190,8 @@
 				DF8E09E225DA7ADE005B5755 /* Info.plist */,
 				DF8E09DA25DA7ADD005B5755 /* Todo.xcdatamodeld */,
 			);
-			path = Todo;
+			name = Todo;
+			path = UpcomingTodo;
 			sourceTree = "<group>";
 		};
 		DF8E09F725DA9223005B5755 /* Resources */ = {
@@ -235,9 +236,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		DF8E09CD25DA7ADD005B5755 /* Todo */ = {
+		DF8E09CD25DA7ADD005B5755 /* UpcomingTodo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DF8E09E525DA7ADE005B5755 /* Build configuration list for PBXNativeTarget "Todo" */;
+			buildConfigurationList = DF8E09E525DA7ADE005B5755 /* Build configuration list for PBXNativeTarget "UpcomingTodo" */;
 			buildPhases = (
 				DF8E09CA25DA7ADD005B5755 /* Sources */,
 				DF8E09CB25DA7ADD005B5755 /* Frameworks */,
@@ -247,9 +248,9 @@
 			);
 			dependencies = (
 			);
-			name = Todo;
+			name = UpcomingTodo;
 			productName = Todo;
-			productReference = DF8E09CE25DA7ADD005B5755 /* Todo.app */;
+			productReference = DF8E09CE25DA7ADD005B5755 /* UpcomingTodo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -266,7 +267,7 @@
 					};
 				};
 			};
-			buildConfigurationList = DF8E09C925DA7ADD005B5755 /* Build configuration list for PBXProject "Todo" */;
+			buildConfigurationList = DF8E09C925DA7ADD005B5755 /* Build configuration list for PBXProject "UpcomingTodo" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -280,7 +281,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DF8E09CD25DA7ADD005B5755 /* Todo */,
+				DF8E09CD25DA7ADD005B5755 /* UpcomingTodo */,
 			);
 		};
 /* End PBXProject section */
@@ -348,7 +349,7 @@
 				DF3E0DDB2604DA360052D7D7 /* en */,
 			);
 			name = Localizable.strings;
-			path = Todo;
+			path = UpcomingTodo;
 			sourceTree = "<group>";
 		};
 		DF3E0DE42604F8870052D7D7 /* UpcomingView.xib */ = {
@@ -506,15 +507,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Y3H4VTG2FS;
-				INFOPLIST_FILE = Todo/Info.plist;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = UpcomingTodo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.turu.Todo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.turu.UpcomingTodo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -525,15 +528,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Y3H4VTG2FS;
-				INFOPLIST_FILE = Todo/Info.plist;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = UpcomingTodo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.turu.Todo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.turu.UpcomingTodo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -542,7 +547,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DF8E09C925DA7ADD005B5755 /* Build configuration list for PBXProject "Todo" */ = {
+		DF8E09C925DA7ADD005B5755 /* Build configuration list for PBXProject "UpcomingTodo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DF8E09E325DA7ADE005B5755 /* Debug */,
@@ -551,7 +556,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DF8E09E525DA7ADE005B5755 /* Build configuration list for PBXNativeTarget "Todo" */ = {
+		DF8E09E525DA7ADE005B5755 /* Build configuration list for PBXNativeTarget "UpcomingTodo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DF8E09E625DA7ADE005B5755 /* Debug */,
