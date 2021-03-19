@@ -32,7 +32,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20일 2시간 3분 32초" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yGT-Wm-BGd">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20일 2시간 3분 32초" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yGT-Wm-BGd">
                     <rect key="frame" x="27" y="55" width="237" height="32.5"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
                     <color key="textColor" systemColor="systemRedColor"/>
@@ -117,6 +117,7 @@
                 <constraint firstItem="A1q-1X-DXz" firstAttribute="top" secondItem="5He-JV-qxd" secondAttribute="bottom" constant="10" id="3Gj-Yr-xAL"/>
                 <constraint firstItem="GR4-rF-p8q" firstAttribute="leading" secondItem="yGT-Wm-BGd" secondAttribute="trailing" constant="7" id="5mY-jP-eNE"/>
                 <constraint firstAttribute="trailing" secondItem="3Ja-NB-w2G" secondAttribute="trailing" constant="15" id="FaD-tP-3qY"/>
+                <constraint firstItem="yGT-Wm-BGd" firstAttribute="leading" secondItem="hGZ-nS-IUC" secondAttribute="leading" constant="27" id="KgG-Es-cf5"/>
                 <constraint firstItem="Ejg-ZA-Pjp" firstAttribute="top" secondItem="hGZ-nS-IUC" secondAttribute="top" constant="10" id="LMP-vg-1tm"/>
                 <constraint firstItem="ztE-uj-Jy9" firstAttribute="top" secondItem="eS7-uA-Azq" secondAttribute="bottom" constant="15" id="PQ4-fH-CkO"/>
                 <constraint firstItem="ztE-uj-Jy9" firstAttribute="leading" secondItem="5He-JV-qxd" secondAttribute="leading" id="Pm8-9X-ZQs"/>

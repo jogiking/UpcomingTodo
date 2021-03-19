@@ -121,16 +121,21 @@ class UpcomingView: UIView {
     func getDiffDateString(recent: Date, previous: Date) -> String {
         let interval = recent - previous
         
-        let year = interval.month! / 12
-        let month = interval.month! % 12
-        let day = interval.day! % 365
-        let hour = interval.hour! % 24
-        let minute = interval.minute! % 60
-        let second = interval.second! % 60
+        let calendar = Calendar.current
+        let offsetComps = calendar.dateComponents([.year,.month,.day, .hour, .minute, .second], from:previous, to:recent)
+        
+        let year = offsetComps.year ?? 0
+        let month = offsetComps.month ?? 0
+        let day = offsetComps.day ?? 0
+        let hour = offsetComps.hour ?? 0
+        let minute = offsetComps.minute ?? 0
+        let second = offsetComps.second ?? 0
                
         let yearString = year == 0 ? "" : String(format: NSLocalizedString("%d%@", comment: ""), year, "Y".localized)
         let monthString = month == 0 ? "" : String(format: NSLocalizedString(" %d%@", comment: ""), month, "M".localized)
         let dayString = day == 0 ? "" : String(format: NSLocalizedString(" %d%@", comment: ""), day, "D".localized)
+        
+        
         let hourString = hour == 0 ? "" : String(format: NSLocalizedString(" %d%@", comment: ""), hour, "hr".localized)
         let minuteString = minute == 0 ? "" : String(format: NSLocalizedString(" %d%@", comment: ""), minute, "min".localized)
         let secondString = second == 0 ? "" : String(format: NSLocalizedString(" %d%@", comment: ""), second, "sec".localized)

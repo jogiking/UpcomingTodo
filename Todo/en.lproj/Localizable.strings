@@ -29,9 +29,9 @@
 "Y" = "Y";
 "M" = "M";
 "D" = "D";
-"hr" = "hr";
-"min" = "min";
-"sec" = "sec";
+"hr" = "h";
+"min" = "m";
+"sec" = "s";
 "New List" = "New List";
 "OK" = "OK";
 "Input List Name" = "Input List Name";
