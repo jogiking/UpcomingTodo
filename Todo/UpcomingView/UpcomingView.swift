@@ -78,12 +78,15 @@ class UpcomingView: UIView {
         
         guard let data = self.targetData else { return }
         title.text = data.title
-        totalDetailLabel.text = "전체 세부 항목 \(data.numberOfSubTodo)건"
+        totalDetailLabel.text = String(format: NSLocalizedString("%@ %d%@", comment: ""), "All Details".localized, data.numberOfSubTodo, " Left".localized)
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yy년 MM월 dd일 HH시 mm분"
-        startLabel.text = dateFormatter.string(from: data.regDate!) + " 시작"
-        endLabel.text = dateFormatter.string(from: data.deadline!) + " 종료"
+        dateFormatter.locale = NSLocale.current
+        dateFormatter.dateStyle = .long
+        dateFormatter.timeStyle = .short
+    
+        startLabel.text = String(format: NSLocalizedString("%@ %@", comment: ""), dateFormatter.string(from: data.regDate!), "Start".localized)
+        endLabel.text = String(format: NSLocalizedString("%@ %@", comment: ""), dateFormatter.string(from: data.deadline!), "End".localized)
         
         var numberOfCompletedSubtodo = 0
         for subTodo in data.subTodoList {
@@ -91,11 +94,11 @@ class UpcomingView: UIView {
                 numberOfCompletedSubtodo += 1
             }
         }
-        numberOfCompletionLabel.text = "\(numberOfCompletedSubtodo)건 완료"
+        numberOfCompletionLabel.text = String(format: NSLocalizedString("%d %@", comment: ""), numberOfCompletedSubtodo, "Completed".localized)
         numberOfCompletionProgressView.progress = numberOfCompletedSubtodo == 0 ? 0.001 : Float(numberOfCompletedSubtodo) / Float(data.numberOfSubTodo)
         
         let recent = Date()
-        timeCounterLabel.text = getDiffDateString(recent: recent, previous: data.regDate!) + " 지남"
+        timeCounterLabel.text = String(format: NSLocalizedString("%@ %@", comment: ""), getDiffDateString(recent: recent, previous: data.regDate!), "Passed".localized)
                 
         let interval = recent - data.regDate!
         let totalSecond = (data.deadline! - data.regDate!).second
@@ -103,9 +106,9 @@ class UpcomingView: UIView {
         
         if recent <= data.deadline! {
             timerLabel.text = getDiffDateString(recent: data.deadline!, previous: recent)
-            timeCounterRightLabel.text = "남음"
+            timeCounterRightLabel.text = "Left".localized
         } else {
-            timerLabel.text = "시간 만료"
+            timerLabel.text = "Expired".localized
             timeCounterRightLabel.text = ""
             timeCounterProgressView.progress = 1
         }
@@ -117,13 +120,22 @@ class UpcomingView: UIView {
     
     func getDiffDateString(recent: Date, previous: Date) -> String {
         let interval = recent - previous
-        let year = interval.month! / 12 == 0 ? "" : "\(interval.month! / 12)년"
-        let month = interval.month! % 12 == 0 ? "" : " \(interval.month! % 12)월"
-        let day = interval.day! % 365 == 0 ? "" : " \(interval.day! % 365)일"
-        let hour = interval.hour! % 24 == 0 ? "" : " \(interval.hour! % 24)시간"
-        let minute = interval.minute! % 60 == 0 ? "" : " \(interval.minute! % 60)분"
-        let second = interval.second! % 60 == 0 ? "" : " \(interval.second! % 60)초"
-        let counterString = year + month + day + hour + minute + second
+        
+        let year = interval.month! / 12
+        let month = interval.month! % 12
+        let day = interval.day! % 365
+        let hour = interval.hour! % 24
+        let minute = interval.minute! % 60
+        let second = interval.second! % 60
+               
+        let yearString = year == 0 ? "" : String(format: NSLocalizedString("%d%@", comment: ""), year, "Y".localized)
+        let monthString = month == 0 ? "" : String(format: NSLocalizedString(" %d%@", comment: ""), month, "M".localized)
+        let dayString = day == 0 ? "" : String(format: NSLocalizedString(" %d%@", comment: ""), day, "D".localized)
+        let hourString = hour == 0 ? "" : String(format: NSLocalizedString(" %d%@", comment: ""), hour, "hr".localized)
+        let minuteString = minute == 0 ? "" : String(format: NSLocalizedString(" %d%@", comment: ""), minute, "min".localized)
+        let secondString = second == 0 ? "" : String(format: NSLocalizedString(" %d%@", comment: ""), second, "sec".localized)
+        
+        let counterString = yearString + monthString + dayString + hourString + minuteString + secondString
         return counterString
     }
 }

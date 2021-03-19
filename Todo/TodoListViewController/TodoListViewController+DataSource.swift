@@ -26,11 +26,22 @@ extension TodoListViewController: UITableViewDelegate,
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let dateFomatter = DateFormatter()
-        dateFomatter.dateFormat = "yyyy년 MM월 dd일 a hh시 mm분"
+//        let dateFomatter = DateFormatter()
+//        dateFomatter.dateFormat = "yyyy년 MM월 dd일 a hh시 mm분"
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = NSLocale.current
+        dateFormatter.dateStyle = .long
+        dateFormatter.timeStyle = .short
         guard let date = todoList[section].deadline else { return nil }
-        let dateString = dateFomatter.string(from: date)
-        return "\(dateString)까지"
+        
+        switch dateFormatter.locale.languageCode {
+        case "ko":
+            let dateString = String(format: NSLocalizedString("%@ %@", comment: ""), dateFormatter.string(from: date), "까지")
+            return dateString
+        default: // en
+            let dateString = String(format: NSLocalizedString("%@ %@", comment: ""), "Up to", dateFormatter.string(from: date))
+            return dateString
+        }
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {

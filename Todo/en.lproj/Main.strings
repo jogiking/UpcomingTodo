@@ -1,0 +1,42 @@
+
+/* Class = "UILabel"; text = "Starts"; ObjectID = "6SV-A0-6kK"; */
+"6SV-A0-6kK.text" = "Starts";
+
+/* Class = "UIBarButtonItem"; title = "Edit"; ObjectID = "95S-Ik-E1x"; */
+"95S-Ik-E1x.title" = "Edit";
+
+/* Class = "UIBarButtonItem"; title = "Done"; ObjectID = "CPZ-MO-R9R"; */
+"CPZ-MO-R9R.title" = "Done";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "ODK-tL-Ksg"; */
+"ODK-tL-Ksg.text" = "Label";
+
+/* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "Pbh-w0-SK8"; */
+"Pbh-w0-SK8.title" = "Cancel";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "Pf3-9L-Myf"; */
+"Pf3-9L-Myf.text" = "Detail";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "WCc-Z0-5m9"; */
+"WCc-Z0-5m9.text" = "Detail";
+
+/* Class = "UIBarButtonItem"; title = "Add List"; ObjectID = "am3-aW-ajo"; */
+"am3-aW-ajo.title" = "Add List";
+
+/* Class = "UILabel"; text = "Upcoming"; ObjectID = "d35-Sh-1zI"; */
+"d35-Sh-1zI.text" = "Upcoming";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "f0Q-yK-GHh"; */
+"f0Q-yK-GHh.text" = "Title";
+
+/* Class = "UIBarButtonItem"; title = "New Todo"; ObjectID = "kK6-FT-Wh9"; */
+"kK6-FT-Wh9.title" = "New Todo";
+
+/* Class = "UIBarButtonItem"; title = "Done"; ObjectID = "pGw-dr-wqi"; */
+"pGw-dr-wqi.title" = "Done";
+
+/* Class = "UINavigationItem"; title = "Details"; ObjectID = "qFp-NC-ElL"; */
+"qFp-NC-ElL.title" = "Details";
+
+/* Class = "UILabel"; text = "No Upcoming Todos"; ObjectID = "xwp-2L-BXV"; */
+"xwp-2L-BXV.text" = "No Upcoming Todos";

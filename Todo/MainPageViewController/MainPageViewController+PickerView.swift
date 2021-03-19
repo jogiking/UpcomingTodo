@@ -20,7 +20,7 @@ extension MainPageViewController: UIPickerViewDelegate,
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         print("pickerView] titleForRow=\(row)")
-        return self.pickerDataList[row].title ?? "없음"
+        return self.pickerDataList[row].title ?? "None".localized
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {

@@ -22,7 +22,7 @@ class TodoDetailViewController: UIViewController, UIAdaptivePresentationControll
     
     var hasTimer = false
     var deadline: Date? = nil
-    let todoTextContents = ["제목", "메모"]
+    let todoTextContents = ["Title".localized, "Memo".localized]
     var hasChanges: Bool {
         guard let contents = bringContents() else { return false }
         let originalTodo = isParent ? todoList[todoIndexPath.section] : todoList[todoIndexPath.section].subTodoList[todoIndexPath.row - 1]
@@ -65,14 +65,14 @@ class TodoDetailViewController: UIViewController, UIAdaptivePresentationControll
     func confirmCancel() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "변경 사항 취소", style: .destructive, handler: { (action: UIAlertAction) in
+        alert.addAction(UIAlertAction(title: "Discard Changes".localized, style: .destructive, handler: { (action: UIAlertAction) in
             
             // 그대로 취소
 //            self.dismiss(animated: true)
             self.delegate?.todoDetailViewControllerDidCancel(self)
         }))
         
-        alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
         
         present(alert, animated: true)
     }
@@ -232,7 +232,7 @@ extension TodoDetailViewController: UITableViewDataSource {
             // 항상 스위치 셀
                 let cell = tableView.dequeueReusableCell(withIdentifier: "switchCell") as! SwitchCell
                 cell.selectionStyle = .none
-                cell.textLabel?.text = "마감 카운트 다운 설정"
+                cell.textLabel?.text = "Setting Deadline".localized
                 cell.openSwitch.isOn = hasTimer // 여기서 자동으로 보여지는게달라지는지 체크
                 cell.openSwitch.addTarget(self, action: #selector(openDatePicker(_:)), for: .valueChanged)
                 return cell
@@ -257,7 +257,7 @@ extension TodoDetailViewController: UITableViewDataSource {
                 // 있다면 statusCell
                 let cell = tableView.dequeueReusableCell(withIdentifier: "statusCell")!
                 cell.selectionStyle = .none
-                cell.textLabel?.text = "마감시간"
+                cell.textLabel?.text = "Deadline".localized
                 let datefomatter = DateFormatter()
                 datefomatter.dateStyle = .long
                 datefomatter.timeStyle = .medium

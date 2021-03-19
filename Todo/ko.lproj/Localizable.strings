@@ -1,0 +1,44 @@
+/* 
+  Localizable.strings
+  Todo
+
+  Created by turu on 2021/03/19.
+  
+*/
+
+"Upcoming" = "예정";
+"Edit" = "편집";
+"Left" = "남음";
+" Left" = "건 남음";
+"Elapse Time" = "경과 시간";
+"Start" = "시작";
+"Passed" = "지남";
+"All Details" = "전체 세부 항목";
+"Completed" = "건 완료";
+"Done" = "완료";
+"No Upcoming Todos" = "시간 지정된 할 일 없음";
+"All" = "전체";
+"Today" = "오늘";
+"Lists" = "목록";
+"Add List" = "목록 추가";
+"New Todo" = "새로운 할 일";
+"Cancel" = "취소";
+"Details" = "상세 설정";
+"End" = "종료";
+"Expired" = "시간 만료";
+"Y" = "년";
+"M" = "월";
+"D" = "일";
+"hr" = "시간";
+"min" = "분";
+"sec" = "초";
+"New List" = "새로운 목록";
+"OK" = "확인";
+"Input List Name" = "목록 이름을 입력";
+"None" = "없음";
+"Edit List Name" = "목록 이름을 수정";
+"Title" = "제목";
+"Memo" = "메모";
+"Discard Changes" = "변경 사항 취소";
+"Setting Deadline" = "마감 카운트 다운 설정";
+"Deadline" = "마감 시간";

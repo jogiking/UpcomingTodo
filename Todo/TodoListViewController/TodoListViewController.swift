@@ -109,7 +109,7 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
         let tableViewGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tableViewTouch(_:)))
         tableView.addGestureRecognizer(tableViewGestureRecognizer)
         
-        completeButton.title = "완료"
+        completeButton.title = "Done".localized
         completeButton.isEnabled = false
     }
     
@@ -257,7 +257,7 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
                         }
                         
                         if editingStatus.textView?.text.isEmpty != false {
-                            editingStatus.textView?.text = "새로운 할 일"
+                            editingStatus.textView?.text = "New Todo".localized
                         }
                         editingStatus.textView?.resignFirstResponder()
                         

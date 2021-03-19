@@ -12,7 +12,7 @@ extension TodoListViewController: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         print("itemsForBeginning] \(indexPath)")
         if editingStatus.isEditingMode {
-            editingStatus.textView?.text = "새로운 할 일"
+            editingStatus.textView?.text = "New Todo".localized
             editingStatus.textView?.resignFirstResponder()
         }
         self.startIndexPath = indexPath

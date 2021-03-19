@@ -1,0 +1,44 @@
+/* 
+  Localizable.strings
+  Todo
+
+  Created by turu on 2021/03/19.
+  
+*/
+
+"Upcoming" = "Upcoming";
+"Edit" = "Edit";
+"Left" = "Left";
+" Left" = " Left";
+"Elapse Time" = "Elapse Time";
+"Start" = "Start";
+"Passed" = "Passed";
+"All Details" = "All Details";
+"Completed" = "Completed";
+"Done" = "Done";
+"No Upcoming Todos" = "No Upcoming Todos";
+"All" = "All";
+"Today" = "Today";
+"Lists" = "Lists";
+"Add List" = "Add List";
+"New Todo" = "New Todo";
+"Cancel" = "Cancel";
+"Details" = "Details";
+"End" = "End";
+"Expired" = "Expired";
+"Y" = "Y";
+"M" = "M";
+"D" = "D";
+"hr" = "hr";
+"min" = "min";
+"sec" = "sec";
+"New List" = "New List";
+"OK" = "OK";
+"Input List Name" = "Input List Name";
+"None" = "None";
+"Edit List Name" = "Edit List Name";
+"Title" = "Title";
+"Memo" = "Memo";
+"Discard Changes" = "Discard Changes";
+"Setting Deadline" = "Setting Deadline";
+"Deadline" = "Deadline";

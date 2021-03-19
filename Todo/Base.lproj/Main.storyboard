@@ -31,8 +31,8 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cPO-Dg-Q3r">
                                                                 <rect key="frame" x="0.0" y="0.0" width="378" height="50"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="예정" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d35-Sh-1zI">
-                                                                        <rect key="frame" x="15" y="15" width="35" height="30"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upcoming" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d35-Sh-1zI">
+                                                                        <rect key="frame" x="15" y="15" width="100" height="30"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="20"/>
                                                                         <color key="textColor" systemColor="systemGrayColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -52,8 +52,8 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dQH-o4-C3J" userLabel="warning View">
                                                                 <rect key="frame" x="0.0" y="379" width="378" height="128"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="시간 지정된 할 일 없음" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xwp-2L-BXV">
-                                                                        <rect key="frame" x="114.5" y="28" width="149.5" height="20.5"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Upcoming Todos" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xwp-2L-BXV">
+                                                                        <rect key="frame" x="110" y="28" width="158.5" height="20.5"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                         <color key="textColor" systemColor="systemGray3Color"/>
                                                                         <nil key="highlightedColor"/>
@@ -158,14 +158,14 @@
                     </view>
                     <toolbarItems>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="lG3-8G-Wbb"/>
-                        <barButtonItem title="목록 추가" id="am3-aW-ajo">
+                        <barButtonItem title="Add List" id="am3-aW-ajo">
                             <connections>
                                 <action selector="addCatalog:" destination="cQT-XY-L9U" id="f5y-oJ-fzm"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="JOU-qG-9sX">
-                        <barButtonItem key="rightBarButtonItem" title="편집" id="95S-Ik-E1x">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="95S-Ik-E1x">
                             <color key="tintColor" systemColor="systemBlueColor"/>
                             <connections>
                                 <action selector="editAction:" destination="cQT-XY-L9U" id="5yt-wv-j1f"/>
@@ -244,14 +244,14 @@
                         </constraints>
                     </view>
                     <toolbarItems>
-                        <barButtonItem title="새로운 할 일 추가" id="kK6-FT-Wh9">
+                        <barButtonItem title="New Todo" id="kK6-FT-Wh9">
                             <connections>
                                 <action selector="addTodo:" destination="dnT-nX-dDX" id="Mol-Mg-kF2"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="0Z7-iR-wuq">
-                        <barButtonItem key="rightBarButtonItem" title="완료" id="pGw-dr-wqi">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="pGw-dr-wqi">
                             <connections>
                                 <action selector="completionClick:" destination="dnT-nX-dDX" id="J9w-4d-rqV"/>
                             </connections>
@@ -318,7 +318,7 @@
             </objects>
             <point key="canvasLocation" x="2204" y="116"/>
         </scene>
-        <!--상세 설정-->
+        <!--Details-->
         <scene sceneID="4vd-en-YRt">
             <objects>
                 <viewController id="15v-BV-cqZ" customClass="TodoDetailViewController" customModule="Todo" customModuleProvider="target" sceneMemberID="viewController">
@@ -438,13 +438,13 @@
                             <constraint firstItem="ACY-fU-neh" firstAttribute="leading" secondItem="KtE-mW-aH9" secondAttribute="leading" id="zT6-xp-UTe"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="상세 설정" id="qFp-NC-ElL">
-                        <barButtonItem key="leftBarButtonItem" title="취소" id="Pbh-w0-SK8">
+                    <navigationItem key="navigationItem" title="Details" id="qFp-NC-ElL">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="Pbh-w0-SK8">
                             <connections>
                                 <action selector="cancelAction:" destination="15v-BV-cqZ" id="reg-Sz-V2q"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="완료" id="CPZ-MO-R9R">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="CPZ-MO-R9R">
                             <connections>
                                 <action selector="saveAction:" destination="15v-BV-cqZ" id="AyS-n6-s9C"/>
                             </connections>

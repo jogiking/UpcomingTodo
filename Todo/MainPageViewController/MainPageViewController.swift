@@ -177,12 +177,12 @@ class MainPageViewController: UIViewController {
     }
        
     func setupCardViews() {
-        totalCardView.title.text = "전체"
+        totalCardView.title.text = "All".localized
         totalCardView.countTitle.text = "\(appDelegate.myData.count)"
         totalCardView.imgView.image = UIImage(systemName: "tray.fill")
         totalCardView.imgView.tintColor = .systemGray
         
-        todayCardView.title.text = "오늘"
+        todayCardView.title.text = "Today".localized
         todayCardView.countTitle.text = "\(getNumberOfTodayDeadLine())"
         todayCardView.imgView.image = UIImage(systemName: "clock.fill")
         todayCardView.imgView.tintColor = .systemGray
@@ -203,7 +203,7 @@ class MainPageViewController: UIViewController {
                 }
                                 
                 tableView.isEditing = true
-                sender.title = "완료"
+                sender.title = "Done".localized
                 
                 updatePickerView()
 //                editModePickerView.isHidden = false
@@ -216,7 +216,7 @@ class MainPageViewController: UIViewController {
                 }
                 
                 tableView.isEditing = false
-                sender.title = "편집"
+                sender.title = "Edit".localized
                 
 //                editModePickerView.isHidden = true
                 if editModePickerView.isHidden == false {
@@ -237,9 +237,9 @@ class MainPageViewController: UIViewController {
     }
     
     @IBAction func addCatalog(_ sender: Any) {
-        let alertController = UIAlertController(title: "새로운 목록", message: nil, preferredStyle: .alert)
+        let alertController = UIAlertController(title: "New List".localized, message: nil, preferredStyle: .alert)
 
-        let okAction = UIAlertAction(title: "확인", style: .default, handler: { (save) in
+        let okAction = UIAlertAction(title: "OK".localized, style: .default, handler: { (save) in
             print("확인 눌림")
             
             let data = CatalogData()
@@ -255,14 +255,14 @@ class MainPageViewController: UIViewController {
             NotificationCenter.default.removeObserver(self, name: UITextField.textDidChangeNotification, object: nil)
         })
         
-        let cancelAction = UIAlertAction(title: "취소", style: .destructive) { (_) in
+        let cancelAction = UIAlertAction(title: "Cancel".localized, style: .destructive) { (_) in
             print("취소 눌림")
             NotificationCenter.default.removeObserver(self, name: UITextField.textDidChangeNotification, object: nil)
         }
         
         alertController.addTextField { (tf) in
             tf.borderStyle = .none
-            tf.placeholder = "목록 이름을 입력"
+            tf.placeholder = "Input List Name".localized
             
             NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: tf, queue: .main) { (_) in
                 let textCount = tf.text?.trimmingCharacters(in: .whitespacesAndNewlines).count ?? 0

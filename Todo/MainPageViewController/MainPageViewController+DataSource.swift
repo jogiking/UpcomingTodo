@@ -9,11 +9,11 @@ import UIKit
 
 extension MainPageViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
-        navItem.rightBarButtonItem?.title = "완료"
+        navItem.rightBarButtonItem?.title = "Done".localized
     }
     
     func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
-        navItem.rightBarButtonItem?.title = "편집"
+        navItem.rightBarButtonItem?.title = "Edit".localized
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
@@ -43,7 +43,7 @@ extension MainPageViewController: UITableViewDelegate, UITableViewDataSource {
                             item.isHidden = false
                             item.alpha = 1
                         }
-                        self.navItem.rightBarButtonItem?.title = "편집"
+                        self.navItem.rightBarButtonItem?.title = "Edit".localized
                     }
                     
                 }
@@ -56,9 +56,9 @@ extension MainPageViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         print("accessory touched in \(indexPath.row)")
         
-        let alertController = UIAlertController(title: "목록 이름 수정", message: nil, preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Edit List Name".localized, message: nil, preferredStyle: .alert)
         
-        let okAction = UIAlertAction(title: "확인", style: .default) { (save) in
+        let okAction = UIAlertAction(title: "OK".localized, style: .default) { (save) in
             print("확인 눌림")
             // 현재 들어있는 텍스트가 카탈로그 이름으로 저장된다.
             guard let text = alertController.textFields?.first?.text else { return }
@@ -74,7 +74,7 @@ extension MainPageViewController: UITableViewDelegate, UITableViewDataSource {
             
             NotificationCenter.default.removeObserver(self, name: UITextField.textDidChangeNotification, object: nil)
         }
-        let cancelAction = UIAlertAction(title: "취소", style: .destructive) { (_) in
+        let cancelAction = UIAlertAction(title: "Cancel".localized, style: .destructive) { (_) in
             print("취소 눌림")
             NotificationCenter.default.removeObserver(self, name: UITextField.textDidChangeNotification, object: nil)
         }

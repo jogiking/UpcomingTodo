@@ -1,0 +1,42 @@
+
+/* Class = "UILabel"; text = "Starts"; ObjectID = "6SV-A0-6kK"; */
+"6SV-A0-6kK.text" = "Starts";
+
+/* Class = "UIBarButtonItem"; title = "편집"; ObjectID = "95S-Ik-E1x"; */
+"95S-Ik-E1x.title" = "편집";
+
+/* Class = "UIBarButtonItem"; title = "완료"; ObjectID = "CPZ-MO-R9R"; */
+"CPZ-MO-R9R.title" = "완료";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "ODK-tL-Ksg"; */
+"ODK-tL-Ksg.text" = "Label";
+
+/* Class = "UIBarButtonItem"; title = "취소"; ObjectID = "Pbh-w0-SK8"; */
+"Pbh-w0-SK8.title" = "취소";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "Pf3-9L-Myf"; */
+"Pf3-9L-Myf.text" = "Detail";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "WCc-Z0-5m9"; */
+"WCc-Z0-5m9.text" = "Detail";
+
+/* Class = "UIBarButtonItem"; title = "목록 추가"; ObjectID = "am3-aW-ajo"; */
+"am3-aW-ajo.title" = "목록 추가";
+
+/* Class = "UILabel"; text = "예정"; ObjectID = "d35-Sh-1zI"; */
+"d35-Sh-1zI.text" = "예정";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "f0Q-yK-GHh"; */
+"f0Q-yK-GHh.text" = "Title";
+
+/* Class = "UIBarButtonItem"; title = "새로운 할 일 추가"; ObjectID = "kK6-FT-Wh9"; */
+"kK6-FT-Wh9.title" = "새로운 할 일 추가";
+
+/* Class = "UIBarButtonItem"; title = "완료"; ObjectID = "pGw-dr-wqi"; */
+"pGw-dr-wqi.title" = "완료";
+
+/* Class = "UINavigationItem"; title = "상세 설정"; ObjectID = "qFp-NC-ElL"; */
+"qFp-NC-ElL.title" = "상세 설정";
+
+/* Class = "UILabel"; text = "시간 지정된 할 일 없음"; ObjectID = "xwp-2L-BXV"; */
+"xwp-2L-BXV.text" = "시간 지정된 할 일 없음";
