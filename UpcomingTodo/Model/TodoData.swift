@@ -13,8 +13,14 @@ protocol DisplayOrder {
 }
 
 class TodoData: Todo {
-    
-    var subTodoList: [Todo] = []
+    var subTodoListDidChange: (()->Void)?
+    var subTodoList: [Todo] = [] {
+        didSet {
+            if let closure = subTodoListDidChange {
+                closure()
+            }
+        }
+    }
     var isOpen: Bool?
     var numberOfSubTodo: Int {
         get {
@@ -37,7 +43,8 @@ class TodoData: Todo {
     }
 }
 
-class Todo: DisplayOrder {
+class Todo: DisplayOrder, Equatable {
+    
     var displayOrder: Int?
     
     var title: String?
@@ -48,6 +55,11 @@ class Todo: DisplayOrder {
     
     init() {
         self.isFinish = false
+        self.regDate = Date()
+    }
+    
+    static func == (lhs: Todo, rhs: Todo) -> Bool {
+        return lhs.regDate == rhs.regDate
     }
 }
 

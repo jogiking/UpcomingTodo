@@ -26,8 +26,6 @@ extension TodoListViewController: UITableViewDelegate,
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        let dateFomatter = DateFormatter()
-//        dateFomatter.dateFormat = "yyyy년 MM월 dd일 a hh시 mm분"
         let dateFormatter = DateFormatter()
         dateFormatter.locale = NSLocale.current
         dateFormatter.dateStyle = .long
@@ -58,11 +56,24 @@ extension TodoListViewController: UITableViewDelegate,
 //        print("delete?? section: \(indexPath.section), row : \(indexPath.row)")
         if editingStyle == .delete {
             // commit위치가 빈셀의 바로 위일때만 빈셀의 지워짐도 같이처리됨
-            if indexPath.row == 0 {
+            if indexPath.row == 0 { // P, Pc
                 todoList.remove(at: indexPath.section)
+                
+                if editingStatus.isEditingMode {
+                    if !isC(sourceIndexPath: editingStatus.indexPath!) { // P, Pc
+                        updateEditingStatusIndexPath(at: indexPath)
+                    }
+                }
+                
                 tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
-            } else {
+            } else { // C
                 todoList[indexPath.section].subTodoList.remove(at: indexPath.row - 1)
+                
+                if editingStatus.isEditingMode {
+                    if isC(sourceIndexPath: editingStatus.indexPath!) {
+                        updateEditingStatusIndexPath(at: indexPath)
+                    }
+                }
                 
                 tableView.deleteRows(at: [indexPath], with: .fade)
                 //현재 indexPath가 isEdidtingMode인 셀이 아니라면 업데이트
