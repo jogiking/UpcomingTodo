@@ -158,7 +158,7 @@
 			children = (
 				DF3E0DD52604D98A0052D7D7 /* Localizable.strings */,
 				DF8E09F725DA9223005B5755 /* Resources */,
-				DF8E09D025DA7ADD005B5755 /* Todo */,
+				DF8E09D025DA7ADD005B5755 /* UpcomingTodo */,
 				DF8E09CF25DA7ADD005B5755 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -171,7 +171,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		DF8E09D025DA7ADD005B5755 /* Todo */ = {
+		DF8E09D025DA7ADD005B5755 /* UpcomingTodo */ = {
 			isa = PBXGroup;
 			children = (
 				DF3E0DDC2604DF4E0052D7D7 /* Utils */,
@@ -190,7 +190,6 @@
 				DF8E09E225DA7ADE005B5755 /* Info.plist */,
 				DF8E09DA25DA7ADD005B5755 /* Todo.xcdatamodeld */,
 			);
-			name = Todo;
 			path = UpcomingTodo;
 			sourceTree = "<group>";
 		};
@@ -217,8 +216,8 @@
 			isa = PBXGroup;
 			children = (
 				DF7CFC9A25E7E80700C389B4 /* TodoListViewController.swift */,
-				DFF3A069260339ED004A2BCE /* TodoListViewController+DragDrop.swift */,
 				DFF3A06D26033AB5004A2BCE /* TodoListViewController+DataSource.swift */,
+				DFF3A069260339ED004A2BCE /* TodoListViewController+DragDrop.swift */,
 				DFF3A07026033B98004A2BCE /* TodoListViewController+TextView.swift */,
 			);
 			path = TodoListViewController;
