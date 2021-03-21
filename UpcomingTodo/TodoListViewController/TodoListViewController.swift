@@ -337,15 +337,6 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
                 tv.becomeFirstResponder()
             }
         }
-
-//        DispatchQueue.main.async {
-//            let lastRowInLastSection = 0
-//            let lastSection = self.todoList.count - 1
-//            let indexPath = IndexPath(row: lastRowInLastSection, section: lastSection)
-//            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
-//         }
-        
-        
     }
     
     func changeCompletionBtnImage() {
@@ -361,9 +352,7 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
     @IBAction func addTodo(_ sender: Any) {
         self.todoList.append(TodoData())
         
-        //        DispatchQueue.main.async {
         UIView.animate(withDuration: 0.2) {
-            
             self.tableView.insertSections(IndexSet(integer: self.todoList.count - 1), with: .none)
         } completion: { (_) in
             UIView.animate(withDuration: 0.2) {
@@ -375,64 +364,8 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
                     tv.becomeFirstResponder()
                 }
             }
-
-            
-            
-            //
-            //            }
-            
-            
         }
     }
-    
-    
-            
-        
-
-//        UIView.animate(withDuration: 0) {
-//
-//            self.tableView.insertSections(IndexSet(integer: self.todoList.count - 1), with: .automatic)
-//            let lastRowInLastSection = 0
-//            let lastSection = self.todoList.count - 1
-//            let indexPath = IndexPath(row: lastRowInLastSection, section: lastSection)
-////            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-//        } completion: { (_) in
-////            print("finished=\(finished)")
-////            if finished {
-//                if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: self.todoList.count - 1)) as? BasicCell {
-//                    guard let tv = cell.title else { return }
-//                    tv.becomeFirstResponder()
-//                }
-//            }
-                
-    
-
-        
-            
-//            if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: self.todoList.count - 1)) as? BasicCell {
-//                guard let tv = cell.title else { return }
-//                tv.becomeFirstResponder()
-//            }
-//
-
-//        DispatchQueue.main.async {
-//            let lastRowInLastSection = 0
-//            let lastSection = self.todoList.count - 1
-//            let indexPath = IndexPath(row: lastRowInLastSection, section: lastSection)
-//            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
-//         }
-        
-        
-        
-        
-//        scrollToBottom()
-//
-//        if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: self.todoList.count - 1)) as? BasicCell {
-//            guard let tv = cell.title else { return }
-//            tv.becomeFirstResponder()
-//        }
-//    }
-    
     // MARK: - TodoDetailViewControllerDelegate
     func todoDetailViewControllerDidFinish(_ todoDetailViewController: TodoDetailViewController) {
         // 콘텐츠 변경작업 수행
