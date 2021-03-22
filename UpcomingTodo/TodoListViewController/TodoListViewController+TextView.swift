@@ -9,6 +9,13 @@ import UIKit
 
 extension TodoListViewController: UITextViewDelegate {
     
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        if let cell = textView.superview?.superview as? UITableViewCell {
+            editingStatus = (true, cell as? UITableViewCell, textView, tableView.indexPath(for: cell as! UITableViewCell))
+        }
+        return true
+    }
+    
     func textViewDidBeginEditing(_ textView: UITextView) {
         // 해당하는 셀의 btn 이미지를 바꿔야한다(생기는거로)
         print("textViewDidBeginEditing")
@@ -40,11 +47,13 @@ extension TodoListViewController: UITextViewDelegate {
         
         let cell = textView.superview?.superview as! UITableViewCell
         
-        DispatchQueue.main.async {
+//        DispatchQueue.main.async {
             self.tableView.beginUpdates()
+            cell.updateConstraints()
             cell.layoutIfNeeded()
             self.tableView.endUpdates()
-        }
+            
+//        }
         
         if editingStatus.isEditingMode {
             editingStatus = (false, nil, nil, nil)

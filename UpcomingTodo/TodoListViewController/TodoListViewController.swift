@@ -14,6 +14,8 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
     @IBOutlet weak var completeButton: UIBarButtonItem!
     @IBOutlet weak var addTodoButton: UIBarButtonItem!
     
+    
+    
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     lazy var dao = TodoDAO()
         
@@ -44,41 +46,27 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     @objc func keyboardWillShow(notification: Notification) {
-        guard let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height else { return }
-        
-        print("Notification: Keyboard will show")
-        
-        let notiInfo = notification.userInfo!
-        let animationDuration = notiInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as! TimeInterval
-//        UIView.animate(withDuration: animationDuration) { [self] in
+        if let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height {
+            print("Notification: Keyboard will show")
             
-        DispatchQueue.main.async { [self] in
-//        UIView.animate(withDuration: 0) { [self] in
+            
+            print(keyboardHeight - view.safeAreaInsets.bottom + (tableView.tableFooterView?.frame.height)!)
+            //                tableView.setBottomInset(to: keyboardHeight - view.safeAreaInsets.bottom + (tableView.tableFooterView?.frame.height)!)
             tableView.setBottomInset(to: keyboardHeight - view.safeAreaInsets.bottom + (tableView.tableFooterView?.frame.height)!)
+            if editingStatus.isEditingMode {
+                print("keyboardWillShow] scroll")
+                self.tableView.scrollToRow(at: editingStatus.indexPath!, at: .none, animated: false)
+            }
+            
         }
-            
-//        }
-            
-//            self.tableView.layoutIfNeeded()
-//        }
-        
-        
-//        UIView.animate(withDuration: animationDuration) {
-//            self.tableView.insertSections(IndexSet(integer: self.todoList.count - 1), with: .automatic)
-//            let lastRowInLastSection = 0
-//            let lastSection = self.todoList.count - 1
-//            let indexPath = IndexPath(row: lastRowInLastSection, section: lastSection)
-//            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
-////            self.view.layoutIfNeeded()
-//        }
     }
 
     @objc func keyboardWillHide(notification: Notification) {
         print("Notification: Keyboard will hide")
-        tableView.setBottomInset(to: 0.0)
-        if editingStatus.isEditingMode {
-            editingStatus.textView?.resignFirstResponder()
-        }
+        tableView.setBottomInset(to: 0)
+//        if editingStatus.isEditingMode {
+//            editingStatus.textView?.resignFirstResponder()
+//        }
     }
     
     @objc func willResign(_ sender: Any) {
@@ -127,7 +115,7 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
         tableView.dropDelegate = self
         tableView.keyboardDismissMode = .interactive
         
-        tableView.estimatedRowHeight = 50
+//        tableView.estimatedRowHeight = 50
         tableView.rowHeight = UITableView.automaticDimension
         
         tableView.register(UINib(nibName: "BasicCell", bundle: nil), forCellReuseIdentifier: "basicCell")
@@ -351,21 +339,111 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
     
     @IBAction func addTodo(_ sender: Any) {
         self.todoList.append(TodoData())
+        self.tableView.insertSections(IndexSet(integer: self.todoList.count - 1), with: .fade)
         
-        UIView.animate(withDuration: 0.2) {
-            self.tableView.insertSections(IndexSet(integer: self.todoList.count - 1), with: .none)
-        } completion: { (_) in
-            UIView.animate(withDuration: 0.2) {
+        UIView.animate(withDuration: 0.3) {
                 let indexPath = IndexPath(row: 0, section: self.todoList.count - 1)
-                self.tableView.scrollToRow(at: indexPath, at: .none, animated: false)
-            } completion: { (_) in
-                if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: self.todoList.count - 1)) as? BasicCell {
-                    guard let tv = cell.title else { return }
-                    tv.becomeFirstResponder()
-                }
+                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+//                self.tableView.setNeedsUpdateConstraints()
+        } completion: { (finished) in
+            print("finished=\(finished)")
+//            self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 303, right: 0)
+
+            let indexPath = IndexPath(row: 0, section: self.todoList.count - 1)
+            self.tableView.scrollToRow(at: indexPath, at: .none, animated: false)
+            if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: self.todoList.count - 1)) as? BasicCell {
+                guard let tv = cell.title else { return }
+                print("success becom")
+                tv.becomeFirstResponder()
+            } else {
+                print("fail become")
             }
+
+
         }
     }
+        
+//
+//        UIView.animate(withDuration: 0.2) {
+//            self.tableView.setBottomInset(to: 300)
+//            self.tableView.layoutIfNeeded()
+//        }
+//
+//
+//        self.todoList.append(TodoData())
+//        tableView.performBatchUpdates {
+////            self.tableView.setBottomInset(to: 500)
+////            self.tableView.insertSections(IndexSet(integer: self.todoList.count - 1), with: .none)
+//            let indexPath = IndexPath(row: 0, section: self.todoList.count - 1)
+//            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+//
+//        } completion: { (_) in
+//
+//            UIView.animate(withDuration: 0.2) {
+//                self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 500, right: 0)
+//
+//            } completion: { (_) in
+//                if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: self.todoList.count - 1)) as? BasicCell {
+//                    guard let tv = cell.title else { return }
+//                    print("success becom")
+//                    tv.becomeFirstResponder()
+//                } else {
+//                    print("fail become")
+//                }
+//            }
+
+            
+            
+            
+//        }
+//    }
+
+//        self.todoList.append(TodoData())
+//        let indexPath = IndexPath(row: 0, section: self.todoList.count - 1)
+//        self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+//        self.tableView.setBottomInset(to: 400)
+//
+//    UIView.animate(withDuration: 0) {
+////            self.tableView.insertSections(IndexSet(integer: self.todoList.count - 1), with: .none)
+//        } completion: { (_) in
+//
+//
+//
+//            if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: self.todoList.count - 1)) as? BasicCell {
+//                guard let tv = cell.title else { return }
+//                tv.becomeFirstResponder()
+//            }
+//        }
+//    }
+    
+    
+    
+    
+//    @IBAction func addTodo(_ sender: Any) {
+//        self.todoList.append(TodoData())
+//        UIView.animate(withDuration: 0) {
+//
+//            self.tableView.insertSections(IndexSet(integer: self.todoList.count - 1), with: .none)
+//        } completion: { (_) in
+////            UIView.animate(withDuration: 0) {
+//                let indexPath = IndexPath(row: 0, section: self.todoList.count - 1)
+//                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+//
+//            self.tableView.setBottomInset(to: 300)
+//
+//
+////            } completion: { (_) in
+//                if let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: self.todoList.count - 1)) as? BasicCell {
+//                    guard let tv = cell.title else { return }
+////
+//
+//                    tv.becomeFirstResponder() // 이거하면 키보드가 먼저올라오고 inset되는거같은데..
+////
+//                }
+////            }
+//        }
+//    }
+    
     // MARK: - TodoDetailViewControllerDelegate
     func todoDetailViewControllerDidFinish(_ todoDetailViewController: TodoDetailViewController) {
         // 콘텐츠 변경작업 수행
