@@ -1004,8 +1004,8 @@
             filePath = "UpcomingTodo/TodoListViewController/TodoListViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "204"
-            endingLineNumber = "204"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
             landmarkName = "afterOp(indexPath:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1055,22 +1055,6 @@
             startingLineNumber = "24"
             endingLineNumber = "24"
             landmarkName = "textViewDidBeginEditing(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "19A2FA4E-B6EC-47C5-843B-9A6C2F4BFDBD"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "UpcomingTodo/TodoListViewController/TodoListViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "181"
-            endingLineNumber = "181"
-            landmarkName = "scrollViewDidEndScrollingAnimation(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1132,8 +1116,8 @@
             filePath = "UpcomingTodo/TodoListViewController/TodoListViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "232"
-            endingLineNumber = "232"
+            startingLineNumber = "214"
+            endingLineNumber = "214"
             landmarkName = "textEditingFinish(_:_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1148,8 +1132,8 @@
             filePath = "UpcomingTodo/TodoListViewController/TodoListViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "241"
-            endingLineNumber = "241"
+            startingLineNumber = "223"
+            endingLineNumber = "223"
             landmarkName = "textEditingFinish(_:_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1183,6 +1167,22 @@
             startingLineNumber = "38"
             endingLineNumber = "38"
             landmarkName = "textViewDidBeginEditing(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D86A391B-0A68-4D56-B675-AFD50BD767B8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UpcomingTodo/TodoListViewController/TodoListViewController+DragDrop.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "tableView(_:dragSessionDidEnd:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

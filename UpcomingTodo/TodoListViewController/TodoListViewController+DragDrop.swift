@@ -32,7 +32,7 @@ extension TodoListViewController: UITableViewDragDelegate {
     }
     
     func tableView(_ tableView: UITableView, dragSessionDidEnd session: UIDragSession) {
-        self.completeButton.isEnabled = true
+        self.completeButton.isEnabled = false
         self.addTodoButton.isEnabled = true
     }
     
