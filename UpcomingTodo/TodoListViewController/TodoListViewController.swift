@@ -374,7 +374,21 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
         } completion: { (finished) in
             print("finishedAddTodo = \(finished)")
             let indexPath = IndexPath(row: 0, section: self.todoList.count - 1)
-        self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            print("isScrollEnabled= \(self.tableView.isScrollEnabled)")
+            
+            if let indexPaths = self.tableView.indexPathsForVisibleRows {
+                print("호출됨")
+                for item in indexPaths {
+                    if item == indexPath {
+                        print("있다. \(item)")
+                        let cell = (self.tableView.visibleCells.last!) as! BasicCell
+                        cell.title.becomeFirstResponder()
+                        break
+                    }
+                }
+            }
+                        
             self.addTodoButton.isEnabled = false
         }
     }
