@@ -30,6 +30,8 @@ class MemoCell: UITableViewCell, DynamicCellProtocol {
         // Initialization code
         title.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         memo.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        
+        contentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedContentView(_:))))
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -64,5 +66,9 @@ class MemoCell: UITableViewCell, DynamicCellProtocol {
     
     func changeSelectImg(isFinish: Bool) {
         self.selectImg.image = isFinish ? UIImage(named: "click") : UIImage(named: "unclick")
+    }
+    
+    @objc func tappedContentView(_ sender: Any) {
+        title.becomeFirstResponder()
     }
 }

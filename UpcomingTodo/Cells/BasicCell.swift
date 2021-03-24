@@ -42,14 +42,14 @@ class BasicCell: UITableViewCell, DynamicCellProtocol {
     override func awakeFromNib() {
         super.awakeFromNib()
         title.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        
+        contentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedContentView(_:))))
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-
     }
-
+    
     func shrinkAccessory(_ flag: Bool) {
         if flag {
             btnWidthConstraint.constant = 0
@@ -83,5 +83,9 @@ class BasicCell: UITableViewCell, DynamicCellProtocol {
     
     func changeSelectImg(isFinish: Bool) {
         self.selectImg.image = isFinish ? UIImage(named: "click") : UIImage(named: "unclick")
+    }
+    
+    @objc func tappedContentView(_ sender: Any) {
+        title.becomeFirstResponder()
     }
 }

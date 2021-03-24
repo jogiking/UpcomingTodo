@@ -99,6 +99,7 @@ extension TodoListViewController: UITableViewDelegate,
             cell = setupBasicCell(indexPath: indexPath)
         }
         
+        
         return cell
     }
     
