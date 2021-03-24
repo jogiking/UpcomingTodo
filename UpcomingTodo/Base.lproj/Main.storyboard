@@ -102,14 +102,14 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="347" height="43.5"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
-                                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="f0Q-yK-GHh">
+                                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="f0Q-yK-GHh">
                                                                             <rect key="frame" x="20" y="12" width="33" height="20.5"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WCc-Z0-5m9">
+                                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WCc-Z0-5m9">
                                                                             <rect key="frame" x="295" y="12" width="44" height="20.5"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -177,6 +177,7 @@
                         <outlet property="editModePickerView" destination="mzh-d1-Xbm" id="XYD-0i-wFl"/>
                         <outlet property="mainStackView" destination="M8w-hY-wEI" id="T5a-jq-hQe"/>
                         <outlet property="navItem" destination="JOU-qG-9sX" id="vgu-95-C3i"/>
+                        <outlet property="scrollView" destination="zJ3-qG-MSO" id="Xbn-8G-ndO"/>
                         <outlet property="tableView" destination="pQS-vI-G64" id="bWe-lB-gLg"/>
                         <outlet property="todayCardView" destination="ldX-nE-shc" id="tHc-EF-SAg"/>
                         <outlet property="totalCardView" destination="Ry0-cK-4bR" id="IYk-Py-Vy4"/>
@@ -218,7 +219,7 @@
                                     </constraints>
                                 </view>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="h3M-RV-7ja">
-                                    <rect key="frame" x="0.0" y="190" width="414" height="0.0"/>
+                                    <rect key="frame" x="0.0" y="150" width="414" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 </view>

@@ -34,11 +34,7 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
     var startIndexPath: IndexPath?
     
     var textViewHeight: CGFloat = 0.0
-    
-    override func viewWillLayoutSubviews() {
-        print(" viewWillLayoutSubviews")
-    }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("viewwillappear")
@@ -51,6 +47,7 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    
     @objc func keyboardWillShow(notification: Notification) {
         if let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height {
             print("Notification: Keyboard will show")
@@ -115,7 +112,7 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        self.navigationController!.navigationBar.subviews.first?.alpha = 1
+        self.navigationController!.navigationBar.subviews.first?.alpha = 0
     }
     
     override func viewDidLoad() {
@@ -139,6 +136,8 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
         
         completeButton.title = "Done".localized
         completeButton.isEnabled = false
+        
+        self.navigationItem.largeTitleDisplayMode = .never
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

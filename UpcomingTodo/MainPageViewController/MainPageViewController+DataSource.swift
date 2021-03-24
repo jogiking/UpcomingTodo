@@ -106,6 +106,8 @@ extension MainPageViewController: UITableViewDelegate, UITableViewDataSource {
         
         todoListVC.indexOfCatalog = indexPath.row
         
+        
+        self.navigationItem.title = "Back".localized
         self.navigationController?.pushViewController(todoListVC, animated: true)
     }
     

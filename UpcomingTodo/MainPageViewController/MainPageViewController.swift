@@ -21,6 +21,8 @@ class MainPageViewController: UIViewController {
     
     @IBOutlet weak var editModePickerView: UIPickerView!
     
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     lazy var dao = TodoDAO()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     lazy var pickerDataList = self.dao.fetchUpcomingTodoList()
@@ -40,12 +42,30 @@ class MainPageViewController: UIViewController {
         
         editModePickerView.delegate = self
         editModePickerView.dataSource = self
+        
+        scrollView.delegate = self
+        
+        navigationChange()
+    }
+    
+    func navigationChange() {
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+
+        let navigationBarAppearance = UINavigationBarAppearance()
+//
+//        navigationBarAppearance.titleTextAttributes = [
+//            .font: UIFont.systemFont(ofSize: 30)
+//        ]
+        self.navigationItem.largeTitleDisplayMode = .always
+        self.navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("viewWillAppear in MainVC")
         updateMainPage()
+        
+        updateNavigationTitle()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -55,6 +75,32 @@ class MainPageViewController: UIViewController {
         if let upcomingView = upcomingStackView.arrangedSubviews[1] as? UpcomingView {
             upcomingView.onTimerStop()
         }
+    }
+    
+    func updateNavigationTitle() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = NSLocale.current
+        switch dateFormatter.locale.languageCode {
+        case "ko":
+            dateFormatter.dateFormat = "M월 d일, EEEE"
+        default: // en
+            dateFormatter.dateFormat = "EEEE, MMM d"
+        }
+        
+        let dateString = dateFormatter.string(from: Date())
+        self.navigationItem.title = dateString
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard let navigationController = self.navigationController else { return }
+        let threshold = navigationController.navigationBar.frame.height
+        print("threshold = \(threshold)")
+        let alpha = scrollView.contentOffset.y / threshold
+        navigationController.navigationBar.subviews.first?.alpha = alpha
+        
+        updateNavigationTitle()
+
+        print("didScroll] \(scrollView.contentOffset.y)")
     }
     
     func updateMainPage() {
@@ -208,6 +254,8 @@ class MainPageViewController: UIViewController {
                 updatePickerView()
 //                editModePickerView.isHidden = false
                 
+                self.navigationItem.largeTitleDisplayMode = .never
+                
             case true: // edit중이었을 때
                 for i in 0...mainStackView.arrangedSubviews.count - 3 {
                     let item = mainStackView.arrangedSubviews[i]
@@ -232,6 +280,9 @@ class MainPageViewController: UIViewController {
                 }
                 
                 updatePickerView()
+                
+                self.navigationItem.largeTitleDisplayMode = .always
+                
             }
         }
     }
