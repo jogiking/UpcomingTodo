@@ -218,7 +218,7 @@
                                     </constraints>
                                 </view>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="h3M-RV-7ja">
-                                    <rect key="frame" x="0.0" y="150" width="414" height="40"/>
+                                    <rect key="frame" x="0.0" y="190" width="414" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 </view>

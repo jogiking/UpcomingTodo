@@ -28,6 +28,8 @@ class MemoCell: UITableViewCell, DynamicCellProtocol {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        title.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        memo.font = UIFont.systemFont(ofSize: 14, weight: .regular)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

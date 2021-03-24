@@ -41,7 +41,7 @@ class BasicCell: UITableViewCell, DynamicCellProtocol {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-
+        title.font = UIFont.systemFont(ofSize: 16, weight: .regular)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

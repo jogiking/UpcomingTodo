@@ -11,7 +11,7 @@ extension TodoListViewController: UITableViewDragDelegate {
     
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         print("itemsForBeginning] \(indexPath)")
-        if editingStatus.isEditingMode {
+        if editingStatus.isEditingMode && (editingStatus.textView?.text.isEmpty)! {
             editingStatus.textView?.text = "New Todo".localized
             editingStatus.textView?.resignFirstResponder()
         }
