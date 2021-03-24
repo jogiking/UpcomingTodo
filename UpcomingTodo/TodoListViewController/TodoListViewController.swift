@@ -176,8 +176,6 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
             editingStatus.textView?.resignFirstResponder()
         case false:
             print("footerFrame=\(tableView.tableFooterView?.frame)")
-//            tableView.tableFooterView.
-            
             addTodo(sender)
         }
     }
@@ -370,18 +368,14 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
         self.todoList.append(TodoData())
         tableView.performBatchUpdates {
             tableView.insertSections(IndexSet(integer: self.todoList.count - 1), with: .none)
-       
         } completion: { (finished) in
             print("finishedAddTodo = \(finished)")
             let indexPath = IndexPath(row: 0, section: self.todoList.count - 1)
             self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-            print("isScrollEnabled= \(self.tableView.isScrollEnabled)")
             
             if let indexPaths = self.tableView.indexPathsForVisibleRows {
-                print("호출됨")
                 for item in indexPaths {
                     if item == indexPath {
-                        print("있다. \(item)")
                         let cell = (self.tableView.visibleCells.last!) as! BasicCell
                         cell.title.becomeFirstResponder()
                         break
