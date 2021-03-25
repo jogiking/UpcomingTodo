@@ -117,7 +117,7 @@ extension MainPageViewController: UITableViewDelegate, UITableViewDataSource {
         cell.accessoryType = .disclosureIndicator
         let detailNumber = "\(appDelegate.myData[indexPath.row].todoList.count)"
         cell.detailTextLabel?.text = detailNumber
-        
+        cell.tintColor = UIColor.appColor(.systemButtonTintColor)
         return cell
     }
     

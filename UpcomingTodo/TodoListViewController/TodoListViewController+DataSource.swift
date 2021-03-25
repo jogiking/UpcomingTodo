@@ -45,7 +45,7 @@ extension TodoListViewController: UITableViewDelegate,
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header = view as! UITableViewHeaderFooterView
         header.tintColor = tableView.backgroundColor
-        header.textLabel?.textColor = .systemBlue
+        header.textLabel?.textColor = UIColor.appColor(.systemButtonTintColor)
     }
         
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

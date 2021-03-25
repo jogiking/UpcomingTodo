@@ -263,7 +263,7 @@ extension TodoDetailViewController: UITableViewDataSource {
                 datefomatter.timeStyle = .medium
                 
                 cell.detailTextLabel?.text = datefomatter.string(from: deadline ?? Date().dayAfter)
-                cell.detailTextLabel?.textColor = .red
+                cell.detailTextLabel?.textColor = UIColor.appColor(.systemButtonTintColor)
                 return cell
             default:
                 return UITableViewCell()

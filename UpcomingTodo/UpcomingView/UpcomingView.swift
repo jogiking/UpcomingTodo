@@ -45,6 +45,10 @@ class UpcomingView: UIView {
         let view = bundle.loadNibNamed("UpcomingView", owner: self, options: nil)?.first as! UIView
         view.frame = bounds
         self.addSubview(view)
+        
+        timerLabel.textColor = UIColor.appColor(.upcomingTintColor)
+        timeCounterProgressView.tintColor = UIColor.appColor(.upcomingTintColor)
+        numberOfCompletionProgressView.tintColor = UIColor.appColor(.upcomingTintColor)
     }
     
     func onTimerStart(callbackCompletion: (() -> Void)? = nil) {
@@ -78,7 +82,13 @@ class UpcomingView: UIView {
         
         guard let data = self.targetData else { return }
         title.text = data.title
-        totalDetailLabel.text = String(format: NSLocalizedString("%@ %d%@", comment: ""), "All Details".localized, data.numberOfSubTodo, " Left".localized)
+        // All 3 details/
+        // 전체 세부항목 3건
+        
+        totalDetailLabel.text = String(format: NSLocalizedString("%@ %d %@", comment: ""), "All ".localized, data.numberOfSubTodo, " Details".localized)
+            
+            
+        
         
         let dateFormatter = DateFormatter()
         dateFormatter.locale = NSLocale.current

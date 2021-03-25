@@ -102,14 +102,14 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="347" height="43.5"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
-                                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="f0Q-yK-GHh">
+                                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="f0Q-yK-GHh">
                                                                             <rect key="frame" x="20" y="12" width="33" height="20.5"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WCc-Z0-5m9">
+                                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WCc-Z0-5m9">
                                                                             <rect key="frame" x="295" y="12" width="44" height="20.5"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -159,6 +159,7 @@
                     <toolbarItems>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="lG3-8G-Wbb"/>
                         <barButtonItem title="Add List" id="am3-aW-ajo">
+                            <color key="tintColor" red="0.79053741690000001" green="0.0038597830570000001" blue="0.29962104560000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="addCatalog:" destination="cQT-XY-L9U" id="f5y-oJ-fzm"/>
                             </connections>
@@ -166,7 +167,7 @@
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="JOU-qG-9sX">
                         <barButtonItem key="rightBarButtonItem" title="Edit" id="95S-Ik-E1x">
-                            <color key="tintColor" systemColor="systemBlueColor"/>
+                            <color key="tintColor" red="0.79053741690000001" green="0.0038597830570000001" blue="0.29962104560000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="editAction:" destination="cQT-XY-L9U" id="5yt-wv-j1f"/>
                             </connections>
@@ -206,7 +207,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ODK-tL-Ksg">
                                             <rect key="frame" x="20" y="0.0" width="374" height="50"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="33"/>
-                                            <color key="textColor" systemColor="systemBlueColor"/>
+                                            <color key="textColor" red="0.79053741690000001" green="0.0038597830570000001" blue="0.29962104560000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -246,6 +247,7 @@
                     </view>
                     <toolbarItems>
                         <barButtonItem title="New Todo" id="kK6-FT-Wh9">
+                            <color key="tintColor" red="0.79053741690000001" green="0.0038597830570000001" blue="0.29962104560000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="addTodo:" destination="dnT-nX-dDX" id="Mol-Mg-kF2"/>
                             </connections>
@@ -253,6 +255,7 @@
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="0Z7-iR-wuq">
                         <barButtonItem key="rightBarButtonItem" title="Done" id="pGw-dr-wqi">
+                            <color key="tintColor" red="0.79053741690000001" green="0.0038597830570000001" blue="0.29962104560000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="completionClick:" destination="dnT-nX-dDX" id="J9w-4d-rqV"/>
                             </connections>
@@ -368,6 +371,7 @@
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M1V-f1-i0K">
                                                     <rect key="frame" x="305" y="10" width="51" height="31.5"/>
+                                                    <color key="tintColor" red="0.79053741690000001" green="0.0038597830570000001" blue="0.29962104560000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -413,6 +417,7 @@
                                             <subviews>
                                                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" style="inline" translatesAutoresizingMaskIntoConstraints="NO" id="ynh-uS-An9">
                                                     <rect key="frame" x="0.0" y="0.0" width="374" height="390"/>
+                                                    <color key="tintColor" red="0.79053741690000001" green="0.0038597830570000001" blue="0.29962104560000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </datePicker>
                                             </subviews>
                                             <constraints>
@@ -441,11 +446,13 @@
                     </view>
                     <navigationItem key="navigationItem" title="Details" id="qFp-NC-ElL">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="Pbh-w0-SK8">
+                            <color key="tintColor" red="0.79053741690000001" green="0.0038597830570000001" blue="0.29962104560000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="cancelAction:" destination="15v-BV-cqZ" id="reg-Sz-V2q"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Done" id="CPZ-MO-R9R">
+                            <color key="tintColor" red="0.79053741690000001" green="0.0038597830570000001" blue="0.29962104560000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="saveAction:" destination="15v-BV-cqZ" id="AyS-n6-s9C"/>
                             </connections>
@@ -467,9 +474,6 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray3Color">
             <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

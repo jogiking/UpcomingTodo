@@ -32,6 +32,8 @@ class MemoCell: UITableViewCell, DynamicCellProtocol {
         memo.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         
         contentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedContentView(_:))))
+        selectImg.tintColor = UIColor.appColor(.systemButtonTintColor)
+        btn.tintColor = UIColor.appColor(.systemButtonTintColor)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -47,7 +49,6 @@ class MemoCell: UITableViewCell, DynamicCellProtocol {
         } else {
             btnWidthConstraint.constant = constantOfBtnWidth
             childNumberWidthConstraint.constant = constantOfChildNumberWidth
-        
         }
     }
 
@@ -60,8 +61,19 @@ class MemoCell: UITableViewCell, DynamicCellProtocol {
     }
     
     func changeBtnStatusImage(statusType: TableViewCellRightButtonStatus) {
-        print("rawValue=\(statusType.rawValue)")
-        btn.image = UIImage(systemName: statusType.rawValue)
+//        print("rawValue=\(statusType.rawValue)")
+//        btn.image = UIImage(systemName: statusType.rawValue)
+        btnWidthConstraint.constant = constantOfBtnWidth
+        
+        switch statusType {
+        case .InfoCircle : // 일반 편집모드일 때
+            btn.image = UIImage(systemName: statusType.rawValue)
+            childNumberWidthConstraint.constant = 0
+            
+        case .DisclosureClose, .DisclosureOpen : // 편집 모드가 아닐 때
+            shrinkAccessory(false)
+            btn.image = UIImage(named: statusType.rawValue)
+        }
     }
     
     func changeSelectImg(isFinish: Bool) {

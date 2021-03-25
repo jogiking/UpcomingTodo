@@ -1020,8 +1020,8 @@
             filePath = "UpcomingTodo/Cells/BasicCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
             landmarkName = "shrinkAccessory(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1036,8 +1036,8 @@
             filePath = "UpcomingTodo/TodoListViewController/TodoListViewController+TextView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
             landmarkName = "textViewDidEndEditing(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1077,22 +1077,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1CB72D50-4F38-4884-BB19-2810F4FB6A51"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "UpcomingTodo/TodoListViewController/TodoListViewController+TextView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "13"
-            endingLineNumber = "13"
-            landmarkName = "textViewShouldBeginEditing(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "462B7360-BB66-4030-B5F0-CC19CCCA1745"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -1102,8 +1086,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "14"
             endingLineNumber = "14"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "tableView(_:itemsForBeginning:at:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1148,8 +1132,8 @@
             filePath = "UpcomingTodo/TodoListViewController/TodoListViewController+TextView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
             landmarkName = "textViewDidEndEditing(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1164,8 +1148,8 @@
             filePath = "UpcomingTodo/TodoListViewController/TodoListViewController+TextView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
             landmarkName = "textViewDidBeginEditing(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1180,10 +1164,10 @@
             filePath = "UpcomingTodo/TodoListViewController/TodoListViewController+DragDrop.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "tableView(_:dragSessionDidEnd:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1196,8 +1180,8 @@
             filePath = "UpcomingTodo/MainPageViewController/MainPageViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
             landmarkName = "scrollViewDidScroll(_:)"
             landmarkType = "7">
          </BreakpointContent>

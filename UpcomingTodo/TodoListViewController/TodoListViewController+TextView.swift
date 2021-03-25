@@ -26,13 +26,15 @@ extension TodoListViewController: UITextViewDelegate {
         self.textViewHeight = textView.frame.height
         
         if let cell = textView.superview?.superview as? DynamicCellProtocol {
-            cell.shrinkAccessory(false)
-            cell.changeBtnStatusImage(statusType: .InfoCircle)
-
+            
 //            DispatchQueue.main.async {
-                self.tableView.beginUpdates()
-                (cell as! UITableViewCell).layoutIfNeeded()
-                self.tableView.endUpdates()
+//                self.tableView.beginUpdates()
+//            cell.shrinkAccessory(true) // 숫자와 버튼 크기를 모두 갖게 한다
+            cell.changeBtnStatusImage(statusType: .InfoCircle) // 버튼
+
+            self.tableView.beginUpdates()
+            (cell as! UITableViewCell).layoutIfNeeded()
+            self.tableView.endUpdates()
 //            }
             
             editingStatus = (true, cell as? UITableViewCell, textView, tableView.indexPath(for: cell as! UITableViewCell))
@@ -45,11 +47,6 @@ extension TodoListViewController: UITextViewDelegate {
         }
         return true
     }
-    
-//    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-//        print("textViewShouldEndEditing] dd")
-//        return true
-//    }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         print("textViewDidEndEtiting] \(textView.text)")

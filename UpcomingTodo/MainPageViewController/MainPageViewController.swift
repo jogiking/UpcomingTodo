@@ -58,6 +58,8 @@ class MainPageViewController: UIViewController {
 //        ]
         self.navigationItem.largeTitleDisplayMode = .always
         self.navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
+        
+        self.navigationController?.navigationBar.tintColor = UIColor.appColor(.systemButtonTintColor)
     }
     
     override func viewWillAppear(_ animated: Bool) {
