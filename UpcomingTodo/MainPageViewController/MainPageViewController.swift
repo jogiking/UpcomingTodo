@@ -77,6 +77,9 @@ class MainPageViewController: UIViewController {
         if let upcomingView = upcomingStackView.arrangedSubviews[1] as? UpcomingView {
             upcomingView.onTimerStop()
         }
+        
+        
+        self.navigationItem.title = "Back".localized
     }
     
     func updateNavigationTitle() {
