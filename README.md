@@ -56,6 +56,7 @@ iOS 14 의  기본 탑재 앱인`Reminder`와 비슷하게 만들었습니다.
 <img width = "256" alt="MainPageView 편집모드" src ="https://user-images.githubusercontent.com/38206212/113727718-59750e00-9730-11eb-8ba7-1f110e6a1cdf.gif">
 <img width = "256" alt="MainPageView 편집모드" src ="https://user-images.githubusercontent.com/38206212/113734279-2b92c800-9736-11eb-8d8b-9da20291ba9e.gif">
 </div>
+
 TodoListView는 iOS14 기본 탑재 앱인 `Reminder`와 유사한 인터페이스를 가지고 있습니다.
 
 - 테이블 셀 축소/확장
@@ -66,7 +67,7 @@ TodoListView는 iOS14 기본 탑재 앱인 `Reminder`와 유사한 인터페이�
 <img width = "256" alt="MainPageView 편집모드" src ="https://user-images.githubusercontent.com/38206212/113738334-c50fa900-9739-11eb-8c31-d2c79b515c03.jpeg">
 
 - 메모를 입력할 수 있습니다.
-- 마감 시간을 설정 할 수 있습니다(부모 셀인 경우)
+- 마감 시간을 설정할 수 있습니다(부모 셀인 경우)
 - 마감 시간을 설정하면 MainPage, TodoList 화면에서 설정된 것을 볼 수 있습니다.
 
 
