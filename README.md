@@ -71,6 +71,6 @@ TodoListView는 iOS14 기본 탑재 앱인 `Reminder`와 유사한 인터페이�
 
 
 # 향후 수정사항
-- MVVM  + Rx적용기
+- MVVM  + Rx적용하기
 - TodoListViewController에서 `편집 상태 유지 부분` 로직 검토
 - 앱 기능 추가
