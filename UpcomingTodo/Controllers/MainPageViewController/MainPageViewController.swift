@@ -28,6 +28,103 @@ class MainPageViewController: UIViewController {
     lazy var pickerDataList = self.dao.fetchUpcomingTodoList()
     var pickerViewSelectedRow = -1
     
+    // MARK: - View Input Method
+    @IBAction func addCatalog(_ sender: Any) {
+        let alertController = UIAlertController(title: "New List".localized, message: nil, preferredStyle: .alert)
+
+        let okAction = UIAlertAction(title: "OK".localized, style: .default, handler: { (save) in
+            print("확인 눌림")
+            
+            let data = CatalogData()
+            data.name = alertController.textFields?.first?.text
+            data.regDate = Date()
+            
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            data.displayOrder = appDelegate.myData.count
+            self.dao.insert(data)
+            
+            self.updateMainPage()
+            
+            NotificationCenter.default.removeObserver(self, name: UITextField.textDidChangeNotification, object: nil)
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel".localized, style: .destructive) { (_) in
+            print("취소 눌림")
+            NotificationCenter.default.removeObserver(self, name: UITextField.textDidChangeNotification, object: nil)
+        }
+        
+        alertController.addTextField { (tf) in
+            tf.borderStyle = .none
+            tf.placeholder = "Input List Name".localized
+            
+            NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: tf, queue: .main) { (_) in
+                let textCount = tf.text?.trimmingCharacters(in: .whitespacesAndNewlines).count ?? 0
+                let textIsNotEmpty = textCount > 0
+                
+                okAction.isEnabled = textIsNotEmpty
+            }
+        }
+        
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+            
+        okAction.isEnabled = false
+        
+        self.present(alertController, animated: true)
+    }
+    
+    @IBAction func editAction(_ sender: UIBarButtonItem) {
+        guard appDelegate.myData.count > 0 else {
+            return
+        }
+        UIView.animate(withDuration: 0.35) { [self] in
+            switch tableView.isEditing {
+            case false: // edit중이아니었을 때
+                for i in 0...mainStackView.arrangedSubviews.count - 3 {
+                    let item = mainStackView.arrangedSubviews[i]
+                    item.isHidden = true
+                    item.alpha = 0
+                }
+                                
+                tableView.isEditing = true
+                sender.title = "Done".localized
+                
+                updatePickerView()
+//                editModePickerView.isHidden = false
+                
+                self.navigationItem.largeTitleDisplayMode = .never
+                
+            case true: // edit중이었을 때
+                for i in 0...mainStackView.arrangedSubviews.count - 3 {
+                    let item = mainStackView.arrangedSubviews[i]
+                    item.isHidden = false
+                    item.alpha = 1
+                }
+                
+                tableView.isEditing = false
+                sender.title = "Edit".localized
+                
+//                editModePickerView.isHidden = true
+                if editModePickerView.isHidden == false {
+                    let row = self.pickerViewSelectedRow
+                    print("selectedRow = \(row)")
+                    let todoData = self.pickerDataList[row]
+                    if dao.updateDisplayingAttribute(todoData.objectID!) {
+                        print("pickerView displaying 갱신 성공.")
+                        updateMainPage()// 선택한 데이터를 targetData로 다시 upcomingView를 재구성해야한다.
+                    } else {
+                        print("pickerView displaying 갱신 실패")
+                    }
+                }
+                
+                updatePickerView()
+                
+                self.navigationItem.largeTitleDisplayMode = .always
+                
+            }
+        }
+    }
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,25 +145,10 @@ class MainPageViewController: UIViewController {
         navigationChange()
     }
     
-    func navigationChange() {
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-
-        let navigationBarAppearance = UINavigationBarAppearance()
-//
-//        navigationBarAppearance.titleTextAttributes = [
-//            .font: UIFont.systemFont(ofSize: 30)
-//        ]
-        self.navigationItem.largeTitleDisplayMode = .always
-        self.navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
-        
-        self.navigationController?.navigationBar.tintColor = UIColor.appColor(.systemButtonTintColor)
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("viewWillAppear in MainVC")
-        updateMainPage()
         
+        updateMainPage()
         updateNavigationTitle()
     }
     
@@ -82,6 +164,21 @@ class MainPageViewController: UIViewController {
         self.navigationItem.title = "Back".localized
     }
     
+    // MARK: - Logics
+    func navigationChange() {
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+
+        let navigationBarAppearance = UINavigationBarAppearance()
+//
+//        navigationBarAppearance.titleTextAttributes = [
+//            .font: UIFont.systemFont(ofSize: 30)
+//        ]
+        self.navigationItem.largeTitleDisplayMode = .always
+        self.navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
+        
+        self.navigationController?.navigationBar.tintColor = UIColor.appColor(.systemButtonTintColor)
+    }
+    
     func updateNavigationTitle() {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = NSLocale.current
@@ -94,18 +191,6 @@ class MainPageViewController: UIViewController {
         
         let dateString = dateFormatter.string(from: Date())
         self.navigationItem.title = dateString
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard let navigationController = self.navigationController else { return }
-        let threshold = navigationController.navigationBar.frame.height
-        print("threshold = \(threshold)")
-        let alpha = scrollView.contentOffset.y / threshold
-        navigationController.navigationBar.subviews.first?.alpha = alpha
-        
-        updateNavigationTitle()
-
-        print("didScroll] \(scrollView.contentOffset.y)")
     }
     
     func updateMainPage() {
@@ -239,101 +324,18 @@ class MainPageViewController: UIViewController {
         todayCardView.imgView.tintColor = .systemGray
     }
     
-    
-    @IBAction func editAction(_ sender: UIBarButtonItem) {
-        guard appDelegate.myData.count > 0 else {
-            return
-        }
-        UIView.animate(withDuration: 0.35) { [self] in
-            switch tableView.isEditing {
-            case false: // edit중이아니었을 때
-                for i in 0...mainStackView.arrangedSubviews.count - 3 {
-                    let item = mainStackView.arrangedSubviews[i]
-                    item.isHidden = true
-                    item.alpha = 0
-                }
-                                
-                tableView.isEditing = true
-                sender.title = "Done".localized
-                
-                updatePickerView()
-//                editModePickerView.isHidden = false
-                
-                self.navigationItem.largeTitleDisplayMode = .never
-                
-            case true: // edit중이었을 때
-                for i in 0...mainStackView.arrangedSubviews.count - 3 {
-                    let item = mainStackView.arrangedSubviews[i]
-                    item.isHidden = false
-                    item.alpha = 1
-                }
-                
-                tableView.isEditing = false
-                sender.title = "Edit".localized
-                
-//                editModePickerView.isHidden = true
-                if editModePickerView.isHidden == false {
-                    let row = self.pickerViewSelectedRow
-                    print("selectedRow = \(row)")
-                    let todoData = self.pickerDataList[row]
-                    if dao.updateDisplayingAttribute(todoData.objectID!) {
-                        print("pickerView displaying 갱신 성공.")
-                        updateMainPage()// 선택한 데이터를 targetData로 다시 upcomingView를 재구성해야한다.
-                    } else {
-                        print("pickerView displaying 갱신 실패")
-                    }
-                }
-                
-                updatePickerView()
-                
-                self.navigationItem.largeTitleDisplayMode = .always
-                
-            }
-        }
-    }
-    
-    @IBAction func addCatalog(_ sender: Any) {
-        let alertController = UIAlertController(title: "New List".localized, message: nil, preferredStyle: .alert)
+}
 
-        let okAction = UIAlertAction(title: "OK".localized, style: .default, handler: { (save) in
-            print("확인 눌림")
-            
-            let data = CatalogData()
-            data.name = alertController.textFields?.first?.text
-            data.regDate = Date()
-            
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            data.displayOrder = appDelegate.myData.count
-            self.dao.insert(data)
-            
-            self.updateMainPage()
-            
-            NotificationCenter.default.removeObserver(self, name: UITextField.textDidChangeNotification, object: nil)
-        })
+extension MainPageViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard let navigationController = self.navigationController else { return }
+        let threshold = navigationController.navigationBar.frame.height
+        print("threshold = \(threshold)")
+        let alpha = scrollView.contentOffset.y / threshold
+        navigationController.navigationBar.subviews.first?.alpha = alpha
         
-        let cancelAction = UIAlertAction(title: "Cancel".localized, style: .destructive) { (_) in
-            print("취소 눌림")
-            NotificationCenter.default.removeObserver(self, name: UITextField.textDidChangeNotification, object: nil)
-        }
-        
-        alertController.addTextField { (tf) in
-            tf.borderStyle = .none
-            tf.placeholder = "Input List Name".localized
-            
-            NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: tf, queue: .main) { (_) in
-                let textCount = tf.text?.trimmingCharacters(in: .whitespacesAndNewlines).count ?? 0
-                let textIsNotEmpty = textCount > 0
-                
-                okAction.isEnabled = textIsNotEmpty
-            }
-        }
-        
-        alertController.addAction(okAction)
-        alertController.addAction(cancelAction)
-            
-        okAction.isEnabled = false
-        
-        self.present(alertController, animated: true)
+        updateNavigationTitle()
+
+        print("didScroll] \(scrollView.contentOffset.y)")
     }
-    
 }
