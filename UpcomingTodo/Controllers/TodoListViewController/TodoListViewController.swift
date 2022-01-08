@@ -14,8 +14,6 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
     @IBOutlet weak var completeButton: UIBarButtonItem!
     @IBOutlet weak var addTodoButton: UIBarButtonItem!
     
-    
-    
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     lazy var dao = TodoDAO()
         
@@ -206,15 +204,6 @@ class TodoListViewController: UIViewController, TodoDetailViewControllerDelegate
     }
     
     func textEditingFinish(_ indexPath: IndexPath, _ textView: UITextView) {
-//        guard editingStatus.isEditingMode else { return }
-//        guard let cell = editingStatus.cell else { return }
-//        guard let indexPath = tableView.indexPath(for: cell) else { return }
-//        guard let indexPath = editingStatus.indexPath else {
-//            return
-//        }
-        
-        
-        
         // tableView.indexPath(cell)로 indexPath를 구하게 된다면 스크롤 시 nil이 반환되는 경우가 발생한다
         // 그렇다고 indexPath를 저장해두고 쓰게되면 방금같은 상황에서 indexPath의 값이 틀리게된다...
         if textView.text.isEmpty {
