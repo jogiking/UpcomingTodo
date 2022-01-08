@@ -5,7 +5,7 @@
 //  Created by turu on 2022/01/09.
 //
 
-import Foundation
+import UIKit
 
 extension MainPageViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
