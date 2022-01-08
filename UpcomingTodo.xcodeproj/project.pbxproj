@@ -14,6 +14,7 @@
 		DF18F1A72789EA9A00A1F6C0 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF18F1A62789EA9A00A1F6C0 /* Date+Extension.swift */; };
 		DF19E6B425DA9DA2002544FB /* NormalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF19E6B225DA9DA2002544FB /* NormalCell.swift */; };
 		DF19E6B525DA9DA2002544FB /* NormalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF19E6B325DA9DA2002544FB /* NormalCell.xib */; };
+		DF36CE7B2789F6CD008EC0B9 /* MainPageViewController+UIScrollDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF36CE7A2789F6CD008EC0B9 /* MainPageViewController+UIScrollDelegate.swift */; };
 		DF3E0DD32604D98A0052D7D7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DF3E0DD52604D98A0052D7D7 /* Localizable.strings */; };
 		DF3E0DDE2604DFFB0052D7D7 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3E0DDD2604DFFB0052D7D7 /* String+Extension.swift */; };
 		DF3E0DE22604F8870052D7D7 /* UpcomingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF3E0DE42604F8870052D7D7 /* UpcomingView.xib */; };
@@ -54,6 +55,7 @@
 		DF18F1A62789EA9A00A1F6C0 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		DF19E6B225DA9DA2002544FB /* NormalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalCell.swift; sourceTree = "<group>"; };
 		DF19E6B325DA9DA2002544FB /* NormalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NormalCell.xib; sourceTree = "<group>"; };
+		DF36CE7A2789F6CD008EC0B9 /* MainPageViewController+UIScrollDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainPageViewController+UIScrollDelegate.swift"; sourceTree = "<group>"; };
 		DF3E0DD72604D9D10052D7D7 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
 		DF3E0DD82604D9D10052D7D7 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		DF3E0DD92604D9D10052D7D7 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				DF7807AE25DFEE16008EAE7F /* MainPageViewController.swift */,
 				DF188C682603C99A0077BD8C /* MainPageViewController+PickerView.swift */,
 				DFF3A0662603390A004A2BCE /* MainPageViewController+DataSource.swift */,
+				DF36CE7A2789F6CD008EC0B9 /* MainPageViewController+UIScrollDelegate.swift */,
 			);
 			path = MainPageViewController;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 				DF7CFC9B25E7E80700C389B4 /* TodoListViewController.swift in Sources */,
 				DF19E6B425DA9DA2002544FB /* NormalCell.swift in Sources */,
 				DF7807AF25DFEE16008EAE7F /* MainPageViewController.swift in Sources */,
+				DF36CE7B2789F6CD008EC0B9 /* MainPageViewController+UIScrollDelegate.swift in Sources */,
 				DF092BFE25F76F7400ECFC1A /* DatePickerCell.swift in Sources */,
 				DFF18D4825EBDE9400CA777E /* BasicCell.swift in Sources */,
 				DFF3A0672603390A004A2BCE /* MainPageViewController+DataSource.swift in Sources */,
