@@ -28,7 +28,7 @@ class MainPageViewController: UIViewController {
     lazy var pickerDataList = self.dao.fetchUpcomingTodoList()
     var pickerViewSelectedRow = -1
     
-    // MARK: - View Input Method
+    // MARK: - View Input Methods
     @IBAction func addCatalog(_ sender: Any) {
         let alertController = UIAlertController(title: "New List".localized, message: nil, preferredStyle: .alert)
 
@@ -124,7 +124,7 @@ class MainPageViewController: UIViewController {
             }
         }
     }
-    // MARK: - Life Cycle
+    // MARK: - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
         
