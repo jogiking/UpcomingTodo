@@ -112,8 +112,6 @@
 		DF18F1A32789E58B00A1F6C0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				DF8E09D125DA7ADD005B5755 /* AppDelegate.swift */,
-				DF8E09D325DA7ADD005B5755 /* SceneDelegate.swift */,
 				DF8E09D725DA7ADD005B5755 /* Main.storyboard */,
 				DF8E09DF25DA7ADE005B5755 /* LaunchScreen.storyboard */,
 				DF5F663925F9DCE700D587B3 /* UpcomingView */,
@@ -135,6 +133,8 @@
 		DF18F1A52789E5B800A1F6C0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				DF8E09D125DA7ADD005B5755 /* AppDelegate.swift */,
+				DF8E09D325DA7ADD005B5755 /* SceneDelegate.swift */,
 				DF704A0425FCEFF3004ED588 /* MainPageViewController */,
 				DFF3A05C2603375E004A2BCE /* TodoDetailViewController */,
 				DFF3A05E26033775004A2BCE /* TodoListViewController */,
