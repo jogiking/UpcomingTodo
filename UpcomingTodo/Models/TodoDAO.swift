@@ -185,54 +185,6 @@ class TodoDAO {
         }
     }
     
-//    func edit(_ objectID: NSManagedObjectID, item: Todo) -> Bool {
-//
-//        let object = context.object(with: objectID)
-//
-//        object.setValue(item.title, forKey: "title")
-//        object.setValue(item.memo, forKey: "memo")
-//        object.setValue(item.regDate, forKey: "regdate")
-//        object.setValue(item.isFinish, forKey: "isfinish")
-//
-//        do {
-//            try context.save()
-//            return true
-//        } catch {
-//            context.rollback()
-//            return false
-//        }
-//    }
-//
-//    func updateDisplayOrder(todoList: [Todo], insertIndex at: Int) {
-//        guard at < todoList.count - 1 else { return }
-//
-//        for index in at + 1...todoList.count - 1 {
-//            let objID = todoList[index].objectID
-//            let object = context.object(with: objID!)
-//            object.setValue(index, forKey: "displayorder")
-//        }
-//        do {
-//            try context.save()
-//        } catch {
-//            context.rollback()
-//        }
-//    }
-//
-//    func updateDisplayOrder(todoList: [Todo], removeIndex at: Int) {
-//        guard at < todoList.count - 1 else { return }
-//
-//        for index in at...todoList.count - 1 {
-//            let objID = todoList[index].objectID
-//            let object = context.object(with: objID!)
-//            object.setValue(index, forKey: "displayorder")
-//        }
-//        do {
-//            try context.save()
-//        } catch {
-//            context.rollback()
-//        }
-//    }
-    
     func updateDisplayOrder(removeCatalogIndex at: Int) {
         let indexOfLast = appDelegate.myData.count - 1
         guard at < indexOfLast else { return }
