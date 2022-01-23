@@ -142,7 +142,7 @@ class MainPageViewController: UIViewController {
         
         scrollView.delegate = self
         
-        navigationChange()
+        setupNavigationAppearance()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -154,7 +154,6 @@ class MainPageViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        print("viewWillDisappear in MainVC")
         
         if let upcomingView = upcomingStackView.arrangedSubviews[1] as? UpcomingView {
             upcomingView.onTimerStop()
@@ -165,17 +164,8 @@ class MainPageViewController: UIViewController {
     }
     
     // MARK: - Logics
-    func navigationChange() {
+    func setupNavigationAppearance() {
         self.navigationController?.navigationBar.prefersLargeTitles = true
-
-        let navigationBarAppearance = UINavigationBarAppearance()
-//
-//        navigationBarAppearance.titleTextAttributes = [
-//            .font: UIFont.systemFont(ofSize: 30)
-//        ]
-        self.navigationItem.largeTitleDisplayMode = .always
-        self.navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
-        
         self.navigationController?.navigationBar.tintColor = UIColor.appColor(.systemButtonTintColor)
     }
     
