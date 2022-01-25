@@ -17,6 +17,7 @@ class TodoDAO {
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
+    // NOTE: MainPageVC, 이 클래스 내부에서 사용
     func fetchUpcomingTodoList() -> [TodoData] {
         var todoDataList = [TodoData]()
         let fetchRequest: NSFetchRequest<TodoMO> = TodoMO.fetchRequest()
@@ -53,9 +54,12 @@ class TodoDAO {
         } catch let e as NSError {
             NSLog("An error has occurred.", e.localizedDescription)
         }
+        print(#function, #line, todoDataList.count)
         return todoDataList
     }
     
+    // NOTE: MainPageVC, TodoListViewController 둘다 사용
+    // 원래 키워드 검색 기능 넣으려고 했는데 그부분을 쓰지않고 있는듯?
     func fetch(keyword text: String? = nil) -> [CatalogData] {
         
         var data = [CatalogData]()
@@ -113,6 +117,7 @@ class TodoDAO {
         return data
     }
     
+    // NOTE: 이 클래스 내부에서 사용 + MainPageViewController에서도 사용
     func insert(_ data: CatalogData) -> CatalogMO {
         guard let object = NSEntityDescription.insertNewObject(forEntityName: "Catalog", into: self.context) as? CatalogMO else {
             print("여기서 에러 발생")
@@ -122,7 +127,6 @@ class TodoDAO {
         object.name = data.name
         object.regdate = data.regDate
         object.displayorder = Int16(data.displayOrder!)
-        print("afterinsertCatalogMO")
         do {
             try self.context.save()
         } catch let e as NSError {
@@ -131,7 +135,8 @@ class TodoDAO {
         return object
     }
     
-    func insert(_ data: TodoData, catalogObjectID: NSManagedObjectID) -> TodoMO {
+    // NOTE: 이 클래스 내부에서만 사용
+    private func insert(_ data: TodoData, catalogObjectID: NSManagedObjectID) -> TodoMO {
         let object = NSEntityDescription.insertNewObject(forEntityName: "Todo", into: self.context) as! TodoMO
         object.title = data.title
         object.memo = data.memo
@@ -152,6 +157,7 @@ class TodoDAO {
         return object
     }
     
+    // NOTE: 이 클래스 내부에서만 사용
     func insert(_ data: Todo, todoDataObjectID: NSManagedObjectID) -> SubTodoMO {
         let object = NSEntityDescription.insertNewObject(forEntityName: "SubTodo", into: self.context) as! SubTodoMO
         object.title = data.title
@@ -170,6 +176,7 @@ class TodoDAO {
         return object
     }
     
+    // NOTE: 이 클래스 내부에서 사용 + MainPageViewController에서도 사용
     func delete(_ objectID: NSManagedObjectID) -> Bool {
         let object = self.context.object(with: objectID)
         self.context.delete(object)
@@ -185,6 +192,9 @@ class TodoDAO {
         }
     }
     
+    
+    
+    // NOTE: 이 클래스 내부에서만 사용
     func updateDisplayOrder(removeCatalogIndex at: Int) {
         let indexOfLast = appDelegate.myData.count - 1
         guard at < indexOfLast else { return }
@@ -200,7 +210,22 @@ class TodoDAO {
             context.rollback()
         }
     }
-    
+
+    // NOTE: MainPageViewController에서만 사용
+    func editCatalogName(_ objectID: NSManagedObjectID, name: String) -> Bool {
+        let object = context.object(with: objectID)
+        object.setValue(name, forKey: "name")
+        
+        do {
+            try context.save()
+            return true
+        } catch {
+            context.rollback()
+            return false
+        }
+    }
+
+    // NOTE: MainPageViewController에서만 사용
     func updateDisplayOrder() {
         guard appDelegate.myData.count > 1 else { return }
         let indexOfLast = appDelegate.myData.count - 1
@@ -217,7 +242,8 @@ class TodoDAO {
             context.rollback()
         }
     }
-    
+
+    // NOTE: MainPageViewController에서만 사용
     func updateDisplayingAttribute(_ objectID: NSManagedObjectID) -> Bool {
         // 해당하는 objectID만 displaying를 true로 바꾸고 나머지는 전부 false로 덮어씌운다.
         let upcomingTodoList = fetchUpcomingTodoList()
@@ -238,20 +264,7 @@ class TodoDAO {
             return false
         }
     }
-    
-    func editCatalogName(_ objectID: NSManagedObjectID, name: String) -> Bool {
-        let object = context.object(with: objectID)
-        object.setValue(name, forKey: "name")
-        
-        do {
-            try context.save()
-            return true
-        } catch {
-            context.rollback()
-            return false
-        }
-    }
-
+    // NOTE: TodoListViewController에서만 사용!
     func saveCatalogContext(_ discardingCatalog: CatalogData, discardingCatalogObjectID: NSManagedObjectID) {
         
         if delete(discardingCatalogObjectID) {
@@ -270,4 +283,103 @@ class TodoDAO {
             }
         }
     }
+
 }
+
+//class MainPageStorageService {
+//
+//    // NOTE: 이 클래스 내부에서만 사용
+//    func updateDisplayOrder(removeCatalogIndex at: Int) {
+//        let indexOfLast = appDelegate.myData.count - 1
+//        guard at < indexOfLast else { return }
+//
+//        for index in at...indexOfLast {
+//            let objID = appDelegate.myData[index].objectID
+//            let object = context.object(with: objID!)
+//            object.setValue(index, forKey: "displayorder")
+//        }
+//        do {
+//            try context.save()
+//        } catch {
+//            context.rollback()
+//        }
+//    }
+//
+//    // NOTE: MainPageViewController에서만 사용
+//    func editCatalogName(_ objectID: NSManagedObjectID, name: String) -> Bool {
+//        let object = context.object(with: objectID)
+//        object.setValue(name, forKey: "name")
+//
+//        do {
+//            try context.save()
+//            return true
+//        } catch {
+//            context.rollback()
+//            return false
+//        }
+//    }
+//
+//    // NOTE: MainPageViewController에서만 사용
+//    func updateDisplayOrder() {
+//        guard appDelegate.myData.count > 1 else { return }
+//        let indexOfLast = appDelegate.myData.count - 1
+//
+//        for index in 0...indexOfLast {
+//            appDelegate.myData[index].displayOrder = index
+//            let objID = appDelegate.myData[index].objectID
+//            let object = context.object(with: objID!)
+//            object.setValue(index, forKey: "displayorder")
+//        }
+//        do {
+//            try context.save()
+//        } catch {
+//            context.rollback()
+//        }
+//    }
+//
+//    // NOTE: MainPageViewController에서만 사용
+//    func updateDisplayingAttribute(_ objectID: NSManagedObjectID) -> Bool {
+//        // 해당하는 objectID만 displaying를 true로 바꾸고 나머지는 전부 false로 덮어씌운다.
+//        let upcomingTodoList = fetchUpcomingTodoList()
+//        // 전부 false로 만들고
+//        for todoData in upcomingTodoList {
+//            let object = context.object(with: todoData.objectID!)
+//            object.setValue(false, forKey: "displaying")
+//        }
+//
+//        let object = context.object(with: objectID)
+//        object.setValue(true, forKey: "displaying") // 전달받은 것만 true로 바꿈
+//
+//        do {
+//            try context.save()
+//            return true
+//        } catch {
+//            context.rollback()
+//            return false
+//        }
+//    }
+//}
+//
+//class TodoListStorageService {
+//
+//    // NOTE: TodoListViewController에서만 사용!
+//    func saveCatalogContext(_ discardingCatalog: CatalogData, discardingCatalogObjectID: NSManagedObjectID) {
+//
+//        if delete(discardingCatalogObjectID) {
+//            let catalogMO = insert(discardingCatalog)
+//            for todoData in discardingCatalog.todoList {
+//                let todoMO = insert(todoData, catalogObjectID: catalogMO.objectID)
+//                for subTodo in todoData.subTodoList {
+//                    _ = insert(subTodo, todoDataObjectID: todoMO.objectID)
+//                }
+//            }
+//
+//            do {
+//                try context.save()
+//            } catch {
+//                context.rollback()
+//            }
+//        }
+//    }
+//}
+
