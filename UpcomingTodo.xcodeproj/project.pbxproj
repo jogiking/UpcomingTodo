@@ -11,12 +11,14 @@
 		DF092BFA25F76E9F00ECFC1A /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF092BF925F76E9F00ECFC1A /* SwitchCell.swift */; };
 		DF092BFE25F76F7400ECFC1A /* DatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF092BFD25F76F7400ECFC1A /* DatePickerCell.swift */; };
 		DF188C692603C99A0077BD8C /* MainPageViewController+PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF188C682603C99A0077BD8C /* MainPageViewController+PickerView.swift */; };
+		DF18F1A72789EA9A00A1F6C0 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF18F1A62789EA9A00A1F6C0 /* Date+Extension.swift */; };
 		DF19E6B425DA9DA2002544FB /* NormalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF19E6B225DA9DA2002544FB /* NormalCell.swift */; };
 		DF19E6B525DA9DA2002544FB /* NormalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF19E6B325DA9DA2002544FB /* NormalCell.xib */; };
+		DF36CE7B2789F6CD008EC0B9 /* MainPageViewController+UIScrollDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF36CE7A2789F6CD008EC0B9 /* MainPageViewController+UIScrollDelegate.swift */; };
 		DF3E0DD32604D98A0052D7D7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DF3E0DD52604D98A0052D7D7 /* Localizable.strings */; };
-		DF3E0DDE2604DFFB0052D7D7 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3E0DDD2604DFFB0052D7D7 /* StringExtension.swift */; };
+		DF3E0DDE2604DFFB0052D7D7 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3E0DDD2604DFFB0052D7D7 /* String+Extension.swift */; };
 		DF3E0DE22604F8870052D7D7 /* UpcomingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF3E0DE42604F8870052D7D7 /* UpcomingView.xib */; };
-		DF46B2E1260BD86D00950F75 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF46B2E0260BD86D00950F75 /* UIColorExtension.swift */; };
+		DF46B2E1260BD86D00950F75 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF46B2E0260BD86D00950F75 /* UIColor+Extension.swift */; };
 		DF54651025E3D87A00B6E2F4 /* CardBoardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF54650F25E3D87A00B6E2F4 /* CardBoardView.xib */; };
 		DF54651325E3DA0300B6E2F4 /* CardBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF54651225E3DA0300B6E2F4 /* CardBoardView.swift */; };
 		DF5F663E25F9DD2700D587B3 /* UpcomingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5F663D25F9DD2700D587B3 /* UpcomingView.swift */; };
@@ -43,6 +45,7 @@
 		DFF3A06A260339ED004A2BCE /* TodoListViewController+DragDrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3A069260339ED004A2BCE /* TodoListViewController+DragDrop.swift */; };
 		DFF3A06E26033AB5004A2BCE /* TodoListViewController+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3A06D26033AB5004A2BCE /* TodoListViewController+DataSource.swift */; };
 		DFF3A07126033B98004A2BCE /* TodoListViewController+TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3A07026033B98004A2BCE /* TodoListViewController+TextView.swift */; };
+		DFF91FC6278F225700909F6D /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF91FC5278F225700909F6D /* UITableView+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,17 +53,19 @@
 		DF092BF925F76E9F00ECFC1A /* SwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
 		DF092BFD25F76F7400ECFC1A /* DatePickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerCell.swift; sourceTree = "<group>"; };
 		DF188C682603C99A0077BD8C /* MainPageViewController+PickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainPageViewController+PickerView.swift"; sourceTree = "<group>"; };
+		DF18F1A62789EA9A00A1F6C0 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		DF19E6B225DA9DA2002544FB /* NormalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalCell.swift; sourceTree = "<group>"; };
 		DF19E6B325DA9DA2002544FB /* NormalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NormalCell.xib; sourceTree = "<group>"; };
+		DF36CE7A2789F6CD008EC0B9 /* MainPageViewController+UIScrollDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainPageViewController+UIScrollDelegate.swift"; sourceTree = "<group>"; };
 		DF3E0DD72604D9D10052D7D7 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
 		DF3E0DD82604D9D10052D7D7 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		DF3E0DD92604D9D10052D7D7 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DF3E0DDB2604DA360052D7D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		DF3E0DDD2604DFFB0052D7D7 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		DF3E0DDD2604DFFB0052D7D7 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		DF3E0DE32604F8870052D7D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/UpcomingView.xib; sourceTree = "<group>"; };
 		DF3E0DE72604F89B0052D7D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/UpcomingView.strings; sourceTree = "<group>"; };
 		DF3E0DE92604F8A00052D7D7 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/UpcomingView.strings; sourceTree = "<group>"; };
-		DF46B2E0260BD86D00950F75 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		DF46B2E0260BD86D00950F75 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		DF54650F25E3D87A00B6E2F4 /* CardBoardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardBoardView.xib; sourceTree = "<group>"; };
 		DF54651225E3DA0300B6E2F4 /* CardBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBoardView.swift; sourceTree = "<group>"; };
 		DF5F663D25F9DD2700D587B3 /* UpcomingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingView.swift; sourceTree = "<group>"; };
@@ -90,6 +95,7 @@
 		DFF3A069260339ED004A2BCE /* TodoListViewController+DragDrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoListViewController+DragDrop.swift"; sourceTree = "<group>"; };
 		DFF3A06D26033AB5004A2BCE /* TodoListViewController+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoListViewController+DataSource.swift"; sourceTree = "<group>"; };
 		DFF3A07026033B98004A2BCE /* TodoListViewController+TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoListViewController+TextView.swift"; sourceTree = "<group>"; };
+		DFF91FC5278F225700909F6D /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,11 +109,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DF18F1A32789E58B00A1F6C0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DF8E09D725DA7ADD005B5755 /* Main.storyboard */,
+				DF8E09DF25DA7ADE005B5755 /* LaunchScreen.storyboard */,
+				DF5F663925F9DCE700D587B3 /* UpcomingView */,
+				DF631B3425E50E9B00DAD0F1 /* CardBoardView */,
+				DF4631F325E8C00B008B5FFB /* Cells */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DF18F1A42789E5A100A1F6C0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DF8E09EC25DA7B7C005B5755 /* TodoData.swift */,
+				DF8A2CF025E51082009417C6 /* TodoDAO.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		DF18F1A52789E5B800A1F6C0 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				DF8E09D125DA7ADD005B5755 /* AppDelegate.swift */,
+				DF8E09D325DA7ADD005B5755 /* SceneDelegate.swift */,
+				DF704A0425FCEFF3004ED588 /* MainPageViewController */,
+				DFF3A05C2603375E004A2BCE /* TodoDetailViewController */,
+				DFF3A05E26033775004A2BCE /* TodoListViewController */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		DF3E0DDC2604DF4E0052D7D7 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				DF3E0DDD2604DFFB0052D7D7 /* StringExtension.swift */,
-				DF46B2E0260BD86D00950F75 /* UIColorExtension.swift */,
+				DF3E0DDD2604DFFB0052D7D7 /* String+Extension.swift */,
+				DF46B2E0260BD86D00950F75 /* UIColor+Extension.swift */,
+				DF18F1A62789EA9A00A1F6C0 /* Date+Extension.swift */,
+				DFF91FC5278F225700909F6D /* UITableView+Extension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -152,6 +193,7 @@
 				DF7807AE25DFEE16008EAE7F /* MainPageViewController.swift */,
 				DF188C682603C99A0077BD8C /* MainPageViewController+PickerView.swift */,
 				DFF3A0662603390A004A2BCE /* MainPageViewController+DataSource.swift */,
+				DF36CE7A2789F6CD008EC0B9 /* MainPageViewController+UIScrollDelegate.swift */,
 			);
 			path = MainPageViewController;
 			sourceTree = "<group>";
@@ -177,19 +219,11 @@
 		DF8E09D025DA7ADD005B5755 /* UpcomingTodo */ = {
 			isa = PBXGroup;
 			children = (
+				DF18F1A52789E5B800A1F6C0 /* Controllers */,
+				DF18F1A42789E5A100A1F6C0 /* Models */,
+				DF18F1A32789E58B00A1F6C0 /* Views */,
 				DF3E0DDC2604DF4E0052D7D7 /* Utils */,
-				DFF3A06326033866004A2BCE /* Model */,
-				DF5F663925F9DCE700D587B3 /* UpcomingView */,
-				DF631B3425E50E9B00DAD0F1 /* CardBoardView */,
-				DF4631F325E8C00B008B5FFB /* Cells */,
-				DF704A0425FCEFF3004ED588 /* MainPageViewController */,
-				DFF3A05C2603375E004A2BCE /* TodoDetailViewController */,
-				DFF3A05E26033775004A2BCE /* TodoListViewController */,
-				DF8E09D125DA7ADD005B5755 /* AppDelegate.swift */,
-				DF8E09D325DA7ADD005B5755 /* SceneDelegate.swift */,
-				DF8E09D725DA7ADD005B5755 /* Main.storyboard */,
 				DF8E09DD25DA7ADE005B5755 /* Assets.xcassets */,
-				DF8E09DF25DA7ADE005B5755 /* LaunchScreen.storyboard */,
 				DF8E09E225DA7ADE005B5755 /* Info.plist */,
 				DF8E09DA25DA7ADD005B5755 /* Todo.xcdatamodeld */,
 			);
@@ -224,15 +258,6 @@
 				DFF3A07026033B98004A2BCE /* TodoListViewController+TextView.swift */,
 			);
 			path = TodoListViewController;
-			sourceTree = "<group>";
-		};
-		DFF3A06326033866004A2BCE /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				DF8E09EC25DA7B7C005B5755 /* TodoData.swift */,
-				DF8A2CF025E51082009417C6 /* TodoDAO.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -321,15 +346,17 @@
 				DF92A7C125F751D40032DA0C /* TodoDetailViewController.swift in Sources */,
 				DF5F663E25F9DD2700D587B3 /* UpcomingView.swift in Sources */,
 				DF188C692603C99A0077BD8C /* MainPageViewController+PickerView.swift in Sources */,
+				DF18F1A72789EA9A00A1F6C0 /* Date+Extension.swift in Sources */,
 				DF7CFC9B25E7E80700C389B4 /* TodoListViewController.swift in Sources */,
 				DF19E6B425DA9DA2002544FB /* NormalCell.swift in Sources */,
 				DF7807AF25DFEE16008EAE7F /* MainPageViewController.swift in Sources */,
+				DF36CE7B2789F6CD008EC0B9 /* MainPageViewController+UIScrollDelegate.swift in Sources */,
 				DF092BFE25F76F7400ECFC1A /* DatePickerCell.swift in Sources */,
 				DFF18D4825EBDE9400CA777E /* BasicCell.swift in Sources */,
 				DFF3A0672603390A004A2BCE /* MainPageViewController+DataSource.swift in Sources */,
-				DF46B2E1260BD86D00950F75 /* UIColorExtension.swift in Sources */,
+				DF46B2E1260BD86D00950F75 /* UIColor+Extension.swift in Sources */,
 				DFF18D4D25EBE0A500CA777E /* MemoCell.swift in Sources */,
-				DF3E0DDE2604DFFB0052D7D7 /* StringExtension.swift in Sources */,
+				DF3E0DDE2604DFFB0052D7D7 /* String+Extension.swift in Sources */,
 				DF8E09D225DA7ADD005B5755 /* AppDelegate.swift in Sources */,
 				DF092BFA25F76E9F00ECFC1A /* SwitchCell.swift in Sources */,
 				DFF3A07126033B98004A2BCE /* TodoListViewController+TextView.swift in Sources */,
@@ -339,6 +366,7 @@
 				DFF3A06A260339ED004A2BCE /* TodoListViewController+DragDrop.swift in Sources */,
 				DF092BF725F76E5700ECFC1A /* TextViewCell.swift in Sources */,
 				DF8E09ED25DA7B7C005B5755 /* TodoData.swift in Sources */,
+				DFF91FC6278F225700909F6D /* UITableView+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,8 +538,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y3H4VTG2FS;
 				INFOPLIST_FILE = UpcomingTodo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -520,7 +548,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.turu.UpcomingTodo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "AppStore com.turu.UpcomingTodo";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -531,8 +559,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y3H4VTG2FS;
 				INFOPLIST_FILE = UpcomingTodo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -541,7 +569,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.turu.UpcomingTodo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "AppStore com.turu.UpcomingTodo";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
